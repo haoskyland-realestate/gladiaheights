@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Privé – Defining Luxury Living</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {}
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .nav-link-3d {
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s, text-shadow 0.3s;
+      display: inline-block;
+      transform-style: preserve-3d;
+    }
+    .nav-link-3d:hover {
+      transform: perspective(600px) translateZ(30px) translateY(-2px) rotateX(15deg) rotateY(-10deg) scale(1.15);
+      color: #f59e0b;
+      text-shadow: 0px 10px 15px rgba(245, 158, 11, 0.5), 0px 4px 6px rgba(0,0,0,0.3);
+    }
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    ::selection { background: #d97706; color: white; }
+  </style>
+</head>
+<body class="min-h-screen font-sans text-gray-800 bg-gray-50">
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-5">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col xl:flex-row justify-between items-center gap-2">
+        <div class="flex justify-between items-center w-full xl:w-auto">
+          <div class="flex-shrink-0 flex items-center">
+            <span id="logo-text" class="text-2xl font-bold tracking-widest uppercase text-white drop-shadow-md">
+              The Privé
+            </span>
+          </div>
+          <div class="xl:hidden flex items-center">
+            <button id="menu-toggle" class="text-white" aria-label="Toggle menu">
+              <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+              <svg id="icon-x" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Desktop Menu -->
+        <div class="hidden xl:flex flex-wrap justify-end gap-x-4 gap-y-2 items-center flex-1">
+          <a href="#tong-quan" class="text-[12px] font-bold uppercase tracking-wider nav-link-3d text-gray-100 drop-shadow-md">Tổng quan</a>
+          <a href="#vi-tri" class="text-[12px] font-bold uppercase tracking-wider nav-link-3d text-gray-100 drop-shadow-md">Vị trí</a>
+          <a href="#dao-tao" class="text-[12px] font-bold uppercase tracking-wider nav-link-3d text-gray-100 drop-shadow-md">Đào tạo</a>
+          <a href="#mat-bang" class="text-[12px] font-bold uppercase tracking-wider nav-link-3d text-gray-100 drop-shadow-md">Mặt bằng</a>
+          <a href="#toa-nha" class="text-[12px] font-bold uppercase tracking-wider nav-link-3d text-gray-100 drop-shadow-md">Tòa nhà</a>
+          <a href="#bang-hang" class="text-[12px] font-bold uppercase tracking-wider nav-link-3d text-gray-100 drop-shadow-md">Bảng hàng</a>
+          <a href="#quy-can" class="text-[12px] font-bold uppercase tracking-wider nav-link-3d text-gray-100 drop-shadow-md">Quỹ căn</a>
+          <a href="#anh-360" class="text-[12px] font-bold uppercase tracking-wider nav-link-3d text-gray-100 drop-shadow-md">Ảnh 360°</a>
+          <a href="#chinh-sach" class="text-[12px] font-bold uppercase tracking-wider nav-link-3d text-gray-100 drop-shadow-md">Chính sách bán hàng</a>
+          <a href="#tien-do" class="text-[12px] font-bold uppercase tracking-wider nav-link-3d text-gray-100 drop-shadow-md">Tiến độ</a>
+          <a href="#tai-lieu" class="text-[12px] font-bold uppercase tracking-wider nav-link-3d text-gray-100 drop-shadow-md">Tài liệu</a>
+          <a href="#tin-tuc" class="text-[12px] font-bold uppercase tracking-wider nav-link-3d text-gray-100 drop-shadow-md">Tin tức</a>
+          <button class="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2 rounded-full text-xs font-bold transition-all shadow-lg hover:scale-105 ml-2">NHẬN BÁO GIÁ</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden xl:hidden bg-white shadow-xl absolute w-full left-0 top-full flex-col px-4 pt-2 pb-6 space-y-2 max-h-[75vh] overflow-y-auto">
+      <a href="#tong-quan" class="block px-3 py-2 text-sm font-bold text-gray-700 hover:text-amber-600 hover:bg-amber-50 rounded-md transition-colors" onclick="closeMobileMenu()">Tổng quan</a>
+      <a href="#vi-tri" class="block px-3 py-2 text-sm font-bold text-gray-700 hover:text-amber-600 hover:bg-amber-50 rounded-md transition-colors" onclick="closeMobileMenu()">Vị trí</a>
+      <a href="#dao-tao" class="block px-3 py-2 text-sm font-bold text-gray-700 hover:text-amber-600 hover:bg-amber-50 rounded-md transition-colors" onclick="closeMobileMenu()">Đào tạo</a>
+      <a href="#mat-bang" class="block px-3 py-2 text-sm font-bold text-gray-700 hover:text-amber-600 hover:bg-amber-50 rounded-md transition-colors" onclick="closeMobileMenu()">Mặt bằng</a>
+      <a href="#toa-nha" class="block px-3 py-2 text-sm font-bold text-gray-700 hover:text-amber-600 hover:bg-amber-50 rounded-md transition-colors" onclick="closeMobileMenu()">Tòa nhà</a>
+      <a href="#bang-hang" class="block px-3 py-2 text-sm font-bold text-gray-700 hover:text-amber-600 hover:bg-amber-50 rounded-md transition-colors" onclick="closeMobileMenu()">Bảng hàng</a>
+      <a href="#quy-can" class="block px-3 py-2 text-sm font-bold text-gray-700 hover:text-amber-600 hover:bg-amber-50 rounded-md transition-colors" onclick="closeMobileMenu()">Quỹ căn</a>
+      <a href="#anh-360" class="block px-3 py-2 text-sm font-bold text-gray-700 hover:text-amber-600 hover:bg-amber-50 rounded-md transition-colors" onclick="closeMobileMenu()">Ảnh 360°</a>
+      <a href="#chinh-sach" class="block px-3 py-2 text-sm font-bold text-gray-700 hover:text-amber-600 hover:bg-amber-50 rounded-md transition-colors" onclick="closeMobileMenu()">Chính sách bán hàng</a>
+      <a href="#tien-do" class="block px-3 py-2 text-sm font-bold text-gray-700 hover:text-amber-600 hover:bg-amber-50 rounded-md transition-colors" onclick="closeMobileMenu()">Tiến độ</a>
+      <a href="#tai-lieu" class="block px-3 py-2 text-sm font-bold text-gray-700 hover:text-amber-600 hover:bg-amber-50 rounded-md transition-colors" onclick="closeMobileMenu()">Tài liệu</a>
+      <a href="#tin-tuc" class="block px-3 py-2 text-sm font-bold text-gray-700 hover:text-amber-600 hover:bg-amber-50 rounded-md transition-colors" onclick="closeMobileMenu()">Tin tức</a>
+      <button class="w-full mt-4 bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-full text-sm font-bold shadow-md transition-colors">Nhận Báo Giá Ngay</button>
+    </div>
+  </nav>
+
+  <!-- 1. TỔNG QUAN -->
+  <section id="tong-quan" class="relative h-screen flex items-center justify-center overflow-hidden pt-20">
+    <div class="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat" style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2075&q=80')">
+      <div class="absolute inset-0 bg-gray-900/60"></div>
+    </div>
+    <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-10">
+      <span class="inline-block px-4 py-1 border border-amber-500 text-amber-500 rounded-full font-semibold tracking-widest uppercase mb-6 text-sm">
+        Tập đoàn Đất Xanh Group
+      </span>
+      <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 leading-tight drop-shadow-xl">THE PRIVÉ</h1>
+      <p class="text-2xl text-amber-400 mb-6 font-light italic tracking-wide">"Defining Luxury Living"</p>
+      <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-3xl mx-auto font-light leading-relaxed">
+        Dự án căn hộ hạng sang duy nhất sở hữu <strong class="text-white">3 mặt giáp sông</strong> biệt lập ngay tại tâm điểm Sài Gòn. Quy mô 16.7 ha với 12 tòa tháp biểu tượng, cung cấp 3.175 sản phẩm độc bản.
+      </p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mt-8 glass-panel rounded-2xl p-6">
+        <div class="text-center">
+          <h3 class="text-3xl font-bold text-gray-900">100<span class="text-amber-600">%</span></h3>
+          <p class="text-xs text-gray-600 font-bold uppercase mt-1">Compound Khép Kín</p>
+        </div>
+        <div class="text-center border-l border-gray-200">
+          <h3 class="text-3xl font-bold text-gray-900">03</h3>
+          <p class="text-xs text-gray-600 font-bold uppercase mt-1">Mặt Giáp Sông</p>
+        </div>
+        <div class="text-center border-t md:border-t-0 md:border-l border-gray-200 pt-4 md:pt-0">
+          <h3 class="text-3xl font-bold text-gray-900">12</h3>
+          <p class="text-xs text-gray-600 font-bold uppercase mt-1">Tòa Tháp (33-35 tầng)</p>
+        </div>
+        <div class="text-center border-t md:border-t-0 md:border-l border-gray-200 pt-4 md:pt-0">
+          <h3 class="text-3xl font-bold text-gray-900">09</h3>
+          <p class="text-xs text-gray-600 font-bold uppercase mt-1">Căn hộ / Tầng</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. VỊ TRÍ -->
+  <section id="vi-tri" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row gap-16 items-center">
+        <div class="lg:w-1/2">
+          <div class="inline-flex items-center gap-2 text-amber-600 font-bold uppercase tracking-widest text-sm mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Tọa độ hoàng kim
+          </div>
+          <h2 class="text-4xl font-bold text-gray-900 mb-6 leading-tight">Tâm Điểm Kết Nối <br/><span class="text-amber-600">Đường Song Hành, An Phú</span></h2>
+          <p class="text-gray-600 mb-8 text-lg leading-relaxed">Nằm trọn trong khu Rạch Chiếc, Quận 2 (cũ). The Privé hưởng trọn lợi thế hạ tầng tỷ đô đang thành hình, đảm bảo tính thanh khoản và tiềm năng tăng giá đột biến.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 flex items-center gap-4">
+              <div class="bg-blue-100 text-blue-600 p-3 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div><p class="font-bold text-gray-900">3 Phút</p><p class="text-sm text-gray-500">Nút giao An Phú &amp; Ga Thủ Thiêm</p></div>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 flex items-center gap-4">
+              <div class="bg-emerald-100 text-emerald-600 p-3 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div><p class="font-bold text-gray-900">5 Phút</p><p class="text-sm text-gray-500">Khu liên hợp TDTT Rạch Chiếc</p></div>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 flex items-center gap-4">
+              <div class="bg-amber-100 text-amber-600 p-3 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              </div>
+              <div><p class="font-bold text-gray-900">12 Phút</p><p class="text-sm text-gray-500">Vào trung tâm Quận 1 (qua Hầm TT)</p></div>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 flex items-center gap-4">
+              <div class="bg-purple-100 text-purple-600 p-3 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+              </div>
+              <div><p class="font-bold text-gray-900">30 Phút</p><p class="text-sm text-gray-500">Đến Sân bay QT Long Thành</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="lg:w-1/2 w-full">
+          <img src="https://images.unsplash.com/photo-1502899576159-f224dc2349fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Bản đồ The Privé" class="rounded-2xl shadow-2xl w-full h-[500px] object-cover" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. ĐÀO TẠO -->
+  <section id="dao-tao" class="py-20 bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-amber-500 mb-4">Góc Nhìn Chuyên Sâu (Training Data)</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">Số liệu thực tế khẳng định vị thế và biên độ lợi nhuận của bất động sản trung tâm mới.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-4"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          <h3 class="text-4xl font-black mb-2">+168%</h3>
+          <p class="font-bold text-lg mb-2">Lượt quan tâm BĐS Hạng Sang</p>
+          <p class="text-sm text-gray-400">Ghi nhận từ Q3/2024 đến Q3/2025 theo Batdongsan.com.vn. BĐS trung tâm đang là thỏi nam châm thu hút dòng vốn tinh hoa.</p>
+        </div>
+        <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-4"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <h3 class="text-4xl font-black mb-2">30 - 50%</h3>
+          <p class="font-bold text-lg mb-2">Kỳ vọng tăng giá (2-3 năm)</p>
+          <p class="text-sm text-gray-400">Mức giá trung bình phân khúc A đang là 165-220tr/m2. The Privé đang sở hữu vùng giá cực kỳ cạnh tranh để đầu tư.</p>
+        </div>
+        <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-4"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <h3 class="text-xl font-bold mb-4 mt-2">Dịch chuyển trung tâm (CBD)</h3>
+          <ul class="space-y-3 text-sm text-gray-400">
+            <li class="flex gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" class="shrink-0 mt-0.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Giới siêu giàu chuyển dịch về An Phú &amp; Thủ Thiêm.
+            </li>
+            <li class="flex gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" class="shrink-0 mt-0.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Nhu cầu nhà ở cho chuyên gia Sân bay Long Thành &amp; IFC.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. MẶT BẰNG -->
+  <section id="mat-bang" class="py-24 bg-gray-50 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row gap-12 items-center">
+        <div class="md:w-1/2">
+          <div class="inline-flex items-center gap-2 text-amber-600 font-bold uppercase tracking-widest text-sm mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Thiết Kế Tối Ưu
+          </div>
+          <h2 class="text-4xl font-bold text-gray-900 mb-6 leading-tight">Giới Hạn Hạng Sang <br/><span class="text-amber-600">Với 9 Căn Hộ / Tầng</span></h2>
+          <p class="text-gray-600 mb-6 text-lg">The Privé được thiết kế với khối tháp vuông vức, hành lang ngắn, thiết kế mở đón gió và ánh sáng tự nhiên. 100% căn hộ không có góc chết.</p>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center gap-3 bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+              <span class="bg-amber-100 text-amber-700 font-black px-3 py-1 rounded text-lg">04</span>
+              <span class="font-medium text-gray-800">Thang máy tốc độ cao (2.5m/s) cho mỗi tháp</span>
+            </li>
+            <li class="flex items-center gap-3 bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+              <span class="bg-amber-100 text-amber-700 font-black px-3 py-1 rounded text-lg">02</span>
+              <span class="font-medium text-gray-800">Tầng lánh nạn chuyên biệt (Tầng 20 &amp; 21)</span>
+            </li>
+            <li class="flex items-center gap-3 bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+              <span class="bg-amber-100 text-amber-700 font-black px-3 py-1 rounded text-lg">01</span>
+              <span class="font-medium text-gray-800">Tầng hầm chung 4.2ha xuyên suốt 12 tháp</span>
+            </li>
+          </ul>
+        </div>
+        <div class="md:w-1/2">
+          <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mặt bằng The Privé" class="rounded-2xl shadow-xl w-full border-4 border-white" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. TÒA NHÀ & BÀN GIAO -->
+  <section id="toa-nha" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="text-amber-500 font-bold uppercase tracking-widest text-sm mb-2 block">Building &amp; Handover</span>
+      <h2 class="text-4xl font-bold text-gray-900 mb-12">Hệ Sinh Thái Tiện Ích &amp; Vật Liệu Bàn Giao</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-amber-400 transition-all text-left">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-4"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+          <h3 class="text-xl font-bold mb-2">Hồ Bơi Điện Phân</h3>
+          <p class="text-sm text-gray-600">Chuỗi 3 hồ bơi resort điện phân muối &gt;3.000m2 tốt cho sức khỏe làn da.</p>
+        </div>
+        <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-amber-400 transition-all text-left">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-4"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <h3 class="text-xl font-bold mb-2">5 Fine Dining</h3>
+          <p class="text-sm text-gray-600">Phòng tiệc ẩm thực đa quốc gia cao cấp, phục vụ cá nhân hóa cho cư dân.</p>
+        </div>
+        <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-amber-400 transition-all text-left">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-4"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <h3 class="text-xl font-bold mb-2">An Ninh 5 Lớp</h3>
+          <p class="text-sm text-gray-600">Hệ thống Access Control, Videophone Comelit, thẻ từ thang máy chống sao chép.</p>
+        </div>
+        <div class="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:border-amber-400 transition-all text-left">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-4"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          <h3 class="text-xl font-bold mb-2">Gym &amp; Thể Thao</h3>
+          <p class="text-sm text-gray-600">Sân Tennis, Pickleball, Golf 3D, phòng Gym cao cấp tại khối đế.</p>
+        </div>
+      </div>
+      <h3 class="text-2xl font-bold text-gray-900 mb-8 border-t border-gray-100 pt-12">Bàn Giao Hạng Sang Vượt Trội</h3>
+      <div class="grid md:grid-cols-3 gap-8 text-left">
+        <div class="flex gap-4">
+          <div class="shrink-0 w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 font-bold">1</div>
+          <div>
+            <h4 class="font-bold text-lg mb-1">Khu Vực Bếp (Brandt)</h4>
+            <p class="text-sm text-gray-600">Trang bị Full bếp từ, máy hút mùi, lò nướng, lò vi sóng, kệ gia vị, thùng gạo tự động. Tủ bếp laminate sang trọng.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="shrink-0 w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 font-bold">2</div>
+          <div>
+            <h4 class="font-bold text-lg mb-1">Phòng Tắm (Duravit)</h4>
+            <p class="text-sm text-gray-600">Tủ lavabo, vách kính tắm đứng cường lực, chậu rửa âm bàn, gương soi tráng thủy cao cấp.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="shrink-0 w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 font-bold">3</div>
+          <div>
+            <h4 class="font-bold text-lg mb-1">Vật Liệu Căn Hộ</h4>
+            <p class="text-sm text-gray-600">Cửa sổ kính hộp Low-E 2 lớp chống ồn cách nhiệt. Tủ quần áo Bespoke may đo. Cửa gỗ Laminate "vảy rồng" 3D chống cháy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. BẢNG HÀNG & 7. QUỸ CĂN -->
+  <section id="bang-hang" class="py-20 bg-gray-900 text-white relative">
+    <div id="quy-can" class="absolute -top-10"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-gray-700 pb-6">
+        <div>
+          <h2 class="text-3xl font-bold text-amber-500 mb-2">Bảng Hàng &amp; Quỹ Căn</h2>
+          <p class="text-gray-400">Tham khảo các loại hình sản phẩm và đơn giá dự kiến.</p>
+        </div>
+        <button class="mt-4 md:mt-0 bg-white text-gray-900 font-bold px-6 py-3 rounded-lg hover:bg-amber-500 hover:text-white transition-colors">TẢI FULL BẢNG GIÁ</button>
+      </div>
+      <div class="grid lg:grid-cols-3 gap-8">
+        <div class="col-span-2">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-gray-700 text-gray-400 text-sm uppercase tracking-wider">
+                  <th class="pb-4 font-medium">Loại sản phẩm</th>
+                  <th class="pb-4 font-medium">Đặc điểm</th>
+                  <th class="pb-4 font-medium">Tình trạng quỹ căn</th>
+                </tr>
+              </thead>
+              <tbody class="text-sm">
+                <tr class="border-b border-gray-800 hover:bg-gray-800/50">
+                  <td class="py-4 font-bold text-amber-400">Typical Unit (1-3PN)</td>
+                  <td class="py-4 text-gray-300">Hoàn thiện nội thất hạng sang</td>
+                  <td class="py-4"><span class="bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-full text-xs font-bold">Đang nhận Booking</span></td>
+                </tr>
+                <tr class="border-b border-gray-800 hover:bg-gray-800/50">
+                  <td class="py-4 font-bold text-amber-400">Garden Duplex (Tầng 1-2)</td>
+                  <td class="py-4 text-gray-300">Bàn giao thô, sân vườn riêng</td>
+                  <td class="py-4"><span class="bg-amber-500/20 text-amber-400 px-3 py-1 rounded-full text-xs font-bold">Số lượng giới hạn</span></td>
+                </tr>
+                <tr class="border-b border-gray-800 hover:bg-gray-800/50">
+                  <td class="py-4 font-bold text-amber-400">Sky Duplex / Penthouse</td>
+                  <td class="py-4 text-gray-300">Bàn giao thô, tầng cao nhất (08 căn/sàn)</td>
+                  <td class="py-4"><span class="bg-red-500/20 text-red-400 px-3 py-1 rounded-full text-xs font-bold">Sắp ra mắt</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700">
+          <h4 class="text-gray-400 text-sm uppercase tracking-wider mb-2">Đơn giá tham khảo</h4>
+          <p class="text-4xl font-black text-white mb-2">~111<span class="text-2xl text-amber-500 font-bold"> Tr/m²</span></p>
+          <p class="text-sm text-gray-400 mb-6">(Tính theo diện tích thông thủy, tùy tháp và vị trí)</p>
+          <div class="space-y-3">
+            <div class="flex justify-between text-sm border-b border-gray-700 pb-2">
+              <span class="text-gray-400">Tháp 9, 10, 11:</span>
+              <span class="font-bold text-emerald-400">Mở bán Giai đoạn 1</span>
+            </div>
+            <div class="flex justify-between text-sm border-b border-gray-700 pb-2">
+              <span class="text-gray-400">Tháp 5, 6, 7, 8:</span>
+              <span class="font-bold text-amber-400">Chuẩn bị ra mắt</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. ẢNH 360 -->
+  <section id="anh-360" class="py-24 bg-gray-50 text-center">
+    <div class="max-w-5xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">Trải Nghiệm Không Gian 360°</h2>
+      <p class="text-gray-600 mb-10">Khám phá nội thất thực tế căn hộ mẫu The Privé ngay trên thiết bị của bạn.</p>
+      <div class="relative rounded-3xl overflow-hidden shadow-2xl cursor-pointer border-4 border-white bg-gray-200 aspect-video flex items-center justify-center group">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="VR 360 The Privé" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+        <div class="absolute inset-0 bg-gray-900/30 group-hover:bg-gray-900/50 transition-colors duration-300"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="relative z-10 drop-shadow-xl group-hover:stroke-amber-500 transition-colors"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        <div class="absolute bottom-6 left-6 text-white text-left z-10 font-bold drop-shadow-md">Nhấp để trải nghiệm Virtual Tour</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. CHÍNH SÁCH BÁN HÀNG -->
+  <section id="chinh-sach" class="py-24 bg-amber-50 relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-64 h-64 bg-amber-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50 translate-x-1/2 -translate-y-1/2"></div>
+    <div class="absolute bottom-0 left-0 w-80 h-80 bg-amber-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 -translate-x-1/2 translate-y-1/2"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">Đặc Quyền Thanh Toán <span class="text-amber-600">"Bom Tấn"</span></h2>
+        <p class="text-lg text-gray-700">Tổng chiết khấu cao nhất thị trường lên đến <strong class="text-2xl text-red-600">13.5%</strong></p>
+      </div>
+      <div class="grid lg:grid-cols-3 gap-8">
+        <!-- TT Theo Thời Gian -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 border-t-4 border-blue-500">
+          <h3 class="text-xl font-bold text-gray-900 mb-6 text-center">Thanh Toán Theo Thời Gian</h3>
+          <ul class="space-y-4 text-sm text-gray-700">
+            <li class="flex justify-between items-center border-b border-gray-100 pb-2">
+              <span class="flex gap-2 items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Ký HĐMB:
+              </span>
+              <strong>10%</strong>
+            </li>
+            <li class="flex justify-between items-center border-b border-gray-100 pb-2">
+              <span class="flex gap-2 items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Các đợt tiếp theo:
+              </span>
+              <strong>1% - 3%/tháng</strong>
+            </li>
+            <li class="flex justify-between items-center border-b border-gray-100 pb-2">
+              <span class="flex gap-2 items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Nhận bàn giao:
+              </span>
+              <strong>25%</strong>
+            </li>
+            <li class="flex justify-between items-center text-blue-700 font-bold bg-blue-50 p-2 rounded mt-4">
+              <span>Chiết khấu trực tiếp:</span>
+              <span>6.0%</span>
+            </li>
+          </ul>
+        </div>
+        <!-- Đòn Bẩy Tài Chính -->
+        <div class="bg-gray-900 rounded-2xl shadow-xl p-8 border-t-4 border-amber-500 relative transform scale-105 z-10">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-500 text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Best Choice</div>
+          <h3 class="text-xl font-bold text-white mb-6 text-center">Đòn Bẩy Tài Chính (TPBank)</h3>
+          <ul class="space-y-4 text-sm text-gray-300">
+            <li class="flex justify-between items-center border-b border-gray-700 pb-2">
+              <span class="flex gap-2 items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Vốn tự có ký HĐMB:
+              </span>
+              <strong class="text-white text-lg">10%</strong>
+            </li>
+            <li class="flex justify-between items-center border-b border-gray-700 pb-2">
+              <span class="flex gap-2 items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Ngân hàng hỗ trợ:
+              </span>
+              <strong class="text-white">60% - 75%</strong>
+            </li>
+            <li class="flex justify-between items-center border-b border-gray-700 pb-2">
+              <span class="flex gap-2 items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Lãi suất 0% trong:
+              </span>
+              <strong class="text-amber-400 text-lg">30 Tháng</strong>
+            </li>
+            <li class="flex justify-between items-center border-b border-gray-700 pb-2">
+              <span class="flex gap-2 items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Ân hạn nợ gốc:
+              </span>
+              <strong class="text-amber-400 text-lg">Lên đến 5 Năm</strong>
+            </li>
+          </ul>
+        </div>
+        <!-- TT Nhanh -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 border-t-4 border-emerald-500">
+          <h3 class="text-xl font-bold text-gray-900 mb-6 text-center">Thanh Toán Nhanh</h3>
+          <ul class="space-y-4 text-sm text-gray-700">
+            <li class="flex justify-between items-center border-b border-gray-100 pb-2">
+              <span class="flex gap-2 items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Ký HĐMB:
+              </span>
+              <strong>10%</strong>
+            </li>
+            <li class="flex justify-between items-center border-b border-gray-100 pb-2">
+              <span class="flex gap-2 items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Thanh toán Đợt 2:
+              </span>
+              <strong>60%</strong>
+            </li>
+            <li class="flex justify-between items-center border-b border-gray-100 pb-2">
+              <span class="flex gap-2 items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Nhận bàn giao:
+              </span>
+              <strong>25%</strong>
+            </li>
+            <li class="flex justify-between items-center text-emerald-700 font-bold bg-emerald-50 p-2 rounded mt-4">
+              <span>Chiết khấu trực tiếp:</span>
+              <span class="text-lg text-emerald-600">12.0%</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-12 bg-gradient-to-r from-red-600 to-amber-600 rounded-2xl p-6 text-white flex flex-col md:flex-row items-center justify-between shadow-xl">
+        <div>
+          <h4 class="text-2xl font-black mb-2 uppercase tracking-wide">Quà Tặng Tri Ân Đầu Xuân</h4>
+          <p class="text-red-100">Áp dụng cho KH giao dịch thành công theo điều kiện.</p>
+        </div>
+        <div class="mt-4 md:mt-0 text-right">
+          <p class="font-bold text-lg">Tặng 1 Lượng Vàng <span class="text-3xl font-black text-amber-300 ml-2">150 Triệu</span></p>
+          <p class="text-sm italic">+ Hái lộc may mắn 10 - 50 Triệu đồng</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. TIẾN ĐỘ & PHÁP LÝ -->
+  <section id="tien-do" class="py-24 bg-white border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row gap-12 items-center">
+        <div class="md:w-1/2">
+          <img src="https://images.unsplash.com/photo-1541888086225-f64112e8dee2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tiến độ thi công" class="rounded-2xl shadow-xl w-full" />
+        </div>
+        <div class="md:w-1/2">
+          <div class="inline-flex items-center gap-2 text-emerald-600 font-bold uppercase tracking-widest text-sm mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Bảo chứng niềm tin
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Tiến Độ Thần Tốc &amp; <br/><span class="text-amber-600">Pháp Lý Minh Bạch</span></h2>
+          <p class="text-gray-600 mb-8">Uy tín 22 năm của Đất Xanh Group đảm bảo cho mọi khoản đầu tư. Dự án đang giữ đúng nhịp độ thi công cam kết.</p>
+          <div class="space-y-6">
+            <div class="flex gap-4 items-start">
+              <div class="bg-emerald-100 text-emerald-600 p-3 rounded-full shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-900 text-lg">Pháp lý đầy đủ 100%</h4>
+                <p class="text-sm text-gray-600">Đã được phê duyệt QĐ 1/500, Chủ trương đầu tư và được cấp Giấy Phép Xây Dựng toàn khu.</p>
+              </div>
+            </div>
+            <div class="flex gap-4 items-start">
+              <div class="bg-blue-100 text-blue-600 p-3 rounded-full shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-900 text-lg">Hoàn thành móng hầm</h4>
+                <p class="text-sm text-gray-600">Đã thi công xong toàn bộ phần hầm xuyên suốt 12 tháp, hiện đang lên phần thân. Đảm bảo đủ điều kiện ký HĐMB.</p>
+              </div>
+            </div>
+            <div class="flex gap-4 items-start">
+              <div class="bg-amber-100 text-amber-600 p-3 rounded-full shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-900 text-lg">Kế hoạch Cất nóc &amp; Bàn giao</h4>
+                <p class="text-sm text-gray-600">Dự kiến cất nóc dự án vào Quý 3/2026. Bàn giao sau 26 tháng kể từ ngày ký HĐMB.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. TÀI LIỆU -->
+  <section id="tai-lieu" class="py-20 bg-gray-50 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Trung Tâm Tài Liệu</h2>
+        <p class="text-gray-600">Tải về các tài liệu chính thức từ Chủ Đầu Tư.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <button class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-gray-200 flex flex-col items-center justify-center gap-3 transition-all hover:border-amber-400 group">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" class="group-hover:stroke-amber-500 transition-colors"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span class="font-bold text-gray-800">Master Catalogue</span>
+          <span class="text-xs text-gray-500 flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Tải PDF (12MB)
+          </span>
+        </button>
+        <button class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-gray-200 flex flex-col items-center justify-center gap-3 transition-all hover:border-amber-400 group">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" class="group-hover:stroke-amber-500 transition-colors"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <span class="font-bold text-gray-800">Brochure Tháp 9-10-11</span>
+          <span class="text-xs text-gray-500 flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Tải PDF (8MB)
+          </span>
+        </button>
+        <button class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-gray-200 flex flex-col items-center justify-center gap-3 transition-all hover:border-amber-400 group">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" class="group-hover:stroke-emerald-500 transition-colors"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span class="font-bold text-gray-800">Hồ Sơ Pháp Lý (GPXD)</span>
+          <span class="text-xs text-gray-500 flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Tải PDF (Dành cho KH)
+          </span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. TIN TỨC -->
+  <section id="tin-tuc" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-3 mb-10">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
+        <h2 class="text-3xl font-bold text-gray-900">Điểm Tin Hạ Tầng 2026</h2>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <article class="bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow cursor-pointer">
+          <img src="https://images.unsplash.com/photo-1545239351-ef35f43d514b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Nút giao An Phú" class="w-full h-48 object-cover" />
+          <div class="p-6">
+            <p class="text-xs font-bold text-amber-600 mb-2">DỰ KIẾN T1/2026</p>
+            <h3 class="font-bold text-lg text-gray-900 mb-3">Hoàn thiện 100% Nút giao An Phú (3.400 tỷ)</h3>
+            <p class="text-sm text-gray-600">Nút giao 3 tầng hiện đại bậc nhất giải quyết triệt để bài toán giao thông kết nối cao tốc và Đại lộ Mai Chí Thọ.</p>
+          </div>
+        </article>
+        <article class="bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow cursor-pointer">
+          <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sân vận động" class="w-full h-48 object-cover" />
+          <div class="p-6">
+            <p class="text-xs font-bold text-amber-600 mb-2">ĐÃ KHỞI CÔNG 15/01/2026</p>
+            <h3 class="font-bold text-lg text-gray-900 mb-3">Khu Liên hợp TDTT Rạch Chiếc 180ha</h3>
+            <p class="text-sm text-gray-600">Trọng điểm phục vụ các giải đấu Quốc tế, SEA Games. Nâng tầm diện mạo và tiện ích toàn bộ khu vực lân cận dự án.</p>
+          </div>
+        </article>
+        <article class="bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow cursor-pointer">
+          <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sân bay Long Thành" class="w-full h-48 object-cover" />
+          <div class="p-6">
+            <p class="text-xs font-bold text-amber-600 mb-2">DỰ KIẾN T12/2026</p>
+            <h3 class="font-bold text-lg text-gray-900 mb-3">Khai thác Sân bay Quốc tế Long Thành</h3>
+            <p class="text-sm text-gray-600">Đón 3 chuyến bay thương mại đầu tiên, mở ra nhu cầu nhà ở khổng lồ cho chuyên gia, phi công và giới doanh nhân.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-950 text-gray-400 py-12 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <span class="text-2xl font-bold tracking-widest uppercase text-white mb-4 block">The Privé</span>
+        <p class="text-sm mb-4">Khu căn hộ biệt lập hạng sang trung tâm Sài Gòn.<br/>Phát triển bởi Tập đoàn Đất Xanh (Đất Xanh Group).</p>
+        <p class="text-sm font-semibold text-gray-300">"Defining Luxury Living"</p>
+      </div>
+      <div>
+        <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Thông Tin Dự Án</h4>
+        <ul class="space-y-2 text-sm">
+          <li>Vị trí: Đường Song Hành, P. An Phú, Tp. Thủ Đức</li>
+          <li>Quy mô: 16.7 ha | 12 tháp | 33-35 tầng</li>
+          <li>Pháp lý: Đã có GPXD, QĐ 1/500</li>
+          <li>Tình trạng: Mở bán giai đoạn 1 (Tháp 9-10-11)</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Liên Hệ Cố Vấn Đầu Tư</h4>
+        <ul class="space-y-2 text-sm">
+          <li class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Hotline: 0909.xxx.xxx
+          </li>
+          <li>Tư vấn thực tế tại Sa bàn &amp; Nhà mẫu</li>
+          <li>Hỗ trợ phân tích bài toán đòn bẩy tài chính (TPBank)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-gray-900 text-sm text-center">
+      <p>&copy; 2026 The Privé Landing Page. Nội dung được trích xuất từ tài liệu bán hàng chính thức (Cập nhật tháng 6/2026).</p>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    const logoText = document.getElementById('logo-text');
+    const navLinks = document.querySelectorAll('.nav-link-3d');
+    const menuToggle = document.getElementById('menu-toggle');
+    const iconMenu = document.getElementById('icon-menu');
+    const iconX = document.getElementById('icon-x');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('bg-white', 'shadow-md', 'py-3');
+        navbar.classList.remove('py-5');
+        logoText.classList.remove('text-white', 'drop-shadow-md');
+        logoText.classList.add('text-gray-900');
+        menuToggle.classList.remove('text-white');
+        menuToggle.classList.add('text-gray-900');
+        navLinks.forEach(link => {
+          link.classList.remove('text-gray-100', 'drop-shadow-md');
+          link.classList.add('text-gray-700');
+        });
+      } else {
+        navbar.classList.remove('bg-white', 'shadow-md', 'py-3');
+        navbar.classList.add('py-5');
+        logoText.classList.add('text-white', 'drop-shadow-md');
+        logoText.classList.remove('text-gray-900');
+        menuToggle.classList.add('text-white');
+        menuToggle.classList.remove('text-gray-900');
+        navLinks.forEach(link => {
+          link.classList.add('text-gray-100', 'drop-shadow-md');
+          link.classList.remove('text-gray-700');
+        });
+      }
+    });
+
+    // Mobile menu toggle
+    let menuOpen = false;
+    menuToggle.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileMenu.classList.toggle('hidden', !menuOpen);
+      mobileMenu.classList.toggle('flex', menuOpen);
+      iconMenu.classList.toggle('hidden', menuOpen);
+      iconX.classList.toggle('hidden', !menuOpen);
+    });
+
+    function closeMobileMenu() {
+      menuOpen = false;
+      mobileMenu.classList.add('hidden');
+      mobileMenu.classList.remove('flex');
+      iconMenu.classList.remove('hidden');
+      iconX.classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
