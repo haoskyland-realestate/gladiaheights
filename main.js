@@ -48,18 +48,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Mapping tên section sang tên file
   const sectionMap = {
-    overview: "01-overview",
-    location: "02-location",
-    apartment: "03-apartment",
-    amenities: "04-amenities",
-    infra: "05-infra",
-    pricing: "06-pricing",
-    cart: "07-cart",
-    panorama: "08-panorama",
-    policy: "09-policy",
-    progress: "10-progress",
-    about: "11-about",
-    contact: "12-contact"
+    overview: "overview",
+    location: "location",
+    apartment: "apartment",
+    amenities: "amenities",
+    infra: "infra",
+    pricing: "pricing",
+    cart: "cart",
+    panorama: "panorama",
+    policy: "policy",
+    progress: "progress",
+    about: "about",
+    contact: "contact"
   };
 
   const fileName = sectionMap[name] || name;
