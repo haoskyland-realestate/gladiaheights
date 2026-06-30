@@ -252,15 +252,26 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
     // 5. KHẮC PHỤC TRIỆT ĐỂ LỖI MẤT MỐC CUỘN ANCHOR HASH
+   // 5. KHẮC PHỤC TRIỆT ĐỂ LỖI MẤT MỐC CUỘN ANCHOR HASH VÀ NHẢY TRANG
     handleInitialAnchorHash() {
       const currentHash = window.location.hash;
-      if (!currentHash) return;
+      
+      // BỔ SUNG ĐIỀU KIỆN CHẶN: Nếu không có hash, hoặc hash chỉ là dấu # trống thì DỪNG LẠI, không cuộn đi đâu cả
+      if (!currentHash || currentHash === "#" || currentHash === "#contact") {
+        // Đưa trang về đầu trang một cách chủ động khi mới tải
+        window.scrollTo(0, 0);
+        return;
+      }
 
       setTimeout(() => {
-        const targetSection = document.querySelector(currentHash);
-        if (targetSection) {
-          console.log(`[Anchor Adjust] Định vị thành công mốc cuộn ban đầu: ${currentHash}`);
-          this.scrollToTargetElement(targetSection);
+        try {
+          const targetSection = document.querySelector(currentHash);
+          if (targetSection) {
+            console.log(`[Anchor Adjust] Định vị thành công mốc cuộn ban đầu: ${currentHash}`);
+            this.scrollToTargetElement(targetSection);
+          }
+        } catch (e) {
+          console.warn("[SPA Engine] Lỗi định dạng thẻ Hash định danh:", e);
         }
       }, this.config.animationDelay);
     },
