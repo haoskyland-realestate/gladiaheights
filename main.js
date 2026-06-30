@@ -1,7 +1,7 @@
 /**
  * ARCHITECTURAL CORE ENGINE - HÀO SKY LAND LANDING PAGE (2026)
  * Author: Chuyên gia Lập trình Frontend Cấp cao
- * Version: 2.2.0 (High-End Animation & Optimized Data Format)
+ * Version: 2.3.0 (Anti-Caching Engine & Zero-Error Lifecycle)
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     config: {
       sectionDir: "sections",          // Thư mục chứa các file HTML cấu phần
       scrollOffset: 70,                // Bù trừ chiều cao của Fixed Navbar (70px)
-      animationDelay: 350              // Độ trễ tính toán lại layout trước khi cuộn (ms)
+      animationDelay: 400              // Độ trễ tính toán lại layout sau khi nạp ảnh (ms)
     },
 
     // 2. KHỞI CHẠY HỆ THỐNG (BOOTSTRAP)
@@ -43,57 +43,28 @@ document.addEventListener("DOMContentLoaded", () => {
       this.handleInitialAnchorHash();
     },
 
-    // 3. TỰ ĐỘNG FETCH VÀ TRUYỀN DỮ LIỆU VÀO DOM
- async fetchAndInjectSection(name, container) {
-
-  // Mapping tên section sang tên file
-  const sectionMap = {
-    overview: "overview",
-    location: "location",
-    apartment: "apartment",
-    amenities: "amenities",
-    infra: "infra",
-    pricing: "pricing",
-    cart: "cart",
-    panorama: "panorama",
-    policy: "policy",
-    progress: "progress",
-    about: "about",
-    contact: "contact"
-  };
-
-  const fileName = sectionMap[name] || name;
-  const filePath = `${this.config.sectionDir}/${fileName}.html`;
-
-  try {
-
-    const response = await fetch(filePath);
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-
-    const htmlText = await response.text();
-
-    container.innerHTML = htmlText;
-
-  } catch (error) {
-
-    console.error(`[Fetch Error] Không thể tải: ${filePath}`, error);
-
-    container.innerHTML = `
-      <div style="
-          padding:60px 20px;
-          text-align:center;
-          border:1px dashed #caa96a;
-          color:#caa96a;
-      ">
-          <h3>Section đang được cập nhật</h3>
-          <p><strong>${fileName}.html</strong> chưa được tìm thấy.</p>
-      </div>
-    `;
-  }
-},
+    // 3. TỰ ĐỘNG FETCH VÀ TRUYỀN DỮ LIỆU VÀO DOM (CÓ CACHE-BUSTING)
+    async fetchAndInjectSection(name, container) {
+      // Thêm tham số timestamp (?v=...) để phá vỡ bộ nhớ đệm cache của trình duyệt, ép nạp file mới nhất
+      const cacheBuster = `?v=${new Date().getTime()}`;
+      const filePath = `${this.config.sectionDir}/${name}.html${cacheBuster}`;
+      
+      try {
+        const response = await fetch(filePath);
+        if (!response.ok) throw new Error(`HTTP status ${response.status}`);
+        
+        const htmlText = await response.text();
+        container.innerHTML = htmlText;
+        console.log(`[Fetch Success] Đã nạp cấu phần: ${name}`);
+      } catch (error) {
+        console.error(`[Fetch Critical Error] Thất bại khi nạp file: ${filePath}`, error);
+        container.innerHTML = `
+          <div style="padding: 50px 20px; text-align: center; color: var(--gold); border: 1px dashed var(--gold);">
+            <p>Hệ thống đang cập nhật cấu phần <strong>${name}</strong>. Vui lòng quay lại sau.</p>
+          </div>
+        `;
+      }
+    },
 
     // 4. QUẢN LÝ TOÀN BỘ SỰ KIỆN TƯƠNG TÁC ĐỘNG (INTERACTION LAYER)
     initGlobalInteractions() {
@@ -146,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     },
 
-    // 4.3. Chuyển đổi Tab (Mặt Bằng / Hạ Tầng) sử dụng Event Delegation tránh lọt lưới sự kiện
+    // 4.3. Chuyển đổi Tab (Mặt Bằng / Hạ Tầng) sử dụng Event Delegation
     initTabSwitching() {
       const runtimeContainer = document.getElementById("app-runtime");
       if (!runtimeContainer) return;
@@ -172,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     },
 
-    // 4.4. Hiệu ứng Xuất hiện tiệm tiến (Fade-In Reveal) qua Intersection Observer API chuyên nghiệp
+    // 4.4. Hiệu ứng Xuất hiện tiệm tiến (Fade-In Reveal) qua Intersection Observer API
     initScrollReveal() {
       const reveals = document.querySelectorAll(".reveal");
       if (reveals.length === 0) return;
@@ -211,9 +182,9 @@ document.addEventListener("DOMContentLoaded", () => {
             submitBtn.disabled = true;
           }
 
-          // Hàm phụ chuẩn hóa định dạng số điện thoại sang đầu số quốc tế +84
+          // Chuẩn hóa định dạng số điện thoại sang đầu số quốc tế +84
           const formatPhoneNumber = (phone) => {
-            let cleaned = phone.replace(/\D/g, ''); // Loại bỏ mọi ký tự không phải số
+            let cleaned = phone.replace(/\D/g, ''); 
             if (cleaned.startsWith('0')) {
               cleaned = '+84' + cleaned.slice(1);
             } else if (cleaned.startsWith('84') && !cleaned.startsWith('+84')) {
@@ -224,7 +195,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return cleaned;
           };
 
-          // Trích xuất an toàn giá trị nhập vào từ các ô Form
           const nameValue = form.querySelector("#formName")?.value.trim() || "Không cung cấp";
           let phoneValue = form.querySelector("#formPhone")?.value.trim() || "";
           const emailValue = form.querySelector("#formEmail")?.value.trim() || "Không cung cấp";
@@ -232,7 +202,6 @@ document.addEventListener("DOMContentLoaded", () => {
           const purposeValue = form.querySelector("#formPurpose")?.value || "Tư vấn đầu tư / dòng tiền";
           const noteValue = form.querySelector("#formNote")?.value.trim() || "Trống";
 
-          // Chuẩn hóa định dạng số điện thoại
           if (phoneValue) {
             phoneValue = formatPhoneNumber(phoneValue);
           } else {
@@ -243,7 +212,6 @@ document.addEventListener("DOMContentLoaded", () => {
           const BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN_HERE";
           const CHAT_ID = "YOUR_TELEGRAM_CHAT_ID_HERE";
           
-          // Mẫu template thông báo trực quan theo đúng yêu cầu đã sửa đổi nhãn thông tin
           const telegramMessage = 
 `🔥 *CÓ KHÁCH HÀNG ĐĂNG KÝ MỚI* 🔥
 ━━━━━━━━━━━━━━━━━━
@@ -274,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
               console.log("[Simulation Mode] Nội dung bản tin gửi đi:\n", telegramMessage);
             }
 
-            alert("Đăng ký nhận thông tin thành công! Hào Sky Land sẽ liên hệ trực tiếp đến Chị trong vòng 15 phút.");
+            alert("Đăng ký nhận thông tin thành công! Hào Sky Land sẽ liên hệ trực tiếp đến Chị để tư vấn bài toán dòng tiền trong 15 phút.");
             form.reset();
           } catch (err) {
             console.error("[Form Submit Error]", err);
@@ -289,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     },
 
-    // 5. KHẮC PHỤC LỖI MẤT MỐC CUỘN (ANCHOR HASH LOSS) DO ĐỘ TRỄ FETCH
+    // 5. KHẮC PHỤC LỖI MẤT MỐC CUỘN DO ĐỘ TRỄ FETCH
     handleInitialAnchorHash() {
       const currentHash = window.location.hash;
       if (!currentHash) return;
