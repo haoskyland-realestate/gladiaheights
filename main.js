@@ -44,23 +44,56 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
     // 3. TỰ ĐỘNG FETCH VÀ TRUYỀN DỮ LIỆU VÀO DOM
-    async fetchAndInjectSection(name, container) {
-      const filePath = `${this.config.sectionDir}/${name}.html`;
-      try {
-        const response = await fetch(filePath);
-        if (!response.ok) throw new Error(`HTTP status ${response.status}`);
-        
-        const htmlText = await response.text();
-        container.innerHTML = htmlText;
-      } catch (error) {
-        console.error(`[Fetch Critical Error] Thất bại khi nạp file: ${filePath}`, error);
-        container.innerHTML = `
-          <div style="padding: 50px 20px; text-align: center; color: var(--gold); border: 1px dashed var(--gold);">
-            <p>Hệ thống đang cập nhật cấu phần <strong>${name}</strong>. Vui lòng quay lại sau.</p>
-          </div>
-        `;
-      }
-    },
+ async fetchAndInjectSection(name, container) {
+
+  // Mapping tên section sang tên file
+  const sectionMap = {
+    overview: "01-overview",
+    location: "02-location",
+    apartment: "03-apartment",
+    amenities: "04-amenities",
+    infra: "05-infra",
+    pricing: "06-pricing",
+    cart: "07-cart",
+    panorama: "08-panorama",
+    policy: "09-policy",
+    progress: "10-progress",
+    about: "11-about",
+    contact: "12-contact"
+  };
+
+  const fileName = sectionMap[name] || name;
+  const filePath = `${this.config.sectionDir}/${fileName}.html`;
+
+  try {
+
+    const response = await fetch(filePath);
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const htmlText = await response.text();
+
+    container.innerHTML = htmlText;
+
+  } catch (error) {
+
+    console.error(`[Fetch Error] Không thể tải: ${filePath}`, error);
+
+    container.innerHTML = `
+      <div style="
+          padding:60px 20px;
+          text-align:center;
+          border:1px dashed #caa96a;
+          color:#caa96a;
+      ">
+          <h3>Section đang được cập nhật</h3>
+          <p><strong>${fileName}.html</strong> chưa được tìm thấy.</p>
+      </div>
+    `;
+  }
+},
 
     // 4. QUẢN LÝ TOÀN BỘ SỰ KIỆN TƯƠNG TÁC ĐỘNG (INTERACTION LAYER)
     initGlobalInteractions() {
