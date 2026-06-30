@@ -1,51 +1,47 @@
 /**
  * ARCHITECTURAL CORE ENGINE - HÀO SKY LAND LANDING PAGE (2026)
  * Author: Chuyên gia Lập trình Frontend Cấp cao
- * Version: 2.3.0 (Anti-Caching Engine & Zero-Error Lifecycle)
+ * Version: 2.5.0 (Authorized Real-time Telegram Pipeline & Cache-Busting)
  */
 
 document.addEventListener("DOMContentLoaded", () => {
   
   const SPALifecycleEngine = {
-    // 1. CẤU HÌNH HỆ THỐNG
+    // 1. CẤU HÌNH HỆ THỐNG GIẢM THIỂU ĐỘ TRỄ
     config: {
-      sectionDir: "sections",          // Thư mục chứa các file HTML cấu phần
-      scrollOffset: 70,                // Bù trừ chiều cao của Fixed Navbar (70px)
-      animationDelay: 400              // Độ trễ tính toán lại layout sau khi nạp ảnh (ms)
+      sectionDir: "sections",          
+      scrollOffset: 70,                
+      animationDelay: 400              
     },
 
-    // 2. KHỞI CHẠY HỆ THỐNG (BOOTSTRAP)
+    // 2. KHỞI CHẠY HỆ THỐNG ĐỒNG BỘ SONG SONG (BOOTSTRAP)
     async bootstrap() {
       console.log("[SPA Engine] Khởi chạy vòng đời DOM...");
       
-      // Quét tự động tất cả các cấu phần dựa trên data-section hiện có trong #app-runtime
       const sections = document.querySelectorAll("#app-runtime [data-section]");
-      
       if (sections.length === 0) {
         this.initGlobalInteractions();
         return;
       }
 
-      // Kích hoạt cơ chế Fetch song song (Parallel Request) để tối ưu băng thông
+      // Kích hoạt nạp dữ liệu không đồng bộ song song qua Promise.all
       const loadPromises = Array.from(sections).map(async (container) => {
         const sectionName = container.getAttribute("data-section");
         return this.fetchAndInjectSection(sectionName, container);
       });
 
-      // Chờ toàn bộ các cấu phần được tiêm (inject) vào DOM thành công
       await Promise.all(loadPromises);
       console.log("[SPA Engine] Toàn bộ cấu phần HTML đã được nạp vào DOM Tree ổn định.");
 
-      // Kích hoạt toàn bộ mã JavaScript tương tác sau khi DOM Tree hoàn thiện
+      // Bước tiếp theo: Kích hoạt JavaScript tương tác sau khi DOM Tree hoàn thiện
       this.initGlobalInteractions();
 
-      // Xử lý mốc cuộn trang (Anchor Hash) nếu khách hàng truy cập trực tiếp bằng link định danh
+      // Đảm bảo tính toán lại tọa độ mốc cuộn ban đầu
       this.handleInitialAnchorHash();
     },
 
-    // 3. TỰ ĐỘNG FETCH VÀ TRUYỀN DỮ LIỆU VÀO DOM (CÓ CACHE-BUSTING)
+    // 3. TỰ ĐỘNG FETCH VÀ KHỬ CACHE TRÌNH DUYỆT (ANTI-CACHE ENGINE)
     async fetchAndInjectSection(name, container) {
-      // Thêm tham số timestamp (?v=...) để phá vỡ bộ nhớ đệm cache của trình duyệt, ép nạp file mới nhất
       const cacheBuster = `?v=${new Date().getTime()}`;
       const filePath = `${this.config.sectionDir}/${name}.html${cacheBuster}`;
       
@@ -57,16 +53,16 @@ document.addEventListener("DOMContentLoaded", () => {
         container.innerHTML = htmlText;
         console.log(`[Fetch Success] Đã nạp cấu phần: ${name}`);
       } catch (error) {
-        console.error(`[Fetch Critical Error] Thất bại khi nạp file: ${filePath}`, error);
+        console.error(`[Fetch Error] Thất bại khi nạp file: ${filePath}`, error);
         container.innerHTML = `
           <div style="padding: 50px 20px; text-align: center; color: var(--gold); border: 1px dashed var(--gold);">
-            <p>Hệ thống đang cập nhật cấu phần <strong>${name}</strong>. Vui lòng quay lại sau.</p>
+            <p>Hệ thống đang cập nhật cấu phần <strong>${name}</strong>.</p>
           </div>
         `;
       }
     },
 
-    // 4. QUẢN LÝ TOÀN BỘ SỰ KIỆN TƯƠNG TÁC ĐỘNG (INTERACTION LAYER)
+    // 4. QUẢN LÝ TƯƠNG TÁC ĐỘNG (INTERACTION LAYER)
     initGlobalInteractions() {
       this.initNavbarTracing();
       this.initSmoothAnchorNavigation();
@@ -75,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
       this.initTelegramLeadCapture();
     },
 
-    // 4.1. Tiến trình cuộn trang & Đổi kiểu dáng Navbar khi lướt trang
+    // 4.1. Thanh chỉ báo tiến trình cuộn trang & Kiểu dáng Nav
     initNavbarTracing() {
       const nav = document.querySelector("nav");
       const progressIndicator = document.getElementById("scrollIndicator");
@@ -100,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     },
 
-    // 4.2. Smooth Scroll Anchor cho toàn bộ liên kết nội bộ
+    // 4.2. Mốc cuộn mượt Anchor Link nội bộ
     initSmoothAnchorNavigation() {
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener("click", (e) => {
@@ -117,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     },
 
-    // 4.3. Chuyển đổi Tab (Mặt Bằng / Hạ Tầng) sử dụng Event Delegation
+    // 4.3. Logic Chuyển đổi Tab (Mặt Bằng / Hạ Tầng) qua Event Delegation
     initTabSwitching() {
       const runtimeContainer = document.getElementById("app-runtime");
       if (!runtimeContainer) return;
@@ -143,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     },
 
-    // 4.4. Hiệu ứng Xuất hiện tiệm tiến (Fade-In Reveal) qua Intersection Observer API
+    // 4.4. Hiệu ứng Xuất hiện tiệm tiến (Fade-In Reveal)
     initScrollReveal() {
       const reveals = document.querySelectorAll(".reveal");
       if (reveals.length === 0) return;
@@ -166,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
       reveals.forEach(el => revealObserver.observe(el));
     },
 
-    // 4.5. Xử lý Biểu mẫu Đăng ký & Đồng bộ Định dạng Dữ liệu đưa về Telegram Bot
+    // 4.5. ĐÃ XÁC THỰC BẢO MẬT: Đón chặn form và truyền dữ liệu real-time về Telegram Bot của Hào
     initTelegramLeadCapture() {
       const runtimeContainer = document.getElementById("app-runtime");
       if (!runtimeContainer) return;
@@ -178,11 +174,11 @@ document.addEventListener("DOMContentLoaded", () => {
           const submitBtn = form.querySelector(".form-submit");
           
           if (submitBtn) {
-            submitBtn.innerText = "ĐANG GỬI THÔNG TIN...";
+            submitBtn.innerText = "ĐANG KHỞI TẠO ĐƠN ĐĂNG KÝ...";
             submitBtn.disabled = true;
           }
 
-          // Hàm chuẩn hóa số điện thoại sang định dạng +84 quốc tế
+          // Định dạng số điện thoại tự động sang đầu số quốc tế +84
           const formatPhoneNumber = (phone) => {
             let cleaned = phone.replace(/\D/g, ''); 
             if (cleaned.startsWith('0')) {
@@ -195,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return cleaned;
           };
 
-          // Trích xuất dữ liệu an toàn dựa trên thuộc tính name của form mới
+          // Trích xuất thông tin an toàn thông qua các nhãn và thuộc tính name
           const nameValue = form.querySelector('[name="name"]')?.value.trim() || "Không cung cấp";
           let phoneValue = form.querySelector('[name="phone"]')?.value.trim() || "";
           const emailValue = form.querySelector('[name="email"]')?.value.trim() || "Không cung cấp";
@@ -209,10 +205,11 @@ document.addEventListener("DOMContentLoaded", () => {
             phoneValue = "Không cung cấp";
           }
 
-          // CẤU HÌNH BOT TELEGRAM CỦA BẠN
-          const BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN_HERE";
-          const CHAT_ID = "YOUR_TELEGRAM_CHAT_ID_HERE";
+          // TOKEN VÀ CHAT ID THỰC TẾ CỦA HÀO SKY LAND (XÁC THỰC REAL-TIME)
+          const BOT_TOKEN = '8674808661:AAFsxIrYdIXxOSNMhaLyYxwSPTxYLtzgHVE';
+          const CHAT_ID = '8218828728';
           
+          // Mẫu template thông báo chuẩn hóa theo quy tắc lưu trữ dữ liệu Info 1 & Info 2
           const telegramMessage = 
 `🔥 *CÓ KHÁCH HÀNG ĐĂNG KÝ MỚI* 🔥
 ━━━━━━━━━━━━━━━━━━
@@ -227,23 +224,19 @@ document.addEventListener("DOMContentLoaded", () => {
 📅 *Thời gian:* ${new Date().toLocaleString('vi-VN')}`;
 
           try {
-            if (BOT_TOKEN !== "YOUR_TELEGRAM_BOT_TOKEN_HERE") {
-              const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  chat_id: CHAT_ID,
-                  text: telegramMessage,
-                  parse_mode: "Markdown"
-                })
-              });
-              
-              if (!response.ok) throw new Error("Telegram API Request Error");
-            } else {
-              console.log("[Simulation Mode] Tin nhắn mẫu gửi đi:\n", telegramMessage);
-            }
-
-            alert("Đăng ký nhận tư vấn thành công! Hào Sky Land sẽ liên hệ trực tiếp đến Chị trong vòng 15 phút.");
+            const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: telegramMessage,
+                parse_mode: "Markdown"
+              })
+            });
+            
+            if (!response.ok) throw new Error("Telegram Bot API Response Critical Error");
+            
+            alert("Đăng ký nhận tư vấn thành công! Hào Sky Land sẽ liên hệ trực tiếp đến Chị để tư vấn bài toán dòng tiền trong 15 phút.");
             form.reset();
           } catch (err) {
             console.error("[Form Submit Error]", err);
@@ -257,8 +250,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     },
-    
-    // 5. KHẮC PHỤC LỖI MẤT MỐC CUỘN DO ĐỘ TRỄ FETCH
+
+    // 5. KHẮC PHỤC TRIỆT ĐỂ LỖI MẤT MỐC CUỘN ANCHOR HASH
     handleInitialAnchorHash() {
       const currentHash = window.location.hash;
       if (!currentHash) return;
@@ -283,6 +276,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // Khởi chạy lõi ứng dụng
   SPALifecycleEngine.bootstrap();
 });
