@@ -172,17 +172,17 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!runtimeContainer) return;
 
       runtimeContainer.addEventListener("submit", async (e) => {
-        if (e.target && e.target.id === "leadForm") {
+        if (e.target && e.target.id === "contactForm") {
           e.preventDefault();
           const form = e.target;
           const submitBtn = form.querySelector(".form-submit");
           
           if (submitBtn) {
-            submitBtn.innerText = "ĐANG KHỞI TẠO ĐƠN ĐĂNG KÝ VÀO HỆ THỐNG...";
+            submitBtn.innerText = "ĐANG GỬI THÔNG TIN...";
             submitBtn.disabled = true;
           }
 
-          // Chuẩn hóa định dạng số điện thoại sang đầu số quốc tế +84
+          // Hàm chuẩn hóa số điện thoại sang định dạng +84 quốc tế
           const formatPhoneNumber = (phone) => {
             let cleaned = phone.replace(/\D/g, ''); 
             if (cleaned.startsWith('0')) {
@@ -195,12 +195,13 @@ document.addEventListener("DOMContentLoaded", () => {
             return cleaned;
           };
 
-          const nameValue = form.querySelector("#formName")?.value.trim() || "Không cung cấp";
-          let phoneValue = form.querySelector("#formPhone")?.value.trim() || "";
-          const emailValue = form.querySelector("#formEmail")?.value.trim() || "Không cung cấp";
-          const apartmentType = form.querySelector("#formProduct")?.value || "Chưa xác định";
-          const purposeValue = form.querySelector("#formPurpose")?.value || "Tư vấn đầu tư / dòng tiền";
-          const noteValue = form.querySelector("#formNote")?.value.trim() || "Trống";
+          // Trích xuất dữ liệu an toàn dựa trên thuộc tính name của form mới
+          const nameValue = form.querySelector('[name="name"]')?.value.trim() || "Không cung cấp";
+          let phoneValue = form.querySelector('[name="phone"]')?.value.trim() || "";
+          const emailValue = form.querySelector('[name="email"]')?.value.trim() || "Không cung cấp";
+          const apartmentType = form.querySelector('[name="apartment_type"]')?.value || "Chưa chọn";
+          const purposeValue = form.querySelector('[name="purpose"]')?.value || "Chưa chọn";
+          const noteValue = form.querySelector('[name="note"]')?.value.trim() || "Trống";
 
           if (phoneValue) {
             phoneValue = formatPhoneNumber(phoneValue);
@@ -239,24 +240,24 @@ document.addEventListener("DOMContentLoaded", () => {
               
               if (!response.ok) throw new Error("Telegram API Request Error");
             } else {
-              console.log("[Simulation Mode] Nội dung bản tin gửi đi:\n", telegramMessage);
+              console.log("[Simulation Mode] Tin nhắn mẫu gửi đi:\n", telegramMessage);
             }
 
-            alert("Đăng ký nhận thông tin thành công! Hào Sky Land sẽ liên hệ trực tiếp đến Chị để tư vấn bài toán dòng tiền trong 15 phút.");
+            alert("Đăng ký nhận tư vấn thành công! Hào Sky Land sẽ liên hệ trực tiếp đến Chị trong vòng 15 phút.");
             form.reset();
           } catch (err) {
             console.error("[Form Submit Error]", err);
             alert("Hệ thống xử lý đang bận. Chị vui lòng liên hệ trực tiếp qua Hotline: 0986 986 049.");
           } finally {
             if (submitBtn) {
-              submitBtn.innerText = "ĐĂNG KÝ NHẬN QUỸ CĂN CHI TIẾT";
+              submitBtn.innerText = "✦ Gửi Đăng Ký Ngay";
               submitBtn.disabled = false;
             }
           }
         }
       });
     },
-
+    
     // 5. KHẮC PHỤC LỖI MẤT MỐC CUỘN DO ĐỘ TRỄ FETCH
     handleInitialAnchorHash() {
       const currentHash = window.location.hash;
