@@ -1,79 +1,70 @@
-<!-- CẤU PHẦN LIÊN HỆ - GLADIA BY THE WATERS -->
-<section class="contact-section" id="lien-he">
-  <div class="container">
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="contact-left reveal">
+      <div class="section-label">Liên Hệ</div>
+      <h2>Đăng Ký<br>Tư Vấn Ngay</h2>
+      <div class="gold-line"></div>
+      <p>Điền thông tin bên cạnh hoặc liên hệ trực tiếp để nhận tài liệu dự án & được tư vấn miễn phí.</p>
+      <div class="contact-detail">
+        <a href="tel:0986986049">📞 0986 986 049</a>
+        <a href="mailto:haoskyland@gmail.com">✉ haoskyland@gmail.com</a>
+        <span style="color:rgba(255,255,255,0.45);font-size:0.82rem">32 Song Hành, Phường Bình Trưng TP.HCM</span>
+      </div>
+    </div>
     
-    <div class="contact-inner">
-      
-      <!-- Khối thông tin kết nối trực tiếp bên trái -->
-      <div class="contact-left reveal">
-        <span class="section-label">Đăng Ký Đặc Quyền</span>
-        <h2>Nhận Giải Pháp<br>Dòng Tiền Độc Quyền</h2>
-        <div class="gold-line"></div>
-        <p class="contact-desc" style="color: rgba(255,255,255,0.6); line-height: 1.75; margin-bottom: 30px;">
-          Hào Sky Land sẽ bảo mật tuyệt đối thông tin và liên hệ trực tiếp để gửi tới Chị bảng tính toán bài toán dòng tiền, tiến độ thanh toán chi tiết cùng quỹ căn ngoại giao đợt 1.
-        </p>
-        
-        <div class="contact-detail">
-          <a href="tel:0986986049">Hotline: 0986 986 049</a>
-          <a href="mailto:haoskyland@gmail.com">Email: haoskyland@gmail.com</a>
+    <!-- SỬA TẠI ĐÂY: Đổi thẻ <div> bên ngoài thành thẻ <form> và thêm id="contactForm" -->
+    <form id="contactForm" class="reveal">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Họ và Tên *</label>
+          <!-- Thêm name="name" và required (bắt buộc nhập) -->
+          <input type="text" name="name" placeholder="Nguyễn Văn A" required>
+        </div>
+        <div class="form-group">
+          <label>Số Điện Thoại *</label>
+          <!-- Thêm name="phone" và required (bắt buộc nhập) -->
+          <input type="tel" name="phone" placeholder="0909 xxx xxx" required>
         </div>
       </div>
-
-      <!-- Khối biểu mẫu đăng ký kết nối API Telegram bên phải -->
-      <div class="contact-right reveal" style="transition-delay: 0.1s;">
-        <form id="leadForm">
-          
-          <!-- Trường nhập tên khách hàng -->
-          <div class="form-group">
-            <label for="formName">Tên khách hàng (Info 1)</label>
-            <input type="text" id="formName" placeholder="Ví dụ: Chị Minh Anh" required>
-          </div>
-
-          <!-- Trường nhập số điện thoại -->
-          <div class="form-group">
-            <label for="formPhone">Số điện thoại (Info 2)</label>
-            <input type="tel" id="formPhone" placeholder="Ví dụ: 0912345678" required>
-          </div>
-
-          <!-- Trường nhập địa chỉ email -->
-          <div class="form-group">
-            <label for="formEmail">Địa chỉ Email</label>
-            <input type="email" id="formEmail" placeholder="Ví dụ: minhanh@gmail.com" required>
-          </div>
-
-          <!-- Dòng tùy chọn loại căn hộ và mục đích đầu tư -->
-          <div class="form-row">
-            <div class="form-group">
-              <label for="formProduct">Nhu cầu căn hộ</label>
-              <select id="formProduct">
-                <option value="1 Phòng Ngủ">Căn hộ 1 PN</option>
-                <option value="2 Phòng Ngủ" selected>Căn hộ 2 PN</option>
-                <option value="3 Phòng Ngủ">Căn hộ 3 PN</option>
-                <option value="Duplex / Penthouse">Duplex / Penthouse</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="formPurpose">Mục đích đầu tư</label>
-              <select id="formPurpose">
-                <option value="Tối ưu dòng tiền">Tối ưu dòng tiền</option>
-                <option value="Tích sản dài hạn">Tích sản dài hạn</option>
-                <option value="Mua ở hạng sang">Mua ở hạng sang</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Trường ghi chú bổ sung thông tin -->
-          <div class="form-group">
-            <label for="formNote">Ghi chú yêu cầu riêng</label>
-            <textarea id="formNote" rows="3" placeholder="Ví dụ: Cần tư vấn lịch thanh toán giãn bằng vốn tự có..."></textarea>
-          </div>
-
-          <!-- Nút kích hoạt gửi dữ liệu realtime về Telegram -->
-          <button type="submit" class="form-submit">Đăng Ký Nhận Quỹ Căn Chi Tiết</button>
-          
-        </form>
+      <div class="form-group">
+        <label>Email</label>
+        <!-- Thêm name="email" -->
+        <input type="email" name="email" placeholder="email@example.com">
       </div>
-
-    </div>
+      <div class="form-group">
+        <label>Loại Căn Hộ Quan Tâm</label>
+        <!-- Thêm name="apartment_type" -->
+        <select name="apartment_type">
+          <option value="Chưa chọn">Chọn loại căn hộ</option>
+          <option value="1PN">1 Phòng ngủ (1PN)</option>
+          <option value="1PN+">1 Phòng ngủ + (1PN+)</option>
+          <option value="2PN">2 Phòng ngủ (2PN)</option>
+          <option value="2PN+">2 Phòng ngủ + (2PN+)</option>
+          <option value="3PN">3 Phòng ngủ (3PN)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Mục Đích</label>
+        <!-- Thêm name="purpose" -->
+        <select name="purpose">
+          <option value="Chưa chọn">Chọn mục đích</option>
+          <option value="Để ở">Để ở</option>
+          <option value="Đầu tư">Đầu tư</option>
+          <option value="Vừa ở vừa đầu tư">Vừa ở vừa đầu tư</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Ghi Chú</label>
+        <!-- Thêm name="note" -->
+        <textarea name="note" placeholder="Thông tin thêm..." rows="3" style="resize:vertical"></textarea>
+      </div>
+      
+      <!-- SỬA TẠI ĐÂY: Đổi thành type="submit" và xóa bỏ sự kiện onclick="alert(...)" cũ -->
+      <button type="submit" class="form-submit">
+        ✦ Gửi Đăng Ký Ngay
+      </button>
+      <p style="font-size:0.72rem;color:rgba(255,255,255,0.3);margin-top:12px;line-height:1.5">* Thông tin của Quý khách sẽ không được công khai hoặc dùng với mục đích spam.</p>
+    </form>
   </div>
 </section>
