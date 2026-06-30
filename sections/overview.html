@@ -1,48 +1,60 @@
 <section class="overview-section">
   <div class="container">
     
-    <div class="reveal">
+    <div class="reveal dynamic-3d-title">
       <span class="section-label">Tuyệt Tác Bên Sông</span>
-      <h2 class="section-title">Tổng Quan Dự Án<br>Gladia By The Waters</h2>
-      <div class="gold-line"></div>
+      <h2 class="section-title">Tổng Quan Dự Án<br><span class="gradient-text">Gladia By The Waters</span></h2>
+      <div class="gold-line-3d"></div>
     </div>
 
     <div class="overview-grid">
       
-      <div class="reveal" style="transition-delay: 0.1s;">
+      <div class="reveal card-3d-text" style="transition-delay: 0.1s;">
         <p class="section-desc" style="margin-bottom: 24px;">
-          <strong>Gladia By The Waters</strong> là biểu tượng căn hộ hạng sang đầu tiên đánh dấu sự hợp tác chiến lược giữa hai tập đoàn đại phú bất động sản: <strong>Keppel (Singapore)</strong> và <strong>Khang Điền (Việt Nam)</strong>. 
+          <strong>Gladia By The Waters</strong> là biểu tượng căn hộ hạng sang đầu tiên đánh dấu sự hợp tác chiến lược giữa hai tập đoàn đại phú bất động sản: <strong class="highlight-gold">Keppel (Singapore)</strong> và <strong class="highlight-gold">Khang Điền (Việt Nam)</strong>. 
         </p>
         <p class="section-desc">
           Tọa lạc tại vị trí độc tôn ôm trọn dải cảnh quan ven sông thơ mộng tại TP.HCM, dự án mang ngôn ngữ kiến trúc đương đại hòa quyện cùng không gian sinh thái resort chuẩn quốc tế. Đây không chỉ là nơi an cư thượng lưu, mà còn là giải pháp tối ưu hóa bài toán dòng tiền dài hạn và khẳng định vị thế độc bản cho cộng đồng chủ doanh nghiệp tinh hoa.
         </p>
       </div>
 
-      <div class="reveal" style="transition-delay: 0.2s;">
-        <ul class="overview-specs">
-          <li>
-            <span class="key">Chủ đầu tư</span>
-            <span class="val">Liên doanh Keppel & Khang Điền</span>
+      <div class="reveal card-3d-specs" style="transition-delay: 0.2s;">
+        <ul class="overview-specs-3d">
+          <li style="--i: 1;">
+            <div class="spec-inner">
+              <span class="key">Chủ đầu tư</span>
+              <span class="val">Liên doanh Keppel & Khang Điền</span>
+            </div>
           </li>
-          <li>
-            <span class="key">Vị trí dự án</span>
-            <span class="val">Thành phố Thủ Đức, TP. Hồ Chí Minh</span>
+          <li style="--i: 2;">
+            <div class="spec-inner">
+              <span class="key">Vị trí dự án</span>
+              <span class="val">Thành phố Thủ Đức, TP. Hồ Chí Minh</span>
+            </div>
           </li>
-          <li>
-            <span class="key">Quy mô diện tích</span>
-            <span class="val">Hơn 4,2 Héc-ta công viên & mặt nước</span>
+          <li style="--i: 3;">
+            <div class="spec-inner">
+              <span class="key">Quy mô diện tích</span>
+              <span class="val">Hơn 4,2 Héc-ta công viên & mặt nước</span>
+            </div>
           </li>
-          <li>
-            <span class="key">Loại hình sản phẩm</span>
-            <span class="val">Căn hộ hạng sang, Penthouse, Duplex</span>
+          <li style="--i: 4;">
+            <div class="spec-inner">
+              <span class="key">Loại hình sản phẩm</span>
+              <span class="val">Căn hộ hạng sang, Penthouse, Duplex</span>
+            </div>
           </li>
-          <li>
-            <span class="key">Hình thức sở hữu</span>
-            <span class="val">Lâu dài (Sổ hồng riêng từng căn)</span>
+          <li style="--i: 5;">
+            <div class="spec-inner">
+              <span class="key">Hình thức sở hữu</span>
+              <span class="val">Lâu dài (Sổ hồng riêng từng căn)</span>
+            </div>
           </li>
-          <li>
-            <span class="key">Tiêu chuẩn bàn giao</span>
-            <span class="val">Hoàn thiện cao cấp quốc tế (Smart Home)</span>
+          <li style="--i: 6;">
+            <div class="spec-inner">
+              <span class="key">Tiêu chuẩn bàn giao</span>
+              <span class="val">Hoàn thiện cao cấp quốc tế (Smart Home)</span>
+            </div>
           </li>
         </ul>
       </div>
@@ -50,3 +62,156 @@
     </div>
   </div>
 </section>
+
+<style>
+  /* Cấu hình không gian 3D tổng thể */
+  .overview-section {
+    perspective: 1500px;
+    background: #0b1511; /* Màu nền xanh rêu/đen sâu lắng, tôn vinh mệnh Mộc và sự sang trọng */
+    color: #ffffff;
+    padding: 80px 0;
+    overflow: hidden;
+  }
+
+  .container {
+    transform-style: preserve-3d;
+  }
+
+  /* 1. Hiệu ứng Tiêu đề Chuyển động Tinh tế */
+  .dynamic-3d-title {
+    transform: translateZ(30px);
+    margin-bottom: 40px;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #fce881 0%, #cba135 50%, #fce881 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shineGold 4s linear infinite;
+  }
+
+  .gold-line-3d {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #cba135, #fce881, #cba135);
+    margin-top: 15px;
+    box-shadow: 0 0 15px rgba(203, 161, 53, 0.6);
+    position: relative;
+    border-radius: 2px;
+  }
+
+  /* 2. Hiệu ứng Khối Văn bản Nổi (3D Floating) */
+  .card-3d-text {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid rgba(203, 161, 53, 0.15);
+    backdrop-filter: blur(10px);
+    transform: rotateY(10deg) translateZ(20px);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  }
+
+  .card-3d-text:hover {
+    transform: rotateY(0deg) translateZ(40px) scale(1.02);
+    border-color: rgba(203, 161, 53, 0.5);
+    box-shadow: 0 25px 50px rgba(203, 161, 53, 0.1);
+  }
+
+  .highlight-gold {
+    color: #fce881;
+    text-shadow: 0 0 8px rgba(252, 232, 129, 0.3);
+  }
+
+  /* 3. Hiệu ứng Danh sách Thông số Lật Đẩy 3D (Staggered 3D Cards) */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    transform-style: preserve-3d;
+  }
+
+  .overview-specs-3d {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    transform-style: preserve-3d;
+  }
+
+  .overview-specs-3d li {
+    margin-bottom: 16px;
+    perspective: 1000px;
+    /* Tạo hiệu ứng xuất hiện so le từ dưới lên */
+    opacity: 0;
+    transform: translateY(30px) rotateX(-20deg);
+    animation: cubicBezierReveal 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation-delay: calc(var(--i) * 0.15s);
+  }
+
+  .spec-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.05) 100%);
+    border-left: 3px solid #cba135;
+    border-radius: 0 8px 8px 0;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+  }
+
+  /* Hiệu ứng di chuột lật nghiêng 3D cực kỳ đẳng cấp */
+  .overview-specs-3d li:hover .spec-inner {
+    transform: rotateX(10deg) translateZ(20px);
+    background: linear-gradient(135deg, rgba(203, 161, 53, 0.1) 0%, rgba(255,255,255,0.05) 100%);
+    border-left-color: #fce881;
+    box-shadow: 5px 10px 20px rgba(0,0,0,0.3);
+    padding-left: 28px; /* Đẩy nhẹ chữ tạo cảm giác chuyển động chiều sâu */
+  }
+
+  .key {
+    font-weight: 500;
+    color: #a0aec0;
+    transition: color 0.3s;
+  }
+
+  .overview-specs-3d li:hover .key {
+    color: #fce881;
+  }
+
+  .val {
+    font-weight: 600;
+    text-align: right;
+    color: #ffffff;
+  }
+
+  /* Các Animation định nghĩa sẵn */
+  @keyframes shineGold {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+
+  @keyframes cubicBezierReveal {
+    to {
+      opacity: 1;
+      transform: translateY(0) rotateX(0);
+    }
+  }
+
+  /* Responsive mượt mà trên thiết bị di động */
+  @media (max-width: 768px) {
+    .overview-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    .card-3d-text {
+      transform: none !important;
+    }
+    .overview-specs-3d li:hover .spec-inner {
+      transform: translateY(-5px); /* Trên điện thoại chuyển sang hiệu ứng nhấc nhẹ thay vì lật 3D để tránh lỗi hiển thị */
+    }
+  }
+</style>
