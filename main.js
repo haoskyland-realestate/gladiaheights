@@ -253,29 +253,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 5. KHẮC PHỤC TRIỆT ĐỂ LỖI MẤT MỐC CUỘN ANCHOR HASH
    // 5. KHẮC PHỤC TRIỆT ĐỂ LỖI MẤT MỐC CUỘN ANCHOR HASH VÀ NHẢY TRANG
-    handleInitialAnchorHash() {
+   handleInitialAnchorHash() {
       const currentHash = window.location.hash;
       
-      // BỔ SUNG ĐIỀU KIỆN CHẶN: Nếu không có hash, hoặc hash chỉ là dấu # trống thì DỪNG LẠI, không cuộn đi đâu cả
-      if (!currentHash || currentHash === "#" || currentHash === "#contact") {
-        // Đưa trang về đầu trang một cách chủ động khi mới tải
-        window.scrollTo(0, 0);
+      // Nếu không có hash, hoặc hash là dấu # trống, hoặc hash trỏ thẳng vào vùng contact/lien-he lúc mới vào
+      if (!currentHash || currentHash === "#" || currentHash === "#contact" || currentHash === "#lien-he") {
+        // Ép trình duyệt đứng im tại tọa độ đỉnh đầu trang (Top: 0, Left: 0)
+        window.scrollTo({ top: 0, left: 0 });
         return;
       }
 
+      // Trì hoãn nhẹ để đợi layout của toàn bộ các file con tính toán xong chiều cao thực tế
       setTimeout(() => {
         try {
           const targetSection = document.querySelector(currentHash);
           if (targetSection) {
-            console.log(`[Anchor Adjust] Định vị thành công mốc cuộn ban đầu: ${currentHash}`);
             this.scrollToTargetElement(targetSection);
           }
         } catch (e) {
-          console.warn("[SPA Engine] Lỗi định dạng thẻ Hash định danh:", e);
+          console.warn("[SPA Engine] Sai định dạng thẻ điều hướng:", e);
         }
       }, this.config.animationDelay);
     },
-
+    
     scrollToTargetElement(element) {
       const elementPosition = element.getBoundingClientRect().top + window.scrollY;
       const offsetPosition = elementPosition - this.config.scrollOffset;
