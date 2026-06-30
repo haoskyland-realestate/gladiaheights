@@ -18,8 +18,8 @@
         <!-- Ảnh nền phối cảnh tĩnh ban đầu -->
         <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" id="panoramaPlaceholderImg" alt="Trải nghiệm không gian ảo 360 độ Gladia Heights" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.4; transition: opacity 0.5s ease;">
         
-        <!-- Lớp phủ nút bấm kích hoạt Sa bàn ảo 360 độc quyền -->
-        <div id="panoramaTrigger" style="position: absolute; display: flex; flex-direction: column; align-items: center; gap: 18px; z-index: 5; cursor: pointer; padding: 40px; width: 100%; height: 100%; justify-content: center;" onclick="activatePanorama()">
+        <!-- Nút bấm kích hoạt nhúng động Sa bàn ảo 360 (Gắn trực tiếp hàm vào window object để kích hoạt tức thì) -->
+        <div id="panoramaTrigger" style="position: absolute; display: flex; flex-direction: column; align-items: center; gap: 18px; z-index: 5; cursor: pointer; padding: 40px; width: 100%; height: 100%; justify-content: center;" onclick="window.activatePremiumPanorama()">
           <div style="width: 70px; height: 70px; border-radius: 50%; background: rgba(184,154,90,0.2); border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--gold-light); transition: all 0.3s; box-shadow: 0 0 20px rgba(184,154,90,0.3);">
             🔄
           </div>
@@ -32,32 +32,33 @@
   </div>
 </section>
 
-<!-- Logic nhúng động cô lập (Đảm bảo không ảnh hưởng đến tốc độ tải trang ban đầu) -->
 <script>
-function activatePanorama() {
-  const container = document.getElementById('panoramaContainer');
-  const placeholder = document.getElementById('panoramaPlaceholderImg');
-  const trigger = document.getElementById('panoramaTrigger');
-  
-  if (!container) return;
-  
-  // Hiệu ứng làm mờ ảnh nền cũ
-  if (placeholder) placeholder.style.opacity = '0';
-  if (trigger) trigger.style.display = 'none';
-  
-  // Khởi tạo thẻ iframe nhúng đường dẫn sa bàn ảo thực tế 
-  const iframe = document.createElement('iframe');
-  iframe.src = "https://360.gladia.com.vn/overview";
-  iframe.style.width = "100%";
-  iframe.style.height = "100%";
-  iframe.style.border = "none";
-  iframe.style.allowFullscreen = "true";
-  iframe.style.position = "absolute";
-  iframe.style.inset = "0";
-  iframe.style.zIndex = "1";
-  iframe.setAttribute("allow", "gyroscope; accelerometer; vr");
-  
-  // Tiêm iframe trực tiếp vào cấu trúc khung nhìn
-  container.appendChild(iframe);
-}
+  // Đăng ký hàm trực tiếp vào đối tượng window toàn cục để bypass qua cơ chế cô lập chu kỳ của fetch innerHTML
+  window.activatePremiumPanorama = function() {
+    const container = document.getElementById('panoramaContainer');
+    const placeholder = document.getElementById('panoramaPlaceholderImg');
+    const trigger = document.getElementById('panoramaTrigger');
+    
+    if (!container) return;
+    
+    // Gỡ bỏ các phần tử tĩnh ban đầu để giải phóng không gian hiển thị
+    if (placeholder) placeholder.style.opacity = '0';
+    if (trigger) trigger.style.display = 'none';
+    
+    // Khởi tạo và thiết lập các tham số vận hành cho Iframe 360 VR chuyên nghiệp
+    const iframe = document.createElement('iframe');
+    iframe.src = "https://360.gladia.com.vn/overview";
+    iframe.style.width = "100%";
+    iframe.style.height = "100%";
+    iframe.style.border = "none";
+    iframe.setAttribute("allowfullscreen", "true");
+    iframe.setAttribute("allow", "gyroscope; accelerometer; vr; magnifying-glass");
+    iframe.style.position = "absolute";
+    iframe.style.inset = "0";
+    iframe.style.zIndex = "1";
+    
+    // Bơm Iframe trực tiếp vào luồng hiển thị
+    container.appendChild(iframe);
+    console.log("[SPA Engine] Đã kích hoạt nhúng động Sa bàn 360° thành công.");
+  };
 </script>
