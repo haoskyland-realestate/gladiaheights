@@ -1,0 +1,63 @@
+<!-- CẤU PHẦN ẢNH 360° - GLADIA BY THE WATERS -->
+<section class="panorama-section" id="360">
+  <div class="container">
+    
+    <div class="reveal">
+      <span class="section-label">Trải Nghiệm Thực Tế Ảo</span>
+      <h2 class="section-title">Khám Phá Không Gian Sa Bàn<br>& Căn Hộ Thực Tế 360°</h2>
+      <div class="gold-line"></div>
+      <p class="section-desc" style="max-width: 750px; margin-bottom: 40px;">
+        Không cần dịch chuyển, chị hoàn toàn có thể tương tác trực quan để cảm nhận trọn vẹn từng góc nhìn Panorama đắt giá từ ban công căn hộ hạng sang, cũng như trải nghiệm thực tế hệ thống tiện ích cảnh quan nội khu trực tuyến cao cấp.
+      </p>
+    </div>
+
+    <!-- Khung tương tác thực tế ảo cao cấp -->
+    <div class="reveal" style="transition-delay: 0.1s;">
+      <div class="map-placeholder" id="panoramaContainer" style="height: 550px; border-color: rgba(184,154,90,0.25); background: #000; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        
+        <!-- Ảnh nền phối cảnh tĩnh ban đầu -->
+        <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" id="panoramaPlaceholderImg" alt="Trải nghiệm không gian ảo 360 độ Gladia Heights" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.4; transition: opacity 0.5s ease;">
+        
+        <!-- Lớp phủ nút bấm kích hoạt Sa bàn ảo 360 độc quyền -->
+        <div id="panoramaTrigger" style="position: absolute; display: flex; flex-direction: column; align-items: center; gap: 18px; z-index: 5; cursor: pointer; padding: 40px; width: 100%; height: 100%; justify-content: center;" onclick="activatePanorama()">
+          <div style="width: 70px; height: 70px; border-radius: 50%; background: rgba(184,154,90,0.2); border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--gold-light); transition: all 0.3s; box-shadow: 0 0 20px rgba(184,154,90,0.3);">
+            🔄
+          </div>
+          <span style="font-size: 0.75rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold-light); text-shadow: 0 2px 12px rgba(0,0,0,0.7); text-align: center;">Bấm để kích hoạt trải nghiệm 360° VR sa bàn</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Logic nhúng động cô lập (Đảm bảo không ảnh hưởng đến tốc độ tải trang ban đầu) -->
+<script>
+function activatePanorama() {
+  const container = document.getElementById('panoramaContainer');
+  const placeholder = document.getElementById('panoramaPlaceholderImg');
+  const trigger = document.getElementById('panoramaTrigger');
+  
+  if (!container) return;
+  
+  // Hiệu ứng làm mờ ảnh nền cũ
+  if (placeholder) placeholder.style.opacity = '0';
+  if (trigger) trigger.style.display = 'none';
+  
+  // Khởi tạo thẻ iframe nhúng đường dẫn sa bàn ảo thực tế 
+  const iframe = document.createElement('iframe');
+  iframe.src = "https://360.gladia.com.vn/overview";
+  iframe.style.width = "100%";
+  iframe.style.height = "100%";
+  iframe.style.border = "none";
+  iframe.style.allowFullscreen = "true";
+  iframe.style.position = "absolute";
+  iframe.style.inset = "0";
+  iframe.style.zIndex = "1";
+  iframe.setAttribute("allow", "gyroscope; accelerometer; vr");
+  
+  // Tiêm iframe trực tiếp vào cấu trúc khung nhìn
+  container.appendChild(iframe);
+}
+</script>
