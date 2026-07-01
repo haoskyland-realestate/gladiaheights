@@ -64,62 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 4. QUẢN LÝ TƯƠNG TÁC ĐỘNG (INTERACTION LAYER)
     initGlobalInteractions() {
-      const runtime = document.getElementById("app-runtime");
-      if (!runtime) return;
-
-      let currentTranslateX = 0;
-
-      runtime.addEventListener("click", (e) => {
-        const track = document.getElementById("catalogTrack");
-        if (!track) return;
-
-        // 1. Xử lý nút bấm điều hướng trượt Trái / Phải
-        const nextBtn = e.target.closest("#btnNextSlide");
-        const prevBtn = e.target.closest("#btnPrevSlide");
-        
-        if (nextBtn || prevBtn) {
-          const visibleCards = Array.from(track.children).filter(c => c.style.display !== "none");
-          if (visibleCards.length === 0) return;
-          
-          const cardWidth = visibleCards[0].offsetWidth + 24; // Chiều rộng thẻ + khoảng cách gap
-          const containerWidth = track.parentElement.offsetWidth;
-          const totalWidth = visibleCards.length * cardWidth - 24;
-          const maxScroll = totalWidth > containerWidth ? totalWidth - containerWidth : 0;
-
-          if (nextBtn) {
-            currentTranslateX -= cardWidth;
-            if (Math.abs(currentTranslateX) > maxScroll) currentTranslateX = -maxScroll;
-          }
-          if (prevBtn) {
-            currentTranslateX += cardWidth;
-            if (currentTranslateX > 0) currentTranslateX = 0;
-          }
-          track.style.transform = `translateX(${currentTranslateX}px)`;
-        }
-
-        // 2. Xử lý bộ lọc danh mục Filter Tabs (Tất cả, 1PN, 2PN, 3PN, 4PN)
-        const filterBtn = e.target.closest(".filter-btn");
-        if (filterBtn) {
-          const filterGroup = filterBtn.parentElement;
-          filterGroup.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
-          filterBtn.classList.add("active");
-
-          const filterType = filterBtn.getAttribute("data-filter");
-          currentTranslateX = 0;
-          track.style.transform = `translateX(0px)`;
-
-          track.querySelectorAll(".catalog-card").forEach(card => {
-            if (filterType === "all" || card.getAttribute("data-type") === filterType) {
-              card.style.display = "block";
-              setTimeout(() => card.style.opacity = "1", 50);
-            } else {
-              card.style.display = "none";
-              card.style.opacity = "0";
-            }
-          });
-        }
-      });
-    },
       this.initNavbarTracing();
       this.initSmoothAnchorNavigation();
       this.initTabSwitching();
