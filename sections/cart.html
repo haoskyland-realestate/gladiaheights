@@ -1,4 +1,4 @@
-<section class="apartment-section" id="quy-can">
+<section class="apartment-section" id="quy-can-section">
   <div class="container">
     
     <div class="reveal visible">
@@ -6,25 +6,41 @@
       <h2 class="section-title">Danh Mục Sản Phẩm<br>& Mặt Bằng Chi Tiết</h2>
       <div class="gold-line"></div>
       <p class="section-desc" style="max-width: 800px; margin-bottom: 30px;">
-        Dưới đây là danh sách tổng hợp chi tiết tất cả các loại hình căn hộ tại dự án Gladia Heights. Anh/Chị có thể <strong>vuốt ngang trên điện thoại</strong> hoặc <strong>lăn chuột ngang trên máy tính</strong> để xem trọn bộ thiết kế.
+        Dưới đây là danh sách tổng hợp chi tiết tất cả các loại hình căn hộ tại dự án Gladia Heights. Trên <strong>Điện thoại</strong> anh/chị vuốt ngang màn hình; trên <strong>Máy tính (PC)</strong> anh/chị chỉ cần <strong>lăn nút cuộn chuột giữa</strong> ngay trên vùng thẻ là catalog sẽ tự động trượt sang ngang vô cùng mượt mà.
       </p>
     </div>
 
     <div class="slider-container-box reveal visible">
-      <div class="catalog-window">
+      <div class="catalog-window" onwheel="this.scrollLeft += event.deltaY; event.preventDefault();">
         <div class="catalog-track">
           
           <div class="catalog-card">
             <div class="card-thumb">
-              <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng Gladia Heights 1PN">
+              <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng Gladia Heights 1BL">
+              <span class="card-badge">Căn Hộ 1PN - Mã Căn: 1BL</span>
+            </div>
+            <div class="card-body">
+              <h3>Căn Hộ 1 Phòng Ngủ (Dòng Lớn)</h3>
+              <div class="card-specs">
+                <p><span>Diện tích Tim Tường:</span> <strong>53.46 m²</strong></p>
+                <p><span>Diện tích Thông Thủy:</span> <strong>47.80 m²</strong></p>
+                <p><span>Vị trí:</span> <span>Tháp The Future (Tháp B1)</span></p>
+              </div>
+              <div class="card-price" style="color: rgba(255,255,255,0.4);">Chủ đầu tư chưa công bố giá chính thức</div>
+            </div>
+          </div>
+
+          <div class="catalog-card">
+            <div class="card-thumb">
+              <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng Gladia Heights 1BS">
               <span class="card-badge">Căn Hộ 1PN - Mã Căn: 1BS</span>
             </div>
             <div class="card-body">
               <h3>Căn Hộ 1 Phòng Ngủ Luxury</h3>
               <div class="card-specs">
-                <p><span>Diện tích Tim Tường:</span> <strong>53.46 m²</strong></p>
-                <p><span>Diện tích Thông Thủy:</span> <strong>47.80 m²</strong></p>
-                <p><span>Tiêu chuẩn:</span> <span>Bàn giao linh hoạt</span></p>
+                <p><span>Diện tích Tim Tường:</span> <strong>51.23 m²</strong></p>
+                <p><span>Diện tích Thông Thủy:</span> <strong>45.75 m²</strong></p>
+                <p><span>Tiêu chuẩn:</span> <span>Bàn giao linh hoạt đợt 1</span></p>
               </div>
               <div class="card-price">Từ 4.4 Tỷ - 4.86 Tỷ *</div>
             </div>
@@ -97,10 +113,10 @@
         </div>
       </div>
       
-      <div class="scroll-tip-indicator">↔ Vuốt hoặc cuộn sang ngang để xem thêm các loại căn hộ ↔</div>
+      <div class="scroll-tip-indicator">↔ Lăn chuột giữa trên PC hoặc Vuốt ngang trên Mobile để xem thêm ↔</div>
     </div>
     
-    <p style="font-size: 0.75rem; color: rgba(255,255,255,0.35); text-align: left; margin-top: 15px;">
+    <p style="font-size: 0.75rem; color: rgba(255,255,255,0.35); text-align: left; margin-top: 25px;">
       * Ghi chú: Mức giá công bố là giá dự kiến truyền thông đợt 1 (Chưa VAT và chưa trừ chiết khấu đặt chỗ sớm 2%).
     </p>
 
@@ -109,29 +125,26 @@
   <style>
     .slider-container-box { position: relative; width: 100%; margin-top: 10px; }
     
-    /* Thiết lập khung nhìn trượt mượt chống nghẽn bằng cơ chế cứng của Trình duyệt */
     .catalog-window { 
       width: 100%; 
       overflow-x: auto; 
-      padding: 20px 0;
+      padding: 20px 0 10px 0;
       scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch; /* Giúp vuốt cực mượt trên iPhone/Safari */
+      -webkit-overflow-scrolling: touch;
     }
     
-    /* Ẩn thanh cuộn xấu xí của trình duyệt để giữ thẩm mỹ Luxury */
+    /* Ẩn thanh cuộn mặc định để giữ giao diện Luxury sạch sẽ */
     .catalog-window::-webkit-scrollbar { display: none; }
     .catalog-window { -ms-overflow-style: none; scrollbar-width: none; }
     
-    /* Layout dàn hàng ngang tự động căn chỉnh mốc dừng (Snap) */
     .catalog-track { 
       display: flex; 
       gap: 30px; 
       width: max-content;
-      padding: 0 10px;
+      padding: 0 10px 15px 10px;
       scroll-snap-type: x mandatory;
     }
     
-    /* Thẻ sản phẩm cao cấp hiệu ứng 3D đổ bóng khối khi di chuột */
     .catalog-card {
       width: 360px; 
       background: rgba(255, 255, 255, 0.02); 
@@ -140,7 +153,7 @@
       overflow: hidden; 
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-      scroll-snap-align: start; /* Ép thẻ tự động dừng khít góc khi vuốt qua */
+      scroll-snap-align: start;
     }
     .catalog-card:hover { 
       transform: translateY(-8px); 
