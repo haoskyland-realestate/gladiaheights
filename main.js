@@ -64,36 +64,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 4. QUẢN LÝ TƯƠNG TÁC ĐỘNG (INTERACTION LAYER)
     initGlobalInteractions() {
-      this.initNavbarTracing();
-      this.initSmoothAnchorNavigation();
-      this.initTabSwitching();
-      this.initScrollReveal();
-      this.initTelegramLeadCapture();
     },
 
     // 4.1. Thanh chỉ báo tiến trình cuộn trang & Kiểu dáng Nav
     initNavbarTracing() {
-      const nav = document.querySelector("nav");
-      const progressIndicator = document.getElementById("scrollIndicator");
-      if (!nav && !progressIndicator) return;
-
-      window.addEventListener("scroll", () => {
-        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
-        
-        if (progressIndicator) progressIndicator.style.width = `${scrolled}%`;
-
-        if (window.scrollY > 40) {
-          nav.style.background = "rgba(14, 14, 14, 0.96)";
-          nav.style.height = "65px";
-          nav.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.5)";
-        } else {
-          nav.style.background = "rgba(14, 14, 14, 0.85)";
-          nav.style.height = "70px";
-          nav.style.boxShadow = "none";
-        }
-      });
     },
 
     // 4.2. Mốc cuộn mượt Anchor Link nội bộ
