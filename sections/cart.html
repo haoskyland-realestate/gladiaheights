@@ -1,7 +1,7 @@
 <section class="apartment-section" id="mat-bang">
   <div class="container">
     
-    <div class="reveal">
+    <div class="reveal visible">
       <span class="section-label">Thiết Kế Độc Bản</span>
       <h2 class="section-title">Danh Mục Sản Phẩm<br>& Mặt Bằng Chi Tiết</h2>
       <div class="gold-line"></div>
@@ -10,198 +10,188 @@
       </p>
     </div>
 
-    <div class="catalog-filters reveal" style="transition-delay: 0.1s; display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap;">
-      <button class="filter-btn active" onclick="window.filterCatalog('all')">Tất Cả Sản Phẩm</button>
-      <button class="filter-btn" onclick="window.filterCatalog('1pn')">Căn Hộ 1 PN</button>
-      <button class="filter-btn" onclick="window.filterCatalog('2pn')">Căn Hộ 2 PN</button>
-      <button class="filter-btn" onclick="window.filterCatalog('3pn')">Căn Hộ 3 PN</button>
-      <button class="filter-btn" onclick="window.filterCatalog('4pn')">Căn Hộ 4 PN</button>
+    <div class="catalog-filters reveal visible" style="transition-delay: 0.1s;">
+      <button class="filter-btn active" data-filter="all">Tất Cả Sản Phẩm</button>
+      <button class="filter-btn" data-filter="1pn">Căn Hộ 1 PN</button>
+      <button class="filter-btn" data-filter="2pn">Căn Hộ 2 PN</button>
+      <button class="filter-btn" data-filter="3pn">Căn Hộ 3 PN</button>
+      <button class="filter-btn" data-filter="4pn">Căn Hộ 4 PN</button>
     </div>
 
-    <div class="slider-wrapper reveal" style="transition-delay: 0.2s; position: relative; width: 100%; overflow: hidden; padding: 20px 0 40px;">
-      
-      <div class="catalog-track" id="catalogTrack" style="display: flex; gap: 30px; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform;">
-        
-        <div class="catalog-card" data-type="1pn">
-          <div class="card-thumb">
-            <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng Gladia Heights 1PN">
-            <span class="card-badge">Mã Căn: 1BS</span>
-          </div>
-          <div class="card-body">
-            <h3>Căn Hộ 1 Phòng Ngủ Luxury</h3>
-            <div class="card-specs">
-              <p><span>Diện tích Tim Tường:</span> <strong>53.46 m²</strong></p>
-              <p><span>Diện tích Thông Thủy:</span> <strong>47.80 m²</strong></p>
-              <p><span>Tiêu chuẩn:</span> <span>Bàn giao linh hoạt</span></p>
+    <div class="slider-container-box reveal visible" style="transition-delay: 0.2s;">
+      <div class="catalog-window">
+        <div class="catalog-track" id="catalogTrack">
+          
+          <div class="catalog-card" data-type="1pn">
+            <div class="card-thumb">
+              <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng Gladia Heights 1PN">
+              <span class="card-badge">Mã Căn: 1BS</span>
             </div>
-            <div class="card-price">Từ 4.4 Tỷ - 4.86 Tỷ *</div>
-          </div>
-        </div>
-
-        <div class="catalog-card" data-type="1pn">
-          <div class="card-thumb">
-            <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng Gladia Heights 1BL">
-            <span class="card-badge">Mã Căn: 1BL</span>
-          </div>
-          <div class="card-body">
-            <h3>Căn Hộ 1 Phòng Ngủ (Dòng Lớn)</h3>
-            <div class="card-specs">
-              <p><span>Diện tích Tim Tường:</span> <strong>Đang cập nhật</strong></p>
-              <p><span>Diện tích Thông Thủy:</span> <strong>Đang cập nhật</strong></p>
-              <p><span>Thiết kế:</span> <span>Đặc quyền ngoại giao</span></p>
+            <div class="card-body">
+              <h3>Căn Hộ 1 Phòng Ngủ Luxury</h3>
+              <div class="card-specs">
+                <p><span>Diện tích Tim Tường:</span> <strong>53.46 m²</strong></p>
+                <p><span>Diện tích Thông Thủy:</span> <strong>47.80 m²</strong></p>
+                <p><span>Tiêu chuẩn:</span> <span>Bàn giao linh hoạt</span></p>
+              </div>
+              <div class="card-price">Từ 4.4 Tỷ - 4.86 Tỷ *</div>
             </div>
-            <div class="card-price" style="color: rgba(255,255,255,0.4);">Liên hệ nhận bảng giá</div>
           </div>
-        </div>
 
-        <div class="catalog-card" data-type="2pn">
-          <div class="card-thumb">
-            <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng Gladia Heights 2BS">
-            <span class="card-badge">Mã Căn: 2BS-a / 2BS-c</span>
-          </div>
-          <div class="card-body">
-            <h3>Căn Hộ 2 Phòng Ngủ (Tháp B2)</h3>
-            <div class="card-specs">
-              <p><span>Diện tích Tim Tường:</span> <strong>71.35m² - 71.55m²</strong></p>
-              <p><span>Diện tích Thông Thủy:</span> <strong>64.40m² - 64.45m²</strong></p>
-              <p><span>Vị trí:</span> <span>Tháp The First (Bàn giao hoàn thiện)</span></p>
+          <div class="catalog-card" data-type="1pn">
+            <div class="card-thumb">
+              <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng Gladia Heights 1BL">
+              <span class="card-badge">Mã Căn: 1BL</span>
             </div>
-            <div class="card-price">Chỉ Từ 6.5 Tỷ *</div>
-          </div>
-        </div>
-
-        <div class="catalog-card" data-type="2pn">
-          <div class="card-thumb">
-            <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng Gladia Heights 2BL">
-            <span class="card-badge">Mã Căn: 2BL-a</span>
-          </div>
-          <div class="card-body">
-            <h3>Căn Hộ 2 Phòng Ngủ (Dòng Lớn)</h3>
-            <div class="card-specs">
-              <p><span>Diện tích Tim Tường:</span> <strong>85.09 m²</strong></p>
-              <p><span>Diện tích Thông Thủy:</span> <strong>77.29 m²</strong></p>
-              <p><span>Vị trí:</span> <span>Tháp The Advanta (Bàn giao chuẩn)</span></p>
+            <div class="card-body">
+              <h3>Căn Hộ 1 Phòng Ngủ (Dòng Lớn)</h3>
+              <div class="card-specs">
+                <p><span>Diện tích Tim Tường:</span> <strong>Đang cập nhật</strong></p>
+                <p><span>Diện tích Thông Thủy:</span> <strong>Đang cập nhật</strong></p>
+                <p><span>Thiết kế:</span> <span>Đặc quyền ngoại giao</span></p>
+              </div>
+              <div class="card-price" style="color: rgba(255,255,255,0.4);">Liên hệ nhận bảng giá</div>
             </div>
-            <div class="card-price">Chỉ Từ 6.8 Tỷ *</div>
           </div>
-        </div>
 
-        <div class="catalog-card" data-type="3pn">
-          <div class="card-thumb">
-            <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng Gladia Heights 3BS">
-            <span class="card-badge">Mã Căn: 3BS</span>
-          </div>
-          <div class="card-body">
-            <h3>Căn Hộ 3 Phòng Ngủ Premium</h3>
-            <div class="card-specs">
-              <p><span>Diện tích Tim Tường:</span> <strong>114.95 m²</strong></p>
-              <p><span>Diện tích Thông Thủy:</span> <strong>105.30 m²</strong></p>
-              <p><span>Vị trí:</span> <span>Tháp The Advanta (Bàn giao chuẩn)</span></p>
+          <div class="catalog-card" data-type="2pn">
+            <div class="card-thumb">
+              <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng Gladia Heights 2BS">
+              <span class="card-badge">Mã Căn: 2BS-a / 2BS-c</span>
             </div>
-            <div class="card-price">Chỉ Từ 9.6 Tỷ *</div>
-          </div>
-        </div>
-
-        <div class="catalog-card" data-type="3pn">
-          <div class="card-thumb">
-            <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng Gladia Heights 3BL">
-            <span class="card-badge">Mã Căn: 3BL-a / 3BL-b</span>
-          </div>
-          <div class="card-body">
-            <h3>Căn Hộ 3 Phòng Ngủ (Dòng Lớn)</h3>
-            <div class="card-specs">
-              <p><span>Diện tích Tim Tường:</span> <strong>123.85m² - 124.70m²</strong></p>
-              <p><span>Diện tích Thông Thủy:</span> <strong>113.06m² - 114.42m²</strong></p>
-              <p><span>Tiêu chuẩn:</span> <span>Không gian Panorama đắt giá</span></p>
+            <div class="card-body">
+              <h3>Căn Hộ 2 Phòng Ngủ (Tháp B2)</h3>
+              <div class="card-specs">
+                <p><span>Diện tích Tim Tường:</span> <strong>71.35m² - 71.55m²</strong></p>
+                <p><span>Diện tích Thông Thủy:</span> <strong>64.40m² - 64.45m²</strong></p>
+                <p><span>Vị trí:</span> <span>Tháp The First (Bàn giao hoàn thiện)</span></p>
+              </div>
+              <div class="card-price">Chỉ Từ 6.5 Tỷ *</div>
             </div>
-            <div class="card-price">Ước tính từ 10.2 Tỷ *</div>
           </div>
-        </div>
 
-        <div class="catalog-card" data-type="4pn">
-          <div class="card-thumb">
-            <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng Gladia Heights 4B">
-            <span class="card-badge">Mã Căn: 4B (Độc Bản)</span>
-          </div>
-          <div class="card-body">
-            <h3>Sky Suite 4 Phòng Ngủ Grand</h3>
-            <div class="card-specs">
-              <p><span>Diện tích Tim Tường:</span> <strong>144.19 m²</strong></p>
-              <p><span>Diện tích Thông Thủy:</span> <strong>130.75 m²</strong></p>
-              <p><span>Tầm nhìn:</span> <span>Trực diện thung lũng sông và bến du thuyền</span></p>
+          <div class="catalog-card" data-type="2pn">
+            <div class="card-thumb">
+              <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng Gladia Heights 2BL">
+              <span class="card-badge">Mã Căn: 2BL-a</span>
             </div>
-            <div class="card-price">Ước tính từ 12.0 Tỷ *</div>
+            <div class="card-body">
+              <h3>Căn Hộ 2 Phòng Ngủ (Dòng Lớn)</h3>
+              <div class="card-specs">
+                <p><span>Diện tích Tim Tường:</span> <strong>85.09 m²</strong></p>
+                <p><span>Diện tích Thông Thủy:</span> <strong>77.29 m²</strong></p>
+                <p><span>Vị trí:</span> <span>Tháp The Advanta (Bàn giao chuẩn)</span></p>
+              </div>
+              <div class="card-price">Chỉ Từ 6.8 Tỷ *</div>
+            </div>
           </div>
-        </div>
 
+          <div class="catalog-card" data-type="3pn">
+            <div class="card-thumb">
+              <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng Gladia Heights 3BS">
+              <span class="card-badge">Mã Căn: 3BS</span>
+            </div>
+            <div class="card-body">
+              <h3>Căn Hộ 3 Phòng Ngủ Premium</h3>
+              <div class="card-specs">
+                <p><span>Diện tích Tim Tường:</span> <strong>114.95 m²</strong></p>
+                <p><span>Diện tích Thông Thủy:</span> <strong>105.30 m²</strong></p>
+                <p><span>Vị trí:</span> <span>Tháp The Advanta (Bàn giao chuẩn)</span></p>
+              </div>
+              <div class="card-price">Chỉ Từ 9.6 Tỷ *</div>
+            </div>
+          </div>
+
+          <div class="catalog-card" data-type="3pn">
+            <div class="card-thumb">
+              <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng Gladia Heights 3BL">
+              <span class="card-badge">Mã Căn: 3BL-a / 3BL-b</span>
+            </div>
+            <div class="card-body">
+              <h3>Căn Hộ 3 Phòng Ngủ (Dòng Lớn)</h3>
+              <div class="card-specs">
+                <p><span>Diện tích Tim Tường:</span> <strong>123.85m² - 124.70m²</strong></p>
+                <p><span>Diện tích Thông Thủy:</span> <strong>113.06m² - 114.42m²</strong></p>
+                <p><span>Tiêu chuẩn:</span> <span>Không gian Panorama đắt giá</span></p>
+              </div>
+              <div class="card-price">Ước tính từ 10.2 Tỷ *</div>
+            </div>
+          </div>
+
+          <div class="catalog-card" data-type="4pn">
+            <div class="card-thumb">
+              <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng Gladia Heights 4B">
+              <span class="card-badge">Mã Căn: 4B (Độc Bản)</span>
+            </div>
+            <div class="card-body">
+              <h3>Sky Suite 4 Phòng Ngủ Grand</h3>
+              <div class="card-specs">
+                <p><span>Diện tích Tim Tường:</span> <strong>144.19 m²</strong></p>
+                <p><span>Diện tích Thông Thủy:</span> <strong>130.75 m²</strong></p>
+                <p><span>Tầm nhìn:</span> <span>Trực diện sông & bến du thuyền</span></p>
+              </div>
+              <div class="card-price">Ước tính từ 12.0 Tỷ *</div>
+            </div>
+          </div>
+
+        </div>
       </div>
 
-      <button class="slide-nav prev" onclick="window.moveSlider(-1)" aria-label="Slide trước">⟨</button>
-      <button class="slide-nav next" onclick="window.moveSlider(1)" aria-label="Slide kế tiếp">⟩</button>
+      <button class="slide-nav prev" id="btnPrevSlide">⟨</button>
+      <button class="slide-nav next" id="btnNextSlide">⟩</button>
     </div>
     
-    <p style="font-size: 0.75rem; color: rgba(255,255,255,0.35); text-align: left; margin-top: -10px;">
+    <p style="font-size: 0.75rem; color: rgba(255,255,255,0.35); text-align: left; margin-top: 15px;">
       * Ghi chú: Mức giá công bố là giá dự kiến truyền thông đợt 1 (Chưa VAT và chưa trừ chiết khấu đặt chỗ sớm 2%).
     </p>
 
   </div>
+
+  <style>
+    .catalog-filters { display: flex; gap: 12px; margin-bottom: 35px; flex-wrap: wrap; }
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(184, 154, 90, 0.2);
+      color: rgba(255, 255, 255, 0.7); padding: 10px 22px; font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease;
+    }
+    .filter-btn:hover, .filter-btn.active { background: #b89a5a; color: #0e0e0e; border-color: #b89a5a; box-shadow: 0 5px 15px rgba(184, 154, 90, 0.3); }
+    
+    .slider-container-box { position: relative; width: 100%; margin-top: 10px; }
+    .catalog-window { width: 100%; overflow: hidden; padding: 15px 0; }
+    .catalog-track { display: flex; gap: 24px; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; width: max-content; }
+    
+    .catalog-card {
+      width: 360px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 6px; overflow: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    }
+    .catalog-card:hover { transform: translateY(-6px); border-color: rgba(184, 154, 90, 0.4); box-shadow: 0 15px 35px rgba(184, 154, 90, 0.15); background: rgba(255, 255, 255, 0.04); }
+    
+    .card-thumb { position: relative; width: 100%; height: 230px; overflow: hidden; background: #000; }
+    .card-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: transform 0.5s ease; }
+    .catalog-card:hover .card-thumb img { transform: scale(1.05); opacity: 1; }
+    
+    .card-badge { position: absolute; top: 15px; left: 15px; background: rgba(14, 14, 14, 0.85); border: 1px solid #b89a5a; color: #d4b87a; padding: 5px 12px; font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; border-radius: 2px; }
+    .card-body { padding: 24px; }
+    .card-body h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: #fff; margin-bottom: 16px; font-weight: 600; }
+    .card-specs { display: flex; flex-direction: column; gap: 10px; }
+    .card-specs p { display: flex; justify-content: space-between; font-size: 0.85rem; color: rgba(255,255,255,0.5); border-bottom: 1px dashed rgba(255,255,255,0.06); padding-bottom: 6px; margin: 0; }
+    .card-specs p strong { color: #d4b87a; font-weight: 600; }
+    .card-price { font-size: 1.2rem; font-weight: 700; color: #b89a5a; margin-top: 18px; letter-spacing: 0.5px; }
+    
+    .slide-nav {
+      position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(14, 14, 14, 0.85); border: 1px solid rgba(184, 154, 90, 0.3); color: #d4b87a;
+      font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; z-index: 10;
+    }
+    .slide-nav:hover { background: #b89a5a; color: #0e0e0e; border-color: #b89a5a; box-shadow: 0 0 15px rgba(184, 154, 90, 0.4); }
+    .slide-nav.prev { left: -22px; }
+    .slide-nav.next { right: -22px; }
+
+    @media (max-width: 768px) {
+      .catalog-card { width: 300px; }
+      .slide-nav.prev { left: 5px; }
+      .slide-nav.next { right: 5px; }
+    }
+  </style>
 </section>
-
-<script>
-(function() {
-  let currentX = 0;
-  
-  // Hàm di chuyển Slider bằng nút bấm
-  window.moveSlider = function(direction) {
-    const track = document.getElementById('catalogTrack');
-    if (!track) return;
-    
-    const visibleCards = Array.from(track.children).filter(card => card.style.display !== 'none');
-    if (visibleCards.length === 0) return;
-    
-    const cardWidth = visibleCards[0].offsetWidth + 30; // Chiều rộng thẻ + gap
-    const maxScroll = (visibleCards.length - 1) * cardWidth;
-    
-    currentX -= direction * cardWidth;
-    
-    // Giới hạn vùng trượt biên
-    if (currentX > 0) currentX = 0;
-    if (Math.abs(currentX) > maxScroll) currentX = -maxScroll;
-    
-    track.style.transform = `translateX(${currentX}px)`;
-  };
-
-  // Hàm xử lý bộ lọc Tab danh mục căn hộ
-  window.filterCatalog = function(type) {
-    const track = document.getElementById('catalogTrack');
-    const buttons = document.querySelectorAll('.filter-btn');
-    if (!track) return;
-
-    // Đổi trạng thái active cho nút bấm
-    buttons.forEach(btn => {
-      if(btn.getAttribute('onclick').includes(`'${type}'`)) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
-    });
-
-    // Reset tọa độ trượt về vạch xuất phát
-    currentX = 0;
-    track.style.transform = `translateX(0px)`;
-
-    // Thực hiện ẩn/hiện và tính toán hiệu ứng 3D chuyển động
-    const cards = track.querySelectorAll('.catalog-card');
-    cards.forEach(card => {
-      if (type === 'all' || card.getAttribute('data-type') === type) {
-        card.style.display = 'block';
-        card.style.opacity = '1';
-        card.style.transform = 'scale(1) translateY(0)';
-      } else {
-        card.style.display = 'none';
-        card.style.opacity = '0';
-      }
-    });
-  };
-})();
-</script>
