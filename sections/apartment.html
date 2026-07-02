@@ -1,37 +1,257 @@
-<section class="apartment-section">
+<section class="apartment-section" id="mat-bang">
   <div class="container">
     
-    <div class="reveal">
+    <div class="reveal visible">
       <span class="section-label">Kiến Trúc Tinh Hoa</span>
       <h2 class="section-title">Mặt Bằng Tổng Thể<br>& Thiết Kế Căn Hộ</h2>
       <div class="gold-line"></div>
       <p class="section-desc" style="max-width: 700px; margin-bottom: 40px;">
-        Mặt bằng dự án được quy hoạch thông minh nhằm tối ưu hóa tầm nhìn panorama hướng sông và 100% căn hộ đều đón ánh sáng tự nhiên. Các khối tháp được sắp đặt lệch góc khoa học, tạo khoảng thoáng đối lưu gió hoàn hảo cho toàn bộ không gian sống.
+        Mặt bằng dự án được quy hoạch thông minh nhằm tối ưu hóa tầm nhìn panorama hướng sông. Anh/Chị hãy <strong>bấm vào các nút danh mục</strong> dưới đây để chuyển đổi khu vực, và <strong>bấm trực tiếp vào ảnh</strong> để kích hoạt chế độ xem sắc nét, phóng to thu nhỏ chi tiết.
       </p>
     </div>
 
-    <div class="reveal" style="transition-delay: 0.1s;">
-      <div class="apt-grid">
-        <div class="apt-img">
-          <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng tổng thể tòa tháp">
-        </div>
-        <div class="apt-img">
-          <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Thiết kế căn hộ 1 Phòng ngủ">
-        </div>
-        <div class="apt-img">
-          <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Thiết kế căn hộ 2 Phòng ngủ">
-        </div>
-      </div>
+    <div class="blueprint-tab-container">
       
-      <div class="apt-grid-2">
-        <div class="apt-img">
-          <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Thiết kế căn hộ 3 Phòng ngủ">
+      <input type="radio" id="bp-tong-the" name="blueprint-filter" checked hidden>
+      <input type="radio" id="bp-tien-ich" name="blueprint-filter" hidden>
+      <input type="radio" id="bp-tang" name="blueprint-filter" hidden>
+      <input type="radio" id="bp-1pn" name="blueprint-filter" hidden>
+      <input type="radio" id="bp-2pn" name="blueprint-filter" hidden>
+      <input type="radio" id="bp-3pn" name="blueprint-filter" hidden>
+      <input type="radio" id="bp-4pn" name="blueprint-filter" hidden>
+
+      <div class="blueprint-nav-bar">
+        <label for="bp-tong-the" class="bp-trigger btn-tong-the">Mặt Bằng Tổng Thể</label>
+        <label for="bp-tien-ich" class="bp-trigger btn-tien-ich">Mặt Bằng Tiện Ích</label>
+        <label for="bp-tang" class="bp-trigger btn-tang">Mặt Bằng Tầng</label>
+        <label for="bp-1pn" class="bp-trigger btn-1pn">Căn Hộ 1PN</label>
+        <label for="bp-2pn" class="bp-trigger btn-2pn">Căn Hộ 2PN</label>
+        <label for="bp-3pn" class="bp-trigger btn-3pn">Căn Hộ 3PN</label>
+        <label for="bp-4pn" class="bp-trigger btn-4pn">Căn Hộ 4PN</label>
+      </div>
+
+      <div class="blueprint-grid-display">
+        
+        <div class="blueprint-card view-tong-the">
+          <div class="bp-img-wrapper" onclick="window.openLuxuryLightbox(this)">
+            <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng tổng thể Gladia Heights">
+            <div class="bp-hover-overlay"><span>✦ Xem phóng to chi tiết</span></div>
+          </div>
+          <div class="bp-meta"><h4>Mặt Bằng Tổng Thể Dự Án</h4><p>Quy hoạch cảnh quan & giao thông nội khu</p></div>
         </div>
-        <div class="apt-img">
-          <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Thiết kế Penthouse thượng lưu">
+
+        <div class="blueprint-card view-tien-ich">
+          <div class="bp-img-wrapper" onclick="window.openLuxuryLightbox(this)">
+            <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng tiện ích Gladia Heights">
+            <div class="bp-hover-overlay"><span>✦ Xem phóng to chi tiết</span></div>
+          </div>
+          <div class="bp-meta"><h4>Sơ Đồ Phân Khu Tiện Ích</h4><p>Hệ thống hồ bơi, công viên ven sông & clubhouse</p></div>
         </div>
+
+        <div class="blueprint-card view-tang">
+          <div class="bp-img-wrapper" onclick="window.openLuxuryLightbox(this)">
+            <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Mặt bằng tầng điển hình tòa tháp">
+            <div class="bp-hover-overlay"><span>✦ Xem phóng to chi tiết</span></div>
+          </div>
+          <div class="bp-meta"><h4>Mặt Bằng Tầng Điển Hình</h4><p>Cơ cấu bố trí căn hộ và trục lõi thang máy</p></div>
+        </div>
+
+        <div class="blueprint-card view-1pn">
+          <div class="bp-img-wrapper" onclick="window.openLuxuryLightbox(this)">
+            <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Thiết kế chi tiết căn hộ 1PN Gladia Heights">
+            <div class="bp-hover-overlay"><span>✦ Xem phóng to chi tiết</span></div>
+          </div>
+          <div class="bp-meta"><h4>Chi Tiết Căn Hộ 1PN (Mã Căn: 1BS / 1BL)</h4><p>Diện tích: 51.23m² - 53.46m²</p></div>
+        </div>
+
+        <div class="blueprint-card view-2pn">
+          <div class="bp-img-wrapper" onclick="window.openLuxuryLightbox(this)">
+            <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Thiết kế chi tiết căn hộ 2PN Gladia Heights">
+            <div class="bp-hover-overlay"><span>✦ Xem phóng to chi tiết</span></div>
+          </div>
+          <div class="bp-meta"><h4>Chi Tiết Căn Hộ 2PN (Mã Căn: 2BS / 2BL)</h4><p>Diện tích: 71.35m² - 85.09m²</p></div>
+        </div>
+
+        <div class="blueprint-card view-3pn">
+          <div class="bp-img-wrapper" onclick="window.openLuxuryLightbox(this)">
+            <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Thiết kế chi tiết căn hộ 3PN Gladia Heights">
+            <div class="bp-hover-overlay"><span>✦ Xem phóng to chi tiết</span></div>
+          </div>
+          <div class="bp-meta"><h4>Chi Tiết Căn Hộ 3PN (Mã Căn: 3BS / 3BL)</h4><p>Diện tích: 114.95m² - 124.70m²</p></div>
+        </div>
+
+        <div class="blueprint-card view-4pn">
+          <div class="bp-img-wrapper" onclick="window.openLuxuryLightbox(this)">
+            <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Thiết kế chi tiết căn hộ 4PN Gladia Heights">
+            <div class="bp-hover-overlay"><span>✦ Xem phóng to chi tiết</span></div>
+          </div>
+          <div class="bp-meta"><h4>Chi Tiết Căn Hộ 4PN (Mã Căn: 4B Độc Bản)</h4><p>Diện tích: 144.19 m²</p></div>
+        </div>
+
       </div>
     </div>
 
   </div>
+
+  <div id="luxuryLightboxModal" class="luxury-lightbox" onclick="if(event.target.id==='luxuryLightboxModal') window.closeLuxuryLightbox();">
+    <span class="lightbox-close-btn" onclick="window.closeLuxuryLightbox()">✕</span>
+    <div class="lightbox-zoom-controls">
+      <button onclick="window.adjustLightboxZoom(0.15)">➕ Phóng To</button>
+      <button onclick="window.adjustLightboxZoom(-0.15)">➖ Thu Nhỏ</button>
+      <button onclick="window.resetLightboxZoom()">↩️ Reset</button>
+    </div>
+    <div class="lightbox-content-box">
+      <img id="lightboxTargetImg" src="" alt="Mặt bằng phóng to siêu nét" style="transform: scale(1); transition: transform 0.2s ease;">
+    </div>
+  </div>
+
+  <style>
+    .blueprint-tab-container { width: 100%; margin-top: 10px; }
+    .blueprint-nav-bar { display: flex; gap: 10px; margin-bottom: 35px; flex-wrap: wrap; }
+    
+    .bp-trigger {
+      background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(184, 154, 90, 0.2);
+      color: rgba(255, 255, 255, 0.7); padding: 10px 20px; font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+      cursor: pointer; transition: all 0.3s ease; user-select: none; display: inline-block;
+    }
+    .bp-trigger:hover { background: rgba(184, 154, 90, 0.15); color: #fff; }
+
+    /* MÀU ACTIVE CHO CÁC NÚT TAB BẰNG CSS PURE */
+    #bp-tong-the:checked ~ .blueprint-nav-bar .btn-tong-the,
+    #bp-tien-ich:checked ~ .blueprint-nav-bar .btn-tien-ich,
+    #bp-tang:checked ~ .blueprint-nav-bar .btn-tang,
+    #bp-1pn:checked ~ .blueprint-nav-bar .btn-1pn,
+    #bp-2pn:checked ~ .blueprint-nav-bar .btn-2pn,
+    #bp-3pn:checked ~ .blueprint-nav-bar .btn-3pn,
+    #bp-4pn:checked ~ .blueprint-nav-bar .btn-4pn {
+      background: #b89a5a; color: #0e0e0e; border-color: #b89a5a; box-shadow: 0 4px 12px rgba(184, 154, 90, 0.25);
+    }
+
+    /* QUY TRÌNH ẨN TỰ ĐỘNG THẺ THEO BỘ LỌC */
+    #bp-tong-the:checked ~ .blueprint-grid-display .blueprint-card,
+    #bp-tien-ich:checked ~ .blueprint-grid-display .blueprint-card,
+    #bp-tang:checked ~ .blueprint-grid-display .blueprint-card,
+    #bp-1pn:checked ~ .blueprint-grid-display .blueprint-card,
+    #bp-2pn:checked ~ .blueprint-grid-display .blueprint-card,
+    #bp-3pn:checked ~ .blueprint-grid-display .blueprint-card,
+    #bp-4pn:checked ~ .blueprint-grid-display .blueprint-card { display: none; opacity: 0; }
+
+    /* HIỂN THỊ CHÍNH XÁC DANH MỤC Blueprints */
+    #bp-tong-the:checked ~ .blueprint-grid-display .view-tong-the,
+    #bp-tien-ich:checked ~ .blueprint-grid-display .view-tien-ich,
+    #bp-tang:checked ~ .blueprint-grid-display .view-tang,
+    #bp-1pn:checked ~ .blueprint-grid-display .view-1pn,
+    #bp-2pn:checked ~ .blueprint-grid-display .view-2pn,
+    #bp-3pn:checked ~ .blueprint-grid-display .view-3pn,
+    #bp-4pn:checked ~ .blueprint-grid-display .view-4pn { display: block; opacity: 1; animation: fadeInLayout 0.4s ease-out; }
+
+    @keyframes fadeInLayout { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
+    /* CƠ CẤU LƯỚI KHUNG NHÌN SẢN PHẨM */
+    .blueprint-grid-display { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 30px; width: 100%; }
+    .blueprint-card { background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; }
+    .bp-img-wrapper { position: relative; width: 100%; height: 260px; background: #000; cursor: zoom-in; overflow: hidden; }
+    .bp-img-wrapper img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: all 0.4s ease; }
+    .blueprint-card:hover .bp-img-wrapper img { transform: scale(1.03); opacity: 1; }
+    
+    .bp-hover-overlay {
+      position: absolute; inset: 0; background: rgba(14, 14, 14, 0.4); display: flex; align-items: center;
+      justify-content: center; opacity: 0; transition: all 0.3s;
+    }
+    .bp-img-wrapper:hover .bp-hover-overlay { opacity: 1; }
+    .bp-hover-overlay span { color: #d4b87a; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; border: 1px solid #b89a5a; padding: 8px 16px; background: rgba(0,0,0,0.7); letter-spacing: 1px; }
+    
+    .bp-meta { padding: 20px; border-top: 1px solid rgba(255,255,255,0.04); }
+    .bp-meta h4 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: #fff; margin-bottom: 6px; }
+    .bp-meta p { font-size: 0.82rem; color: rgba(255,255,255,0.45); margin: 0; }
+
+    /* ===== GIAO DIỆN LIGHTBOX SIÊU NÉT PHÓNG TO/THU NHỎ ===== */
+    .luxury-lightbox {
+      position: fixed; inset: 0; z-index: 99999; background: rgba(8, 8, 8, 0.95);
+      display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    }
+    .lightbox-close-btn {
+      position: absolute; top: 25px; right: 35px; color: rgba(255,255,255,0.6); font-size: 2rem;
+      cursor: pointer; transition: color 0.3s; user-select: none; z-index: 100001;
+    }
+    .lightbox-close-btn:hover { color: #b89a5a; }
+    
+    .lightbox-zoom-controls {
+      position: absolute; top: 25px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 10px; z-index: 100001; background: rgba(22, 22, 22, 0.8);
+      padding: 6px 14px; border: 1px solid rgba(184, 154, 90, 0.3); border-radius: 30px;
+    }
+    .lightbox-zoom-controls button {
+      background: transparent; border: none; color: #fff; font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 0.78rem; font-weight: 600; cursor: pointer; padding: 4px 10px; transition: color 0.2s;
+    }
+    .lightbox-zoom-controls button:hover { color: #d4b87a; }
+    
+    .lightbox-content-box {
+      width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+      overflow: auto; margin-top: 40px;
+    }
+    .lightbox-content-box img {
+      max-width: 90%; max-height: 85vh; object-fit: contain;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    }
+
+    @media (max-width: 900px) {
+      .blueprint-grid-display { grid-template-columns: 1fr; gap: 20px; }
+      .blueprint-nav-bar { gap: 6px; }
+      .bp-trigger { padding: 8px 14px; font-size: 0.7rem; }
+      .lightbox-zoom-controls { width: max-content; }
+    }
+  </style>
+
+  <script>
+    (function() {
+      let currentScale = 1;
+
+      // Hàm kích hoạt mở cửa sổ ảnh
+      window.openLuxuryLightbox = function(wrapperElement) {
+        const sourceImgSrc = wrapperElement.querySelector('img').src;
+        const modal = document.getElementById('luxuryLightboxModal');
+        const targetImg = document.getElementById('lightboxTargetImg');
+        
+        if (!modal || !targetImg) return;
+        
+        currentScale = 1;
+        targetImg.style.transform = `scale(${currentScale})`;
+        targetImg.src = sourceImgSrc;
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Khóa cuộn trang nền
+      };
+
+      // Hàm đóng cửa sổ ảnh
+      window.closeLuxuryLightbox = function() {
+        const modal = document.getElementById('luxuryLightboxModal');
+        if (modal) modal.style.display = 'none';
+        document.body.style.overflow = ''; // Mở lại cuộn trang nền
+      };
+
+      // Hàm tăng/giảm tỷ lệ phóng to ảnh chi tiết
+      window.adjustLightboxZoom = function(amount) {
+        const targetImg = document.getElementById('lightboxTargetImg');
+        if (!targetImg) return;
+        
+        currentScale += amount;
+        // Giới hạn biên phóng to từ 0.5 lần đến tối đa 3.5 lần tránh vỡ kết cấu hình học
+        if (currentScale < 0.5) currentScale = 0.5;
+        if (currentScale > 3.5) currentScale = 3.5;
+        
+        targetImg.style.transform = `scale(${currentScale})`;
+      };
+
+      // Hàm đưa ảnh về kích cỡ chuẩn ban đầu
+      window.resetLightboxZoom = function() {
+        const targetImg = document.getElementById('lightboxTargetImg');
+        if (!targetImg) return;
+        currentScale = 1;
+        targetImg.style.transform = `scale(${currentScale})`;
+      };
+    })();
+  </script>
 </section>
