@@ -1,11 +1,150 @@
 /**
  * ARCHITECTURAL CORE ENGINE - HÀO SKY LAND LANDING PAGE (2026)
  * Author: Chuyên gia Lập trình Frontend Cấp cao
- * Version: 2.6.0 (Authorized Real-time Telegram Pipeline, Cache-Busting & Mobile Menu)
+ * Version: 2.7.0 (Authorized Real-time Telegram Pipeline, Cache-Busting, Mobile Menu & Particle 3D)
  */
 
 document.addEventListener("DOMContentLoaded", () => {
   
+  // ==========================================
+  // MODULE 1: HỆ THỐNG HẠT VẬT LÝ (PARTICLE 3D)
+  // ==========================================
+  const ParticleEngine = {
+    canvas: null,
+    ctx: null,
+    particlesArray: [],
+    mouse: { x: null, y: null, radius: 150 }, // Bán kính tương tác nổ
+    isExploding: false,
+    
+    init() {
+      this.canvas = document.getElementById("particle-canvas");
+      if (!this.canvas) return;
+      this.ctx = this.canvas.getContext("2d");
+      
+      // Đồng bộ kích thước canvas với màn hình
+      this.resizeCanvas();
+      window.addEventListener("resize", () => this.resizeCanvas());
+
+      // Lắng nghe sự kiện click để tạo vụ nổ (Explosion/Repulse Effect)
+      this.canvas.addEventListener("click", (e) => {
+        const rect = this.canvas.getBoundingClientRect();
+        this.mouse.x = e.clientX - rect.left;
+        this.mouse.y = e.clientY - rect.top;
+        this.explode();
+      });
+
+      this.createParticles();
+      this.animate();
+      console.log("[Particle Engine] Đã khởi chạy hệ thống Particle 3D.");
+    },
+
+    resizeCanvas() {
+      if (!this.canvas) return;
+      this.canvas.width = this.canvas.parentElement.offsetWidth;
+      this.canvas.height = this.canvas.parentElement.offsetHeight;
+      // Khởi tạo lại hạt để phủ kín không gian mới
+      if (this.particlesArray.length > 0) {
+        this.createParticles();
+      }
+    },
+
+    createParticles() {
+      this.particlesArray = [];
+      // Số lượng hạt phụ thuộc vào diện tích màn hình để tránh giật lag
+      let numberOfParticles = (this.canvas.width * this.canvas.height) / 12000;
+      if (numberOfParticles > 200) numberOfParticles = 200; // Giới hạn tối đa
+
+      for (let i = 0; i < numberOfParticles; i++) {
+        let x = Math.random() * this.canvas.width;
+        let y = Math.random() * this.canvas.height;
+        let size = (Math.random() * 2) + 1;
+        // Vận tốc gốc
+        let vx = (Math.random() * 1) - 0.5;
+        let vy = (Math.random() * 1) - 0.5;
+        
+        this.particlesArray.push({
+          x: x, y: y, size: size,
+          baseVx: vx, baseVy: vy, // Giữ vận tốc gốc để hồi phục
+          vx: vx, vy: vy,
+          mass: size * 1.5 // Khối lượng để tính toán lực đẩy
+        });
+      }
+    },
+
+    explode() {
+      // Khi click, truyền lực đẩy mạnh vào các hạt nằm trong bán kính
+      for (let i = 0; i < this.particlesArray.length; i++) {
+        let p = this.particlesArray[i];
+        let dx = p.x - this.mouse.x;
+        let dy = p.y - this.mouse.y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < this.mouse.radius * 2) {
+          // Tính toán lực văng ra xa (càng gần tâm càng văng mạnh)
+          let forceDirectionX = dx / distance;
+          let forceDirectionY = dy / distance;
+          let force = (this.mouse.radius * 2 - distance) / (this.mouse.radius * 2);
+          
+          p.vx += forceDirectionX * force * 15; // Hệ số nhân lực nổ
+          p.vy += forceDirectionY * force * 15;
+        }
+      }
+    },
+
+    animate() {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      
+      for (let i = 0; i < this.particlesArray.length; i++) {
+        let p = this.particlesArray[i];
+        
+        // Ma sát làm giảm tốc độ văng về lại tốc độ gốc
+        p.vx += (p.baseVx - p.vx) * 0.02;
+        p.vy += (p.baseVy - p.vy) * 0.02;
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Bật tường (Bounce off edges)
+        if (p.x < 0 || p.x > this.canvas.width) { p.vx *= -1; p.baseVx *= -1; }
+        if (p.y < 0 || p.y > this.canvas.height) { p.vy *= -1; p.baseVy *= -1; }
+
+        // Vẽ hạt (Màu vàng kim)
+        this.ctx.beginPath();
+        this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        this.ctx.fillStyle = "rgba(184, 154, 90, 0.8)";
+        this.ctx.fill();
+      }
+
+      this.connect();
+      requestAnimationFrame(() => this.animate());
+    },
+
+    connect() {
+      // Vẽ các đường nối (mạng lưới) giữa các hạt gần nhau
+      let maxDistance = 120;
+      for (let a = 0; a < this.particlesArray.length; a++) {
+        for (let b = a; b < this.particlesArray.length; b++) {
+          let dx = this.particlesArray[a].x - this.particlesArray[b].x;
+          let dy = this.particlesArray[a].y - this.particlesArray[b].y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < maxDistance) {
+            let opacityValue = 1 - (distance / maxDistance);
+            this.ctx.strokeStyle = `rgba(184, 154, 90, ${opacityValue * 0.5})`;
+            this.ctx.lineWidth = 1;
+            this.ctx.beginPath();
+            this.ctx.moveTo(this.particlesArray[a].x, this.particlesArray[a].y);
+            this.ctx.lineTo(this.particlesArray[b].x, this.particlesArray[b].y);
+            this.ctx.stroke();
+          }
+        }
+      }
+    }
+  };
+
+  // ==========================================
+  // MODULE 2: SPA LIFECYCLE ENGINE (LÕI XỬ LÝ)
+  // ==========================================
   const SPALifecycleEngine = {
     // 1. CẤU HÌNH HỆ THỐNG GIẢM THIỂU ĐỘ TRỄ
     config: {
@@ -18,6 +157,9 @@ document.addEventListener("DOMContentLoaded", () => {
     async bootstrap() {
       console.log("[SPA Engine] Khởi chạy vòng đời DOM...");
       
+      // Kích hoạt ngay Particle 3D vì Hero section đã nằm sẵn trong index.html
+      ParticleEngine.init();
+
       const sections = document.querySelectorAll("#app-runtime [data-section]");
       if (sections.length === 0) {
         this.initGlobalInteractions();
@@ -25,9 +167,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Kích hoạt nạp dữ liệu không đồng bộ song song qua Promise.all
+      // Bỏ qua Hero vì đã load tĩnh, chỉ fetch những file chưa có nội dung con
       const loadPromises = Array.from(sections).map(async (container) => {
         const sectionName = container.getAttribute("data-section");
-        return this.fetchAndInjectSection(sectionName, container);
+        if (sectionName !== "hero") {
+          return this.fetchAndInjectSection(sectionName, container);
+        }
       });
 
       await Promise.all(loadPromises);
@@ -69,7 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
       this.initTabSwitching();
       this.initScrollReveal();
       this.initTelegramLeadCapture();
-      this.initMobileMenu(); // Bổ sung Module Menu Mobile
+      this.initMobileMenu(); 
     },
 
     // 4.1. Thanh chỉ báo tiến trình cuộn trang & Kiểu dáng Nav
@@ -142,6 +287,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 4.4. Hiệu ứng Xuất hiện tiệm tiến (Fade-In Reveal)
     initScrollReveal() {
+      // Phải querySelectorAll vì lúc này DOM đã có các element được fetch về
       const reveals = document.querySelectorAll(".reveal");
       if (reveals.length === 0) return;
 
@@ -217,8 +363,7 @@ document.addEventListener("DOMContentLoaded", () => {
 `🔥 *CÓ KHÁCH HÀNG ĐĂNG KÝ MỚI* 🔥
 ━━━━━━━━━━━━━━━━━━
 👤 *info 1:* ${nameValue}
-📱 *info 2:* 
-${info2Content}
+📱 *info 2:* ${info2Content}
 🏢 *Dự án:* Gladia Heights
 🛌 *Nhu cầu:* ${apartmentType}
 🎯 *Mục đích:* ${purposeValue}
@@ -309,5 +454,6 @@ ${info2Content}
     }
   };
 
+  // Kích hoạt toàn bộ hệ thống
   SPALifecycleEngine.bootstrap();
 });
