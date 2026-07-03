@@ -1,291 +1,188 @@
 /**
- * ARCHITECTURAL CORE ENGINE - HÀO SKY LAND LANDING PAGE (2026)
- * Author: Chuyên gia Lập trình Frontend Cấp cao
- * Version: 2.5.0 (Authorized Real-time Telegram Pipeline & Cache-Busting)
+ * SENIOR SPA ENGINE - BY HÀO SKY LAND (2026)
+ * - Tự động nạp song song (Promise.all)
+ * - Event Delegation toàn cục (Bypass XSS block form Telegram)
+ * - Quản lý DOM Lifecycle & Anchor Hash Navigation
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-  
-  const SPALifecycleEngine = {
-    // 1. CẤU HÌNH HỆ THỐNG GIẢM THIỂU ĐỘ TRỄ
+  const AppEngine = {
     config: {
-      sectionDir: "sections",          
-      scrollOffset: 70,                
-      animationDelay: 400              
+      telegramToken: '8674808661:AAFsxIrYdIXxOSNMhaLyYxwSPTxYLtzgHVE', 
+      telegramChatId: '8218828728'
     },
 
-    // 2. KHỞI CHẠY HỆ THỐNG ĐỒNG BỘ SONG SONG (BOOTSTRAP)
-    async bootstrap() {
-      console.log("[SPA Engine] Khởi chạy vòng đời DOM...");
-      
-      const sections = document.querySelectorAll("#app-runtime [data-section]");
-      if (sections.length === 0) {
-        this.initGlobalInteractions();
-        return;
+    // 1. KHỞI TẠO VÒNG ĐỜI
+    async init() {
+      // Bật Màn hình chờ (Loader) nếu anh đã định nghĩa trong HTML, nếu không sẽ bỏ qua
+      const loader = document.getElementById('global-loader');
+      if (loader) loader.style.opacity = '1';
+
+      // Nạp cấu phần HTML
+      await this.loadPartials();
+
+      // Sau khi DOM đã render đủ -> Kích hoạt tính năng
+      if (loader) {
+        loader.style.opacity = '0';
+        setTimeout(() => loader.remove(), 600);
       }
 
-      // Kích hoạt nạp dữ liệu không đồng bộ song song qua Promise.all
-      const loadPromises = Array.from(sections).map(async (container) => {
+      this.bindMobileMenu();
+      this.bindDelegatedEvents();
+      this.initScrollReveal();
+      this.initScrollProgress();
+      this.resolveAnchorHash();
+    },
+
+    // 2. FETCH SONG SONG ĐỂ ĐẨY NHANH TỐC ĐỘ TẢI TRANG
+    async loadPartials() {
+      const placeholders = document.querySelectorAll("#app-runtime [data-section]");
+      if (placeholders.length === 0) return;
+
+      const fetchJobs = Array.from(placeholders).map(async (container) => {
         const sectionName = container.getAttribute("data-section");
-        return this.fetchAndInjectSection(sectionName, container);
+        const url = `sections/${sectionName}.html?v=${Date.now()}`; 
+        try {
+          const response = await fetch(url);
+          if (response.ok) {
+            container.innerHTML = await response.text();
+          }
+        } catch (error) {
+          console.error(`[Lỗi nạp cấu phần] ${sectionName}`, error);
+        }
       });
 
-      await Promise.all(loadPromises);
-      console.log("[SPA Engine] Toàn bộ cấu phần HTML đã được nạp vào DOM Tree ổn định.");
-
-      // Bước tiếp theo: Kích hoạt JavaScript tương tác sau khi DOM Tree hoàn thiện
-      this.initGlobalInteractions();
-
-      // Đảm bảo tính toán lại tọa độ mốc cuộn ban đầu
-      this.handleInitialAnchorHash();
+      // Bắt buộc chờ TẤT CẢ HTML chèn vào xong mới đi tiếp
+      await Promise.all(fetchJobs);
     },
 
-    // 3. TỰ ĐỘNG FETCH VÀ KHỬ CACHE TRÌNH DUYỆT (ANTI-CACHE ENGINE)
-    async fetchAndInjectSection(name, container) {
-      const cacheBuster = `?v=${new Date().getTime()}`;
-      const filePath = `${this.config.sectionDir}/${name}.html${cacheBuster}`;
+    // 3. XỬ LÝ SỰ KIỆN TOÀN CỤC (EVENT DELEGATION) CHO FORM TELEGRAM
+    bindDelegatedEvents() {
+      const runtime = document.getElementById("app-runtime");
       
-      try {
-        const response = await fetch(filePath);
-        if (!response.ok) throw new Error(`HTTP status ${response.status}`);
+      runtime.addEventListener("submit", async (e) => {
+        const form = e.target.closest("form");
+        if (!form) return;
         
-        const htmlText = await response.text();
-        container.innerHTML = htmlText;
-        console.log(`[Fetch Success] Đã nạp cấu phần: ${name}`);
-      } catch (error) {
-        console.error(`[Fetch Error] Thất bại khi nạp file: ${filePath}`, error);
-        container.innerHTML = `
-          <div style="padding: 50px 20px; text-align: center; color: var(--gold); border: 1px dashed var(--gold);">
-            <p>Hệ thống đang cập nhật cấu phần <strong>${name}</strong>.</p>
-          </div>
-        `;
-      }
-    },
-
-    // 4. QUẢN LÝ TƯƠNG TÁC ĐỘNG (INTERACTION LAYER)
-    initGlobalInteractions() {
-      this.initNavbarTracing();
-      this.initSmoothAnchorNavigation();
-      this.initTabSwitching();
-      this.initScrollReveal();
-      this.initTelegramLeadCapture();
-    },
-
-    // 4.1. Thanh chỉ báo tiến trình cuộn trang & Kiểu dáng Nav
-    initNavbarTracing() {
-      const nav = document.querySelector("nav");
-      const progressIndicator = document.getElementById("scrollIndicator");
-      if (!nav && !progressIndicator) return;
-
-      window.addEventListener("scroll", () => {
-        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+        e.preventDefault();
         
-        if (progressIndicator) progressIndicator.style.width = `${scrolled}%`;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn ? submitBtn.innerText : "GỬI ĐĂNG KÝ";
+        if (submitBtn) { submitBtn.innerText = "ĐANG ĐỒNG BỘ..."; submitBtn.disabled = true; }
 
-        if (window.scrollY > 40) {
-          nav.style.background = "rgba(14, 14, 14, 0.96)";
-          nav.style.height = "65px";
-          nav.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.5)";
-        } else {
-          nav.style.background = "rgba(14, 14, 14, 0.85)";
-          nav.style.height = "70px";
-          nav.style.boxShadow = "none";
+        try {
+          // Trích xuất dữ liệu
+          const formData = new FormData(form);
+          const nameVal = formData.get("name")?.trim() || "Chưa cung cấp";
+          let rawPhone = formData.get("phone")?.trim() || "";
+          const emailVal = formData.get("email")?.trim() || "";
+          
+          // Các trường option thêm tuỳ theo Form (Overview hoặc Contact)
+          const aptVal = formData.get("apartment_type") || "Chưa xác định";
+          const purposeVal = formData.get("purpose") || "Chưa xác định";
+          const noteVal = formData.get("note")?.trim() || "Trống";
+
+          // Chuẩn hóa định dạng số điện thoại +84 (Loại bỏ ký tự không phải số)
+          let cleanPhone = rawPhone.replace(/\D/g, '');
+          if (cleanPhone.startsWith('0')) cleanPhone = '+84' + cleanPhone.slice(1);
+          else if (cleanPhone.startsWith('84') && !cleanPhone.startsWith('+84')) cleanPhone = '+' + cleanPhone;
+          else if (!cleanPhone.startsWith('+84')) cleanPhone = '+84' + cleanPhone;
+
+          // Xây dựng chuỗi Info 2 (Ưu tiên Email theo quy định)
+          let info2 = emailVal ? `✉️ Email: ${emailVal}\n📞 ĐT: ${cleanPhone}` : `📞 ĐT: ${cleanPhone}`;
+
+          // Format tin nhắn Telegram
+          const mdMessage = 
+`🔥 *ĐĂNG KÝ MỚI TỪ GLADIA HEIGHTS* 🔥
+━━━━━━━━━━━━━━━━━━
+👤 *Info 1:* ${nameVal}
+📱 *Info 2:* 
+${info2}
+🏢 *Quan tâm:* ${aptVal}
+🎯 *Mục đích:* ${purposeVal}
+📝 *Ghi chú:* ${noteVal}
+━━━━━━━━━━━━━━━━━━
+📅 *Nguồn:* Website Chính Thức`;
+
+          await fetch(`https://api.telegram.org/bot${this.config.telegramToken}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: this.config.telegramChatId, text: mdMessage, parse_mode: 'Markdown' })
+          });
+
+          alert("Đăng ký thành công! Đội ngũ Hào Sky Land sẽ liên hệ tư vấn trong thời gian sớm nhất.");
+          form.reset();
+        } catch (err) {
+          console.error(err);
+          alert("Lỗi kết nối. Vui lòng thử lại hoặc gọi trực tiếp Hotline.");
+        } finally {
+          if (submitBtn) { submitBtn.innerText = originalText; submitBtn.disabled = false; }
         }
       });
     },
 
-    // 4.2. Mốc cuộn mượt Anchor Link nội bộ
-    initSmoothAnchorNavigation() {
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", (e) => {
-          e.preventDefault();
-          const targetId = anchor.getAttribute("href");
-          if (targetId === "#") return;
-
-          const targetElement = document.querySelector(targetId);
-          if (targetElement) {
-            this.scrollToTargetElement(targetElement);
-            history.pushState(null, null, targetId);
-          }
+    // 4. XỬ LÝ MENU MOBILE (3 GẠCH)
+    bindMobileMenu() {
+      const menuBtn = document.getElementById("mobileMenuBtn");
+      const navLinks = document.getElementById("navLinks");
+      
+      if(menuBtn && navLinks) {
+        // Bật/tắt menu
+        menuBtn.addEventListener("click", () => {
+          navLinks.classList.toggle("active");
         });
-      });
+
+        // Khi bấm vào 1 link thì tự động đóng menu lại
+        navLinks.querySelectorAll("a").forEach(link => {
+          link.addEventListener("click", () => {
+            navLinks.classList.remove("active");
+          });
+        });
+      }
     },
 
-    // 4.3. Logic Chuyển đổi Tab (Mặt Bằng / Hạ Tầng) qua Event Delegation
-    initTabSwitching() {
-      const runtimeContainer = document.getElementById("app-runtime");
-      if (!runtimeContainer) return;
-
-      runtimeContainer.addEventListener("click", (e) => {
-        const tabButton = e.target.closest(".infra-tab");
-        if (!tabButton) return;
-
-        const tabGroup = tabButton.closest(".infra-tabs");
-        if (!tabGroup) return;
-
-        const targetTabId = tabButton.getAttribute("data-tab");
-        const panelContainer = tabGroup.nextElementSibling;
-
-        if (!panelContainer || !targetTabId) return;
-
-        tabGroup.querySelectorAll(".infra-tab").forEach(t => t.classList.remove("active"));
-        panelContainer.querySelectorAll(".infra-panels > div").forEach(p => p.classList.remove("active"));
-
-        tabButton.classList.add("active");
-        const targetPanel = panelContainer.querySelector(`#${targetTabId}`);
-        if (targetPanel) targetPanel.classList.add("active");
-      });
-    },
-
-    // 4.4. Hiệu ứng Xuất hiện tiệm tiến (Fade-In Reveal)
+    // 5. HIỆU ỨNG REVEAL CHUẨN XÁC
     initScrollReveal() {
-      const reveals = document.querySelectorAll(".reveal");
-      if (reveals.length === 0) return;
-
-      const revealCallback = (entries, observer) => {
+      const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add("visible");
             observer.unobserve(entry.target);
           }
         });
-      };
-
-      const revealObserver = new IntersectionObserver(revealCallback, {
-        root: null,
-        threshold: 0.12,
-        rootMargin: "0px 0px -40px 0px"
-      });
-
-      reveals.forEach(el => revealObserver.observe(el));
-    },
-
-    // 4.5. ĐÃ XÁC THỰC BẢO MẬT: Đón chặn form và truyền dữ liệu real-time về Telegram Bot của Hào
-    initTelegramLeadCapture() {
-      const runtimeContainer = document.getElementById("app-runtime");
-      if (!runtimeContainer) return;
-
-      runtimeContainer.addEventListener("submit", async (e) => {
-        if (e.target && e.target.id === "contactForm") {
-          e.preventDefault();
-          const form = e.target;
-          const submitBtn = form.querySelector(".form-submit");
-          
-          if (submitBtn) {
-            submitBtn.innerText = "ĐANG KHỞI TẠO ĐƠN ĐĂNG KÝ...";
-            submitBtn.disabled = true;
-          }
-
-          // Định dạng số điện thoại tự động sang đầu số quốc tế +84
-          const formatPhoneNumber = (phone) => {
-            let cleaned = phone.replace(/\D/g, ''); 
-            if (cleaned.startsWith('0')) {
-              cleaned = '+84' + cleaned.slice(1);
-            } else if (cleaned.startsWith('84') && !cleaned.startsWith('+84')) {
-              cleaned = '+' + cleaned;
-            } else if (!cleaned.startsWith('+84')) {
-              cleaned = '+84' + cleaned;
-            }
-            return cleaned;
-          };
-
-          // Trích xuất thông tin an toàn thông qua các nhãn và thuộc tính name
-          const nameValue = form.querySelector('[name="name"]')?.value.trim() || "Không cung cấp";
-          let phoneValue = form.querySelector('[name="phone"]')?.value.trim() || "";
-          const emailValue = form.querySelector('[name="email"]')?.value.trim() || "Không cung cấp";
-          const apartmentType = form.querySelector('[name="apartment_type"]')?.value || "Chưa chọn";
-          const purposeValue = form.querySelector('[name="purpose"]')?.value || "Chưa chọn";
-          const noteValue = form.querySelector('[name="note"]')?.value.trim() || "Trống";
-
-          if (phoneValue) {
-            phoneValue = formatPhoneNumber(phoneValue);
-          } else {
-            phoneValue = "Không cung cấp";
-          }
-
-          // TOKEN VÀ CHAT ID THỰC TẾ CỦA HÀO SKY LAND (XÁC THỰC REAL-TIME)
-          const BOT_TOKEN = '8674808661:AAFsxIrYdIXxOSNMhaLyYxwSPTxYLtzgHVE';
-          const CHAT_ID = '8218828728';
-          
-          // Mẫu template thông báo chuẩn hóa theo quy tắc lưu trữ dữ liệu Info 1 & Info 2
-          const telegramMessage = 
-`🔥 *CÓ KHÁCH HÀNG ĐĂNG KÝ MỚI* 🔥
-━━━━━━━━━━━━━━━━━━
-👤 *Info 1 (Khách hàng):* ${nameValue}
-📞 *Info 2 (Số điện thoại):* [${phoneValue}](tel:${phoneValue})
-✉️ *Email:* ${emailValue}
-🏢 *Dự án:* Gladia Heights
-🛌 *Nhu cầu:* Căn hộ ${apartmentType}
-🎯 *Mục đích:* ${purposeValue}
-📝 *Ghi chú:* ${noteValue}
-━━━━━━━━━━━━━━━━━━
-📅 *Thời gian:* ${new Date().toLocaleString('vi-VN')}`;
-
-          try {
-            const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                chat_id: CHAT_ID,
-                text: telegramMessage,
-                parse_mode: "Markdown"
-              })
-            });
-            
-            if (!response.ok) throw new Error("Telegram Bot API Response Critical Error");
-            
-            alert("Đăng ký nhận tư vấn thành công! Hào Sky Land sẽ liên hệ trực tiếp đến Chị để tư vấn bài toán dòng tiền trong 15 phút.");
-            form.reset();
-          } catch (err) {
-            console.error("[Form Submit Error]", err);
-            alert("Hệ thống xử lý đang bận. Chị vui lòng liên hệ trực tiếp qua Hotline: 0986 986 049.");
-          } finally {
-            if (submitBtn) {
-              submitBtn.innerText = "✦ Gửi Đăng Ký Ngay";
-              submitBtn.disabled = false;
-            }
-          }
-        }
-      });
-    },
-
-    // 5. KHẮC PHỤC TRIỆT ĐỂ LỖI MẤT MỐC CUỘN ANCHOR HASH
-   // 5. KHẮC PHỤC TRIỆT ĐỂ LỖI MẤT MỐC CUỘN ANCHOR HASH VÀ NHẢY TRANG
-   handleInitialAnchorHash() {
-      const currentHash = window.location.hash;
+      }, { threshold: 0.1 });
       
-      // Nếu không có hash, hoặc hash là dấu # trống, hoặc hash trỏ thẳng vào vùng contact/lien-he lúc mới vào
-      if (!currentHash || currentHash === "#" || currentHash === "#contact" || currentHash === "#lien-he") {
-        // Ép trình duyệt đứng im tại tọa độ đỉnh đầu trang (Top: 0, Left: 0)
-        window.scrollTo({ top: 0, left: 0 });
-        return;
-      }
-
-      // Trì hoãn nhẹ để đợi layout của toàn bộ các file con tính toán xong chiều cao thực tế
-      setTimeout(() => {
-        try {
-          const targetSection = document.querySelector(currentHash);
-          if (targetSection) {
-            this.scrollToTargetElement(targetSection);
-          }
-        } catch (e) {
-          console.warn("[SPA Engine] Sai định dạng thẻ điều hướng:", e);
-        }
-      }, this.config.animationDelay);
+      document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
     },
-    
-    scrollToTargetElement(element) {
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-      const offsetPosition = elementPosition - this.config.scrollOffset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
+    // 6. THANH TIẾN TRÌNH CUỘN TRANG
+    initScrollProgress() {
+      const indicator = document.getElementById("scrollIndicator");
+      if(!indicator) return;
+      window.addEventListener("scroll", () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        indicator.style.width = scrolled + "%";
       });
+    },
+
+    // 7. XỬ LÝ LỖI MẤT MỐC CUỘN HASH LINK
+    resolveAnchorHash() {
+      const hash = window.location.hash;
+      if (hash && hash !== "#") {
+        setTimeout(() => {
+          const target = document.querySelector(hash);
+          if (target) {
+            const yOffset = -80; // Bù khoảng trống cho Navbar
+            const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+          }
+        }, 500); // Chờ 500ms để DOM bung đủ layout
+      }
     }
   };
 
-  SPALifecycleEngine.bootstrap();
+  // Khởi động Engine
+  AppEngine.init();
 });
