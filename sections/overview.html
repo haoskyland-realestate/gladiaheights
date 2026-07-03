@@ -4,7 +4,6 @@
     
     <!-- CỘT TRÁI: THÔNG TIN DỰ ÁN -->
     <div class="overview-content reveal">
-      
       <div class="ov-header">
         <span class="ov-number">01</span>
         <span class="ov-label">— THÔNG TIN DỰ ÁN GLADIA HEIGHTS</span>
@@ -64,7 +63,6 @@
           <span class="spec-v">Savills / CBRE</span>
         </div>
       </div>
-
     </div>
 
     <!-- CỘT PHẢI: FORM CHĂM SÓC KHÁCH HÀNG FLOATING CARD CỰC KỲ SANG TRỌNG -->
@@ -79,8 +77,8 @@
           Để lại thông tin, đội ngũ tư vấn sẽ gửi bảng giá chi tiết từng căn, giỏ hàng ưu đãi và mô phỏng bài toán dòng tiền qua Zalo.
         </p>
 
-        <!-- Form gắn sẵn hàm Bypass gọi API Telegram độc lập -->
-        <form id="heroLeadForm" onsubmit="window.submitHeroForm(event, this)">
+        <!-- LOẠI BỎ THUỘC TÍNH ONSUBMIT DO TRÌNH DUYỆT SẼ CHẶN -->
+        <form id="heroLeadForm">
           
           <div class="input-grid">
             <div class="input-group">
@@ -125,64 +123,53 @@
         <p class="form-privacy">Bằng việc gửi, Quý khách đồng ý được liên hệ tư vấn về dự án. Thông tin được bảo mật tuyệt đối.</p>
       </div>
     </div>
-
   </div>
 
-  <!-- INLINE PAYLOAD BYPASS GỬI TELEGRAM - ĐỒNG BỘ CẤU TRÚC CRM -->
-  <script>
-    window.submitHeroForm = async function(e, form) {
-      e.preventDefault();
-      const btn = form.querySelector('#heroSubmitBtn');
-      btn.innerText = "ĐANG XỬ LÝ...";
-      btn.disabled = true;
+  <!-- PAYLOAD BYPASS: Gắn sự kiện gửi Telegram mà không bị SPA chặn -->
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" style="display:none;" onload="
+    const form = document.getElementById('heroLeadForm');
+    if (form && !form.dataset.attached) {
+      form.dataset.attached = 'true';
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('heroSubmitBtn');
+        const originalText = btn.innerText;
+        btn.innerText = 'ĐANG XỬ LÝ...';
+        btn.disabled = true;
 
-      // Trích xuất dữ liệu
-      const nameVal = form.querySelector('[name="name"]').value.trim();
-      let phoneVal = form.querySelector('[name="phone"]').value.trim();
-      const emailVal = form.querySelector('[name="email"]').value.trim();
-      const aptVal = form.querySelector('[name="apartment_type"]').value;
-      const purposeVal = form.querySelector('[name="purpose"]').value;
-      const noteVal = form.querySelector('[name="note"]').value.trim() || 'Không có';
+        const nameVal = form.querySelector('[name=\'name\']').value.trim();
+        const rawPhone = form.querySelector('[name=\'phone\']').value.trim();
+        const emailVal = form.querySelector('[name=\'email\']').value.trim();
+        const aptVal = form.querySelector('[name=\'apartment_type\']').value;
+        const purposeVal = form.querySelector('[name=\'purpose\']').value;
+        const noteVal = form.querySelector('[name=\'note\']').value.trim() || 'Không có';
 
-      // Tiêu chuẩn hóa định dạng quốc tế +84
-      let cleanPhone = phoneVal.replace(/\D/g, '');
-      if (cleanPhone.startsWith('0')) cleanPhone = '+84' + cleanPhone.slice(1);
-      else if (!cleanPhone.startsWith('+84') && !cleanPhone.startsWith('84')) cleanPhone = '+84' + cleanPhone;
-      else if (cleanPhone.startsWith('84') && !cleanPhone.startsWith('+84')) cleanPhone = '+' + cleanPhone;
+        let cleanPhone = rawPhone.replace(/\D/g, '');
+        if (cleanPhone.startsWith('0')) cleanPhone = '+84' + cleanPhone.slice(1);
+        else if (!cleanPhone.startsWith('+84') && !cleanPhone.startsWith('84')) cleanPhone = '+84' + cleanPhone;
+        else if (cleanPhone.startsWith('84') && !cleanPhone.startsWith('+84')) cleanPhone = '+' + cleanPhone;
 
-      // Xây dựng khối dữ liệu ưu tiên luồng giao tiếp
-      let contactMethod = emailVal ? `✉️ Email (Ưu tiên): ${emailVal}\n📞 ĐT: ${cleanPhone}` : `📞 ĐT: ${cleanPhone}`;
+        let contactInfo = emailVal ? `✉️ Email ưu tiên: ${emailVal}\n📞 ĐT: ${cleanPhone}` : `📞 ĐT: ${cleanPhone}`;
 
-      // Khớp cấu trúc Info 1, Info 2 vào thân tin nhắn Telegram
-      const mdMessage = 
-`🔥 *LEAD ĐĂNG KÝ TỪ TRANG TỔNG QUAN* 🔥
-━━━━━━━━━━━━━━━━━━
-👤 *Info 1:* ${nameVal}
-📱 *Info 2:* 
-${contactMethod}
-🏢 *Loại căn quan tâm:* ${aptVal}
-🎯 *Mục đích:* ${purposeVal}
-📝 *Ghi chú:* ${noteVal}
-━━━━━━━━━━━━━━━━━━
-📅 *Thời gian:* ${new Date().toLocaleString('vi-VN')}`;
+        const mdMessage = `🔥 *LEAD MỚI TỪ TRANG TỔNG QUAN* 🔥\n━━━━━━━━━━━━━━━━━━\n👤 *info 1:* ${nameVal}\n📱 *info 2:*\n${contactInfo}\n🏢 *Quan tâm:* ${aptVal}\n🎯 *Mục đích:* ${purposeVal}\n📝 *Ghi chú:* ${noteVal}\n━━━━━━━━━━━━━━━━━━`;
 
-      try {
-        // Thay thế Token và Chat ID của hệ thống anh vào đây nếu cần thiết
-        await fetch(`https://api.telegram.org/bot8674808661:AAFsxIrYdIXxOSNMhaLyYxwSPTxYLtzgHVE/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ chat_id: '8218828728', text: mdMessage, parse_mode: 'Markdown' })
-        });
-        alert("Đăng ký thành công! Đội ngũ tư vấn sẽ liên hệ đến Anh/Chị trong vòng 15 phút.");
-        form.reset();
-      } catch (err) {
-        alert("Hệ thống đang bận. Vui lòng gọi trực tiếp Hotline.");
-      } finally {
-        btn.innerText = "TÔI MUỐN NHẬN NGAY";
-        btn.disabled = false;
-      }
-    };
-  </script>
+        try {
+          await fetch('https://api.telegram.org/bot8674808661:AAFsxIrYdIXxOSNMhaLyYxwSPTxYLtzgHVE/sendMessage', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: '8218828728', text: mdMessage, parse_mode: 'Markdown' })
+          });
+          alert('Đăng ký thành công! Đội ngũ tư vấn sẽ liên hệ phân tích bài toán dòng tiền ngay.');
+          form.reset();
+        } catch (err) {
+          alert('Hệ thống bận. Vui lòng liên hệ trực tiếp qua số Hotline.');
+        } finally {
+          btn.innerText = originalText;
+          btn.disabled = false;
+        }
+      });
+    }
+  ">
 
   <!-- CSS ĐỊNH DẠNG TỐI ƯU HÓA CRO - PURE CSS LÕI -->
   <style>
@@ -242,7 +229,6 @@ ${contactMethod}
       width: 100%;
       max-width: 500px;
       position: relative;
-      /* Hiệu ứng 3D đổ khối chuẩn Landing Page */
       transform: rotateY(-4deg) translateZ(10px);
       transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     }
@@ -266,10 +252,7 @@ ${contactMethod}
     .input-group input:focus, .input-group select:focus, .input-group textarea:focus { outline: none; border-color: #cba135; box-shadow: 0 0 0 4px rgba(203, 161, 53, 0.1); background: #fff; }
     .input-group textarea { resize: vertical; min-height: 60px; }
     
-    /* Chỉnh sửa mũi tên của thẻ select */
-    .select-wrapper::after {
-      content: "▼"; position: absolute; right: 18px; top: 16px; font-size: 0.6rem; color: #888; pointer-events: none;
-    }
+    .select-wrapper::after { content: "▼"; position: absolute; right: 18px; top: 16px; font-size: 0.6rem; color: #888; pointer-events: none; }
     .input-group select { appearance: none; -webkit-appearance: none; cursor: pointer; }
 
     /* Nút Submit Call-to-action */
