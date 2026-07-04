@@ -1,90 +1,261 @@
-<!-- CẤU PHẦN HẠ TẦNG - GLADIA BY THE WATERS -->
-<section class="infra-section" id="ha-tang">
+<style>
+  /* CSS TỐI ƯU CHO LAYOUT DANH SÁCH HẠ TẦNG */
+  .infra-list-container {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .infra-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 8px;
+  }
+
+  .infra-row:last-child {
+    border-bottom: none;
+  }
+
+  .infra-row:hover {
+    background: rgba(184, 154, 90, 0.05);
+    border-color: transparent;
+    transform: translateX(10px);
+    box-shadow: -5px 0 0 var(--gold);
+  }
+
+  .infra-info {
+    flex: 1;
+    padding-right: 30px;
+  }
+
+  .infra-name {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 6px;
+    transition: color 0.3s;
+  }
+  
+  .infra-row:hover .infra-name {
+    color: var(--gold-light);
+  }
+
+  .infra-desc {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.5;
+  }
+
+  .infra-stats {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    min-width: 240px;
+    justify-content: flex-end;
+  }
+
+  .infra-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gold);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .infra-value span {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    margin-left: 2px;
+  }
+
+  .infra-badge {
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.6);
+    white-space: nowrap;
+    text-align: center;
+    min-width: 120px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Các trạng thái Badge đặc biệt */
+  .badge-done {
+    background: rgba(37, 211, 102, 0.1);
+    color: #25D366;
+    border-color: rgba(37, 211, 102, 0.3);
+  }
+
+  .badge-highlight {
+    background: rgba(184, 154, 90, 0.15);
+    color: var(--gold-light);
+    border-color: rgba(184, 154, 90, 0.5);
+  }
+
+  /* Responsive cho Mobile */
+  @media (max-width: 768px) {
+    .infra-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 15px;
+    }
+    .infra-row:hover {
+      transform: translateX(5px);
+    }
+    .infra-info {
+      padding-right: 0;
+    }
+    .infra-stats {
+      width: 100%;
+      justify-content: space-between;
+      gap: 10px;
+    }
+  }
+</style>
+
+<section class="infra-section" style="background: var(--dark3);">
   <div class="container">
     
     <div class="reveal">
-      <span class="section-label">Đòn Bẩy Gia Tăng Giá Trị</span>
-      <h2 class="section-title">Hạ Tầng Giao Thông Chiến Lược<br>Tầm Nhìn Đến Năm 2035</h2>
+      <span class="section-label">Động Lực Tăng Trưởng</span>
+      <h2 class="section-title">Hạ tầng giao thông — <br><em style="color: var(--gold); font-style: italic;">dồn lực bậc nhất</em> Sài Gòn</h2>
       <div class="gold-line"></div>
-      <p class="section-desc" style="max-width: 750px; margin-bottom: 40px;">
-        Sự bứt phá mạnh mẽ của hệ thống hạ tầng trọng điểm bao quanh dự án chính là bảo chứng vững chắc nhất cho bài toán thanh khoản, tiềm năng tăng giá trị tài sản và tối ưu hóa dòng tiền cho các nhà đầu tư.
+      <p class="section-desc" style="max-width: 800px;">
+        Đây là động lực gốc. Không phải một dự án đơn lẻ, mà là cả một chùm công trình đang chạy song song — phần lớn về đích trong giai đoạn 2026-2030. Tôi liệt kê thẳng để anh chị thấy quy mô vốn và tiến độ:
       </p>
     </div>
 
-    <!-- Hệ thống thanh điều hướng Tab cao cấp -->
-    <div class="infra-tabs reveal" style="transition-delay: 0.1s;">
-      <div class="infra-tab active" data-tab="giao-thong">Hạ Tầng Giao Thông</div>
-      <div class="infra-tab" data-tab="quy-hoach">Quy Hoạch Đô Thị</div>
-    </div>
-
-    <!-- Khối nội dung chi tiết của từng Panel (Đã cô lập ID an toàn) -->
-    <div class="infra-panels reveal" style="transition-delay: 0.2s;">
+    <div class="infra-list-container">
       
-      <!-- Panel 1: Hạ Tầng Giao Thông -->
-      <div id="giao-thong" class="active">
-        <div class="infra-grid">
-          <div class="infra-card">
-            <div class="infra-icon">🚇</div>
-            <div>
-              <h4>Tuyến Metro Số 1 (Bến Thành - Suối Tiên)</h4>
-              <p>Hệ thống đường sắt đô thị hiện đại giúp rút ngắn thời gian di chuyển vào trung tâm quận 1, thúc đẩy giá trị bất động sản dọc tuyến tăng trưởng vượt bậc.</p>
-            </div>
-          </div>
-          <div class="infra-card">
-            <div class="infra-icon">🛣️</div>
-            <div>
-              <h4>Vành Đai 3 & Cao Tốc Đô Thị</h4>
-              <p>Mạch máu giao thông liên vùng hoàn thành giúp kết nối nhanh chóng dự án tới các vùng thủ phủ công nghiệp và sân bay quốc tế.</p>
-            </div>
-          </div>
-          <div class="infra-card">
-            <div class="infra-icon">Bridge</div>
-            <div>
-              <h4>Nút Giao An Phú & Hệ Thống Cầu Mới</h4>
-              <p>Công trình giải quyết triệt để bài toán ùn tắc, tạo ra mạng lưới giao thông thông thoáng, nâng cao trải nghiệm di chuyển cao cấp cho cư dân.</p>
-            </div>
-          </div>
-          <div class="infra-card">
-            <div class="infra-icon">✈️</div>
-            <div>
-              <h4>Đại Đô Thị Sân Bay Quốc Tế</h4>
-              <p>Tâm điểm đón dòng luân chuyển hàng hóa và các chuyên gia quốc tế cấp cao, mở ra cơ hội khai thác dòng tiền cho thuê cực kỳ lớn.</p>
-            </div>
-          </div>
+      <div class="infra-row reveal" style="transition-delay: 0.1s;">
+        <div class="infra-info">
+          <div class="infra-name">Nút giao vòng xoay An Phú</div>
+          <div class="infra-desc">Giải toả điểm nghẽn của ngõ Khu Đông</div>
+        </div>
+        <div class="infra-stats">
+          <div class="infra-value">3.400<span>tỷ</span></div>
+          <div class="infra-badge">CUỐI 2026</div>
         </div>
       </div>
 
-      <!-- Panel 2: Quy Hoạch Đô Thị -->
-      <div id="quy-hoach">
-        <div class="infra-grid">
-          <div class="infra-card">
-            <div class="infra-icon">🏢</div>
-            <div>
-              <h4>Trung Tâm Tài Chính Thủ Thiêm</h4>
-              <p>Hạt nhân kinh tế mới của toàn thành phố, nơi tập trung các tập đoàn đa quốc gia và định hình phong cách sống thượng lưu.</p>
-            </div>
-          </div>
-          <div class="infra-card">
-            <div class="infra-icon">🌳</div>
-            <div>
-              <h4>Hành Lang Sinh Thái Ven Sông Quốc Tế</h4>
-              <p>Quy hoạch dải công viên và mảng xanh đô thị nghiêm ngặt dọc hành lang bờ sông, giữ vững không gian sống trong lành độc bản.</p>
-            </div>
-          </div>
-          <div class="infra-card">
-            <div class="infra-icon">Graduation</div>
-            <div>
-              <h4>Khu Công Nghệ Cao & Đô Thị Sáng Tạo</h4>
-              <p>Nơi hội tụ của lực lượng lao động trí thức, chuyên gia và kỹ sư cao cấp, tạo nguồn cầu bền vững cho thị trường nhà ở hạng sang.</p>
-            </div>
-          </div>
-          <div class="infra-card">
-            <div class="infra-icon">Hospital</div>
-            <div>
-              <h4>Hạ Tầng Y Tế & Giáo Dục Tiêu Chuẩn 5 Sao</h4>
-              <p>Hệ thống bệnh viện quốc tế và các trường đại học danh tiếng thế giới, mang lại mạng lưới tiện ích an sinh hoàn hảo liền kề.</p>
-            </div>
-          </div>
+      <div class="infra-row reveal" style="transition-delay: 0.15s;">
+        <div class="infra-info">
+          <div class="infra-name">Mở rộng cao tốc Long Thành – Dầu Giây</div>
+          <div class="infra-desc">Nâng lên 10 làn xe</div>
+        </div>
+        <div class="infra-stats">
+          <div class="infra-value">16.400<span>tỷ</span></div>
+          <div class="infra-badge">12/2026</div>
+        </div>
+      </div>
+
+      <div class="infra-row reveal" style="transition-delay: 0.2s;">
+        <div class="infra-info">
+          <div class="infra-name">Metro Bến Thành – Thủ Thiêm</div>
+          <div class="infra-desc">Động thổ 2026</div>
+        </div>
+        <div class="infra-stats">
+          <div class="infra-value">36.700<span>tỷ</span></div>
+          <div class="infra-badge">2030</div>
+        </div>
+      </div>
+
+      <div class="infra-row reveal" style="transition-delay: 0.25s;">
+        <div class="infra-info">
+          <div class="infra-name">Đường sắt Thủ Thiêm – sân bay Long Thành</div>
+          <div class="infra-desc">Kết nối thẳng hàng không quốc tế</div>
+        </div>
+        <div class="infra-stats">
+          <div class="infra-value">85.000<span>tỷ</span></div>
+          <div class="infra-badge">ĐANG TRIỂN KHAI</div>
+        </div>
+      </div>
+
+      <div class="infra-row reveal" style="transition-delay: 0.3s;">
+        <div class="infra-info">
+          <div class="infra-name">Cầu Thủ Thiêm 3</div>
+          <div class="infra-desc">Nối trực tiếp Quận 4 với Thủ Thiêm</div>
+        </div>
+        <div class="infra-stats">
+          <div class="infra-value" style="color: rgba(255,255,255,0.3);">—</div>
+          <div class="infra-badge">QUY HOẠCH</div>
+        </div>
+      </div>
+
+      <div class="infra-row reveal" style="transition-delay: 0.35s;">
+        <div class="infra-info">
+          <div class="infra-name">Cầu Thủ Thiêm 4</div>
+          <div class="infra-desc">Động thổ 2026, kết nối qua Quận 7</div>
+        </div>
+        <div class="infra-stats">
+          <div class="infra-value">5.063<span>tỷ</span></div>
+          <div class="infra-badge">2028</div>
+        </div>
+      </div>
+
+      <div class="infra-row reveal" style="transition-delay: 0.4s;">
+        <div class="infra-info">
+          <div class="infra-name">Cầu đi bộ Thủ Thiêm</div>
+          <div class="infra-desc">Biểu tượng kết nối hai bờ</div>
+        </div>
+        <div class="infra-stats">
+          <div class="infra-value">~1.000<span>tỷ</span></div>
+          <div class="infra-badge">CUỐI 2026</div>
+        </div>
+      </div>
+
+      <div class="infra-row reveal" style="transition-delay: 0.45s;">
+        <div class="infra-info">
+          <div class="infra-name">Đường Liên Phường</div>
+          <div class="infra-desc">Nối Vành Đai 2 ra Mai Chí Thọ & Xa Lộ Hà Nội</div>
+        </div>
+        <div class="infra-stats">
+          <div class="infra-value" style="color: rgba(255,255,255,0.3);">—</div>
+          <div class="infra-badge badge-done">ĐÃ XONG</div>
+        </div>
+      </div>
+
+      <div class="infra-row reveal" style="transition-delay: 0.5s;">
+        <div class="infra-info">
+          <div class="infra-name">Sân vận động Rạch Chiếc — Sun Group</div>
+          <div class="infra-desc">Đang giải toả mặt bằng</div>
+        </div>
+        <div class="infra-stats">
+          <div class="infra-value">35.000<span>tỷ</span></div>
+          <div class="infra-badge">2030</div>
+        </div>
+      </div>
+
+      <div class="infra-row reveal" style="transition-delay: 0.55s;">
+        <div class="infra-info">
+          <div class="infra-name">Trung tâm hành chính & quảng trường Thủ Thiêm</div>
+          <div class="infra-desc">Điểm tụ traffic trung tâm tương lai</div>
+        </div>
+        <div class="infra-stats">
+          <div class="infra-value" style="color: rgba(255,255,255,0.3);">—</div>
+          <div class="infra-badge">TRIỂN KHAI</div>
+        </div>
+      </div>
+
+      <div class="infra-row reveal" style="transition-delay: 0.6s;">
+        <div class="infra-info">
+          <div class="infra-name">Trung tâm tài chính quốc tế Thủ Thiêm</div>
+          <div class="infra-desc">Lõi tài chính hai bờ Quận 1 – Thủ Thiêm</div>
+        </div>
+        <div class="infra-stats">
+          <div class="infra-value" style="color: rgba(255,255,255,0.3);">—</div>
+          <div class="infra-badge badge-highlight">TRỌNG ĐIỂM</div>
         </div>
       </div>
 
