@@ -65,12 +65,16 @@
     overflow: hidden;
     border: 1px solid rgba(184, 154, 90, 0.2);
     aspect-ratio: 16/9;
+    cursor: pointer;
   }
 
   .progress-main-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+    /* Chuyển động chậm, mượt mà chuẩn Luxury */
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
   .progress-main-img .update-tag {
@@ -84,7 +88,7 @@
     font-weight: 700;
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    z-index: 2;
+    z-index: 3;
   }
 
   .progress-highlight-text .big-number {
@@ -191,7 +195,7 @@
     position: relative;
     border-radius: 8px;
     overflow: hidden;
-    cursor: zoom-in;
+    cursor: pointer;
     border: 1px solid rgba(255, 255, 255, 0.05);
     background: #000;
   }
@@ -201,40 +205,58 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
-    opacity: 0.85;
+    /* Chuyển động chậm, mượt mà */
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
-  /* --- CẬP NHẬT MỚI: Hiệu ứng Hover Phủ Bóng Chuyên Nghiệp --- */
+  /* ==============================================
+     HIỆU ỨNG HOVER SANG TRỌNG (LUXURY HOVER EFFECT)
+     ============================================== */
   .gallery-zoom-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(14, 14, 14, 0.6);
+    /* Lớp phủ gradient từ Đen -> Vàng nhạt mờ */
+    background: linear-gradient(to top, rgba(14, 14, 14, 0.85), rgba(184, 154, 90, 0.15));
+    backdrop-filter: blur(2px);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.5s ease;
     z-index: 2;
+    pointer-events: none; /* Tránh chặn sự kiện click */
   }
 
-  .gallery-zoom-overlay span {
-    font-size: 1.8rem;
-    transform: scale(0.6);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  .gallery-zoom-overlay-content {
+    border: 1px solid rgba(184, 154, 90, 0.8);
+    background: rgba(14, 14, 14, 0.6);
+    color: var(--gold-light);
+    padding: 10px 24px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    /* Bắt đầu từ vị trí thấp hơn một chút để tạo hiệu ứng trượt lên */
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
-  .gallery-item:hover img {
-    transform: scale(1.05);
+  /* Kích hoạt khi rê chuột */
+  .gallery-item:hover img, 
+  .progress-main-img:hover img {
+    transform: scale(1.08); /* Phóng to rất chậm, nhẹ nhàng */
+  }
+
+  .gallery-item:hover .gallery-zoom-overlay, 
+  .progress-main-img:hover .gallery-zoom-overlay {
+    opacity: 1; /* Hiện lớp kính mờ */
+  }
+
+  .gallery-item:hover .gallery-zoom-overlay-content, 
+  .progress-main-img:hover .gallery-zoom-overlay-content {
+    transform: translateY(0); /* Trượt nhẹ lên giữa */
     opacity: 1;
-  }
-
-  .gallery-item:hover .gallery-zoom-overlay {
-    opacity: 1;
-  }
-
-  .gallery-item:hover .gallery-zoom-overlay span {
-    transform: scale(1);
   }
 
   .gallery-item.large {
@@ -254,12 +276,13 @@
     border-radius: 4px;
     backdrop-filter: blur(4px);
     z-index: 3;
-    transition: border-color 0.3s;
+    transition: all 0.4s ease;
     border-left: 2px solid transparent;
   }
 
   .gallery-item:hover .gallery-label {
     border-left-color: var(--gold);
+    transform: translateX(5px); /* Trượt nhẹ sang phải khi hover */
   }
 
   /* Lightbox Độc Lập Cho Thư Viện Ảnh */
@@ -346,11 +369,15 @@
 
     <!-- Khối Highlight -->
     <div class="progress-highlight-box reveal" style="transition-delay: 0.1s;">
-      <!-- Bổ sung Onclick phóng to cho cả ảnh trục chính phía trên nếu cần -->
-      <div class="progress-main-img" style="cursor: zoom-in;" onclick="openProgressLightbox(this)">
+      <div class="progress-main-img" onclick="document.getElementById('progress-modal').classList.add('active'); document.getElementById('progress-modal-img').src=this.querySelector('img').src;">
         <div class="update-tag">Kế hoạch 2026 - 2027</div>
         <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Tiến độ dự án">
-        <div class="gallery-zoom-overlay"><span>🔍</span></div>
+        
+        <!-- HIỆU ỨNG SANG TRỌNG MỚI -->
+        <div class="gallery-zoom-overlay">
+          <div class="gallery-zoom-overlay-content">XEM CHI TIẾT</div>
+        </div>
+
       </div>
       <div class="progress-highlight-text">
         <div class="big-number">12/2027</div>
@@ -406,34 +433,44 @@
       <div class="progress-gallery-grid">
         
         <!-- Ảnh Lớn Bên Trái -->
-        <div class="gallery-item large" onclick="openProgressLightbox(this)">
-          <div class="gallery-zoom-overlay"><span>🔍 Phóng to</span></div>
+        <div class="gallery-item large" onclick="document.getElementById('progress-modal').classList.add('active'); document.getElementById('progress-modal-img').src=this.querySelector('img').src;">
           <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Toàn cảnh khu vực">
+          <div class="gallery-zoom-overlay">
+            <div class="gallery-zoom-overlay-content">XEM CHI TIẾT</div>
+          </div>
           <div class="gallery-label">Toàn cảnh khu vực</div>
         </div>
 
         <!-- 4 Ảnh Nhỏ Bên Phải -->
-        <div class="gallery-item" onclick="openProgressLightbox(this)">
-          <div class="gallery-zoom-overlay"><span>🔍</span></div>
+        <div class="gallery-item" onclick="document.getElementById('progress-modal').classList.add('active'); document.getElementById('progress-modal-img').src=this.querySelector('img').src;">
           <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Hạ tầng kết nối">
+          <div class="gallery-zoom-overlay">
+            <div class="gallery-zoom-overlay-content">XEM CHI TIẾT</div>
+          </div>
           <div class="gallery-label">Hạ tầng kết nối</div>
         </div>
 
-        <div class="gallery-item" onclick="openProgressLightbox(this)">
-          <div class="gallery-zoom-overlay"><span>🔍</span></div>
+        <div class="gallery-item" onclick="document.getElementById('progress-modal').classList.add('active'); document.getElementById('progress-modal-img').src=this.querySelector('img').src;">
           <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Quy hoạch cảnh quan">
+          <div class="gallery-zoom-overlay">
+            <div class="gallery-zoom-overlay-content">XEM CHI TIẾT</div>
+          </div>
           <div class="gallery-label">Cảnh quan mặt nước</div>
         </div>
 
-        <div class="gallery-item" onclick="openProgressLightbox(this)">
-          <div class="gallery-zoom-overlay"><span>🔍</span></div>
+        <div class="gallery-item" onclick="document.getElementById('progress-modal').classList.add('active'); document.getElementById('progress-modal-img').src=this.querySelector('img').src;">
           <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Đại lộ thương mại">
+          <div class="gallery-zoom-overlay">
+            <div class="gallery-zoom-overlay-content">XEM CHI TIẾT</div>
+          </div>
           <div class="gallery-label">Đại lộ thương mại</div>
         </div>
 
-        <div class="gallery-item" onclick="openProgressLightbox(this)">
-          <div class="gallery-zoom-overlay"><span>🔍</span></div>
+        <div class="gallery-item" onclick="document.getElementById('progress-modal').classList.add('active'); document.getElementById('progress-modal-img').src=this.querySelector('img').src;">
           <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Tiện ích nội khu">
+          <div class="gallery-zoom-overlay">
+            <div class="gallery-zoom-overlay-content">XEM CHI TIẾT</div>
+          </div>
           <div class="gallery-label">Tiện ích resort</div>
         </div>
 
@@ -443,28 +480,8 @@
   </div>
 </section>
 
-<!-- HỘP THOẠI LIGHTBOX ĐỘC LẬP CHO PROGRESS GALLERY -->
-<div class="progress-lightbox" id="progress-modal" onclick="closeProgressLightbox()">
+<!-- HỘP THOẠI LIGHTBOX ĐỘC LẬP (SỬ DỤNG TRỰC TIẾP ONCLICK) -->
+<div class="progress-lightbox" id="progress-modal" onclick="this.classList.remove('active'); setTimeout(() => document.getElementById('progress-modal-img').src='', 400);">
   <span class="progress-lightbox-close">&times;</span>
   <img id="progress-modal-img" src="" alt="Phóng to ảnh" onclick="event.stopPropagation();">
 </div>
-
-<script>
-  // Script độc lập xử lý đóng mở mượt mà
-  function openProgressLightbox(element) {
-    const modal = document.getElementById('progress-modal');
-    const imgSrc = element.querySelector('img').src;
-    document.getElementById('progress-modal-img').src = imgSrc;
-    modal.classList.add('active');
-  }
-
-  function closeProgressLightbox() {
-    const modal = document.getElementById('progress-modal');
-    modal.classList.remove('active');
-    setTimeout(() => {
-      if(!modal.classList.contains('active')) {
-        document.getElementById('progress-modal-img').src = '';
-      }
-    }, 400);
-  }
-</script>
