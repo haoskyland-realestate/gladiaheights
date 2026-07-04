@@ -309,22 +309,39 @@
 
   /* Lightbox Độc Lập Cho Pricing */
   .pricing-lightbox {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(14, 14, 14, 0.95); z-index: 99999;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none; transition: opacity 0.4s;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: rgba(14, 14, 14, 0.95); 
+    z-index: 99999;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    opacity: 0; 
+    pointer-events: none; 
+    transition: opacity 0.4s;
     backdrop-filter: blur(8px);
   }
   .pricing-lightbox.active { opacity: 1; pointer-events: auto; }
   .pricing-lightbox img {
-    max-width: 90%; max-height: 90%;
-    border: 2px solid var(--gold); border-radius: 8px;
-    transform: scale(0.9); transition: transform 0.4s;
+    max-width: 90%; 
+    max-height: 90%;
+    border: 2px solid var(--gold); 
+    border-radius: 8px;
+    transform: scale(0.9); 
+    transition: transform 0.4s;
   }
   .pricing-lightbox.active img { transform: scale(1); }
   .pricing-lightbox-close {
-    position: absolute; top: 20px; right: 40px;
-    color: var(--gold); font-size: 4rem; cursor: pointer; z-index: 2;
+    position: absolute; 
+    top: 20px; 
+    right: 40px;
+    color: var(--gold); 
+    font-size: 4rem; 
+    cursor: pointer; 
+    z-index: 2;
   }
   .pricing-lightbox-close:hover { color: var(--white); }
 
