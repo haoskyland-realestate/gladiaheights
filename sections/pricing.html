@@ -1,35 +1,29 @@
-<!-- THƯ MỤC: sections/progress.html -->
+<!-- THƯ MỤC: sections/pricing.html -->
 <style>
-  /* CSS TỐI ƯU CHO LAYOUT TIẾN ĐỘ KIỂU DASHBOARD */
-  .progress-top-bar {
+  /* CSS TỐI ƯU CHO LAYOUT BẢNG GIÁ & CƠ CẤU CĂN */
+  .pricing-header-wrapper {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    padding-bottom: 16px;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 50px;
   }
 
-  .progress-tag-outline {
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    padding: 4px 12px;
-    font-size: 0.65rem;
+  .pricing-wireframe-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
     font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    border-radius: 4px;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--gold);
+    line-height: 0.8;
+    opacity: 0.8;
   }
 
-  .progress-status-text {
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.6);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-weight: 600;
+  .pricing-header-content .section-label {
+    letter-spacing: 3px;
+    margin-bottom: 10px;
   }
 
-  .progress-header h2 {
+  .pricing-header-content h2 {
     font-family: 'Playfair Display', serif;
     font-size: clamp(2rem, 4vw, 2.8rem);
     color: var(--white);
@@ -37,418 +31,468 @@
     line-height: 1.2;
   }
 
-  .progress-header h2 em {
-    color: var(--gold);
+  .pricing-header-content h2 em {
+    color: var(--gold-light);
     font-style: normal;
   }
 
-  .progress-header p {
+  .pricing-header-content p {
     font-size: 0.95rem;
     color: rgba(255, 255, 255, 0.7);
-    max-width: 800px;
+    max-width: 750px;
     line-height: 1.6;
+  }
+
+  /* Layout 4 Card Căn Hộ (Đã nâng cấp Grid từ 3 lên 4) */
+  .pricing-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
     margin-bottom: 50px;
   }
 
-  /* Khối Highlight (Ảnh lớn + Text Lớn) */
-  .progress-highlight-box {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 40px;
-    align-items: center;
-    margin-bottom: 60px;
-  }
-
-  .progress-main-img {
-    position: relative;
+  .room-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
     overflow: hidden;
-    border: 1px solid rgba(184, 154, 90, 0.2);
-    aspect-ratio: 16/9;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .progress-main-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  .room-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(184, 154, 90, 0.5);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    background: rgba(184, 154, 90, 0.03);
   }
 
-  .progress-main-img .update-tag {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    background: var(--gold);
-    color: var(--dark);
-    padding: 6px 14px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    z-index: 3;
-  }
-
-  .progress-highlight-text .big-number {
-    font-family: 'Playfair Display', serif;
-    font-size: 5rem;
-    font-weight: 700;
-    color: var(--gold);
-    line-height: 1;
-    margin-bottom: 16px;
-  }
-
-  .progress-highlight-text .divider {
-    height: 1px;
-    background: linear-gradient(to right, rgba(184, 154, 90, 0.5), transparent);
-    margin: 24px 0;
-  }
-
-  .progress-highlight-text p {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.7);
-    line-height: 1.7;
-  }
-
-  /* Trục Thời Gian (Timeline) */
-  .timeline-wrapper {
-    border-left: 1px solid rgba(184, 154, 90, 0.3);
-    margin-left: 20px;
-    padding-left: 40px;
-    margin-bottom: 80px;
-  }
-
-  .timeline-item {
+  .room-image-wrap {
     position: relative;
-    margin-bottom: 40px;
-  }
-
-  .timeline-item:last-child {
-    margin-bottom: 0;
-  }
-
-  .timeline-dot {
-    position: absolute;
-    left: -46px;
-    top: 4px;
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    border: 2px solid var(--dark);
-  }
-
-  .timeline-dot.active { background: var(--gold); box-shadow: 0 0 10px rgba(184, 154, 90, 0.5); }
-  .timeline-dot.future { background: transparent; border-color: rgba(255, 255, 255, 0.3); }
-
-  .timeline-date {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-    display: block;
-  }
-
-  .text-gold { color: var(--gold-light); }
-  .text-gray { color: rgba(255, 255, 255, 0.4); }
-
-  .timeline-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 8px;
-  }
-
-  .timeline-desc {
-    font-size: 0.88rem;
-    color: rgba(255, 255, 255, 0.6);
-    line-height: 1.6;
-    max-width: 700px;
-  }
-
-  /* Thư Viện Ảnh (Masonry Grid) */
-  .gallery-header {
-    margin-bottom: 24px;
-  }
-
-  .gallery-header h3 {
-    font-size: 1.4rem;
-    color: var(--white);
-    margin-bottom: 8px;
-  }
-
-  .gallery-header p {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.5);
-  }
-
-  .progress-gallery-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    grid-template-rows: repeat(2, 220px);
-    gap: 16px;
-  }
-
-  .gallery-item {
-    position: relative;
-    border-radius: 8px;
+    height: 200px; /* Điều chỉnh lại height một chút cho vừa vặn 4 cột */
     overflow: hidden;
     cursor: zoom-in;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    background: #000;
   }
 
-  .gallery-item img {
+  .room-image-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
-    opacity: 0.85;
+    transition: transform 0.6s ease;
   }
 
-  /* Hiệu ứng Hover Phủ Bóng Chuyên Nghiệp */
-  .gallery-zoom-overlay {
+  .room-card:hover .room-image-wrap img {
+    transform: scale(1.05);
+  }
+
+  .room-tag {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(184, 154, 90, 0.9);
+    color: var(--dark);
+    padding: 6px 14px;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+
+  .zoom-overlay-card {
     position: absolute;
     inset: 0;
-    background: rgba(14, 14, 14, 0.6);
+    background: rgba(14,14,14,0.4);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 2;
+    transition: opacity 0.3s;
     pointer-events: none;
   }
 
-  .gallery-zoom-overlay span {
-    font-size: 1.8rem;
-    transform: scale(0.6);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .gallery-item:hover img, .progress-main-img:hover img {
-    transform: scale(1.05);
+  .room-card:hover .zoom-overlay-card {
     opacity: 1;
   }
 
-  .gallery-item:hover .gallery-zoom-overlay, .progress-main-img:hover .gallery-zoom-overlay {
-    opacity: 1;
+  .room-info {
+    padding: 20px;
   }
 
-  .gallery-item:hover .gallery-zoom-overlay span, .progress-main-img:hover .gallery-zoom-overlay span {
-    transform: scale(1);
-  }
-
-  .gallery-item.large {
-    grid-column: 1 / 2;
-    grid-row: 1 / 3;
-  }
-
-  .gallery-label {
-    position: absolute;
-    bottom: 15px;
-    left: 15px;
-    font-size: 0.8rem;
-    font-weight: 600;
+  .room-info h3 {
+    font-size: 1.15rem;
     color: var(--white);
-    background: rgba(14, 14, 14, 0.75);
-    padding: 6px 12px;
-    border-radius: 4px;
-    backdrop-filter: blur(4px);
-    z-index: 3;
-    transition: border-color 0.3s;
-    border-left: 2px solid transparent;
+    margin-bottom: 6px;
   }
 
-  .gallery-item:hover .gallery-label {
-    border-left-color: var(--gold);
+  .room-info p.desc {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* Lightbox Độc Lập Cho Thư Viện Ảnh */
-  .progress-lightbox {
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%;
-    background: rgba(14, 14, 14, 0.95); 
-    z-index: 99999;
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-    opacity: 0; 
-    pointer-events: none; 
-    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  .room-info .price-label {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 4px;
+  }
+
+  .room-info .price-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .room-info .price-value span {
+    font-size: 0.9rem;
+    font-family: 'Be Vietnam Pro', sans-serif;
+  }
+
+  .room-info .price-note {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  /* Layout Bảng Dữ Liệu */
+  .pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+  }
+
+  .pricing-table th, .pricing-table td {
+    padding: 18px 20px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .pricing-table th {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .pricing-table td {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .pricing-table tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .pricing-table td:last-child, .pricing-table th:last-child {
+    text-align: right;
+    font-weight: 600;
+    color: var(--gold-light);
+  }
+
+  .table-note {
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-style: italic;
+    margin-bottom: 50px;
+  }
+
+  /* Khối CTA Màu Đỏ (FOMA Banner) */
+  .foma-banner {
+    background: linear-gradient(135deg, #a31d13 0%, #610d07 100%);
+    border-radius: 16px;
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    box-shadow: 0 15px 40px rgba(163, 29, 19, 0.3);
+    border: 1px solid rgba(255, 100, 100, 0.2);
+  }
+
+  .foma-left .foma-badge {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.3);
+    color: #ff9d9d;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 30px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .foma-left h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 12px;
+    line-height: 1.25;
+  }
+
+  .foma-left p {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+    max-width: 500px;
+  }
+
+  .foma-right {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 280px;
+  }
+
+  .btn-foma-primary {
+    background: var(--gold);
+    color: var(--dark);
+    text-align: center;
+    padding: 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  }
+
+  .btn-foma-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+  }
+
+  .btn-foma-primary span {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    opacity: 0.8;
+    margin-top: 4px;
+  }
+
+  .btn-foma-outline {
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--white);
+    text-align: center;
+    padding: 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-foma-outline:hover {
+    background: rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .foma-right p {
+    text-align: center;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 8px;
+  }
+
+  /* Lightbox Độc Lập Cho Pricing */
+  .pricing-lightbox {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(14, 14, 14, 0.95); z-index: 99999;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.4s;
     backdrop-filter: blur(8px);
   }
-  
-  .progress-lightbox.active { 
-    opacity: 1; 
-    pointer-events: auto; 
+  .pricing-lightbox.active { opacity: 1; pointer-events: auto; }
+  .pricing-lightbox img {
+    max-width: 90%; max-height: 90%;
+    border: 2px solid var(--gold); border-radius: 8px;
+    transform: scale(0.9); transition: transform 0.4s;
   }
-  
-  .progress-lightbox img {
-    max-width: 92%; 
-    max-height: 92%;
-    border: 2px solid var(--gold); 
-    border-radius: 8px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.7);
-    transform: scale(0.9); 
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  .pricing-lightbox.active img { transform: scale(1); }
+  .pricing-lightbox-close {
+    position: absolute; top: 20px; right: 40px;
+    color: var(--gold); font-size: 4rem; cursor: pointer; z-index: 2;
   }
-  
-  .progress-lightbox.active img { 
-    transform: scale(1); 
-  }
-  
-  .progress-lightbox-close {
-    position: absolute; 
-    top: 20px; 
-    right: 40px;
-    color: var(--gold); 
-    font-size: 4rem; 
-    cursor: pointer; 
-    z-index: 2;
-    transition: color 0.3s;
-  }
-  
-  .progress-lightbox-close:hover { color: var(--white); }
+  .pricing-lightbox-close:hover { color: var(--white); }
 
-  /* Responsive */
+  /* Responsive được nâng cấp để tối ưu 4 thẻ */
+  @media (max-width: 1200px) {
+    .pricing-cards-grid { grid-template-columns: repeat(2, 1fr); }
+  }
   @media (max-width: 900px) {
-    .progress-highlight-box { grid-template-columns: 1fr; gap: 24px; }
-    .progress-highlight-text .big-number { font-size: 4rem; }
-    .progress-gallery-grid { 
-      grid-template-columns: 1fr 1fr; 
-      grid-template-rows: auto;
-    }
-    .gallery-item.large { grid-column: 1 / 3; grid-row: auto; height: 250px; }
-    .gallery-item { height: 150px; }
-    .progress-lightbox-close { right: 20px; top: 10px; font-size: 3rem; }
+    .pricing-cards-grid { grid-template-columns: 1fr; gap: 30px; }
+    .foma-banner { flex-direction: column; padding: 30px 20px; text-align: center; }
+    .foma-left p { margin: 0 auto; }
+    .foma-right { width: 100%; }
+    .pricing-table th, .pricing-table td { padding: 12px 10px; font-size: 0.8rem; }
   }
 </style>
 
-<section class="progress-section" style="background: var(--dark3);">
+<section class="pricing-section" style="background: var(--dark2);">
   <div class="container">
     
-    <!-- Top Bar & Tiêu đề -->
-    <div class="reveal">
-      <div class="progress-top-bar">
-        <span class="progress-tag-outline">Tiến Độ</span>
-        <span class="progress-status-text">Đúng Lộ Trình • Cập Nhật Liên Tục</span>
-      </div>
-      
-      <div class="progress-header">
-        <h2>Lộ trình bàn giao Gladia Heights: <br><em>chuẩn xác</em> tới từng quý</h2>
+    <div class="reveal pricing-header-wrapper">
+      <div class="pricing-wireframe-number">05</div>
+      <div class="pricing-header-content">
+        <div class="section-label">— BẢNG GIÁ & CƠ CẤU CĂN</div>
+        <h2>Vé vào cửa từ <em>~4,4 tỷ</em> — nhưng đây chưa phải vốn thực</h2>
         <p>
-          Với vị thế dự án trọng điểm, lộ trình xây dựng và bàn giao của Gladia Heights được thiết kế để đồng pha hoàn hảo với thời điểm bùng nổ của chuỗi hạ tầng khu Đông.
+          Giá dự kiến ~83 - 91 triệu/m² (chưa VAT, tính trên tim tường). Con số tổng dưới đây là giá bán — vốn thực phải bỏ ra nhẹ hơn rất nhiều nhờ đòn bẩy tài chính và chiết khấu đặc quyền 2% cho khách hàng tiên phong.
         </p>
       </div>
     </div>
 
-    <!-- Khối Highlight -->
-    <div class="progress-highlight-box reveal" style="transition-delay: 0.1s;">
-      <!-- SỬ DỤNG TRỰC TIẾP ONCLICK NHƯ PRICING -->
-      <div class="progress-main-img" style="cursor: zoom-in;" onclick="document.getElementById('progress-modal').classList.add('active'); document.getElementById('progress-modal-img').src=this.querySelector('img').src;">
-        <div class="update-tag">Kế hoạch 2026 - 2027</div>
-        <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Tiến độ dự án">
-        <div class="gallery-zoom-overlay"><span>🔍</span></div>
-      </div>
-      <div class="progress-highlight-text">
-        <div class="big-number">12/2027</div>
-        <div class="divider"></div>
-        <p>
-          Thời điểm bàn giao căn hộ dự kiến vào tháng 12/2027. Đây là cột mốc vàng khi hàng loạt công trình hạ tầng giao thông lớn xung quanh khu vực rục rịch khánh thành, đẩy giá trị bất động sản lên chu kỳ tăng trưởng mới.
-        </p>
-      </div>
-    </div>
-
-    <!-- Trục Timeline Lộ Trình -->
-    <div class="timeline-wrapper reveal" style="transition-delay: 0.2s;">
+    <!-- Tăng cường lên 4 Cột -->
+    <div class="pricing-cards-grid reveal" style="transition-delay: 0.1s;">
       
-      <div class="timeline-item">
-        <div class="timeline-dot active"></div>
-        <span class="timeline-date text-gold">Năm 2026</span>
-        <h4 class="timeline-title">Ký Hợp Đồng Mua Bán (HĐMB)</h4>
-        <p class="timeline-desc">Hoàn thiện các thủ tục pháp lý vững chắc, khách hàng chính thức ký HĐMB theo đúng quy định của pháp luật, đảm bảo quyền lợi sở hữu tài sản.</p>
+      <!-- Căn 1PN -->
+      <div class="room-card">
+        <div class="room-image-wrap" onclick="document.getElementById('pricing-modal').classList.add('active'); document.getElementById('pricing-modal-img').src=this.querySelector('img').src;">
+          <div class="room-tag">CỬA VÀO</div>
+          <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="1 Phòng Ngủ">
+          <div class="zoom-overlay-card"><span style="color:white; font-size:2rem;">🔍</span></div>
+        </div>
+        <div class="room-info">
+          <h3>1 phòng ngủ</h3>
+          <p class="desc">53,46 m² - Tối ưu cho thuê</p>
+          <div class="price-label">CHỈ TỪ</div>
+          <div class="price-value">~4,4 <span>tỷ</span></div>
+          <div class="price-note">~83 triệu/m² (Tiêu chuẩn)</div>
+        </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="timeline-dot active"></div>
-        <span class="timeline-date text-gold">Tháng 12/2027</span>
-        <h4 class="timeline-title">Bàn giao nhà cho cư dân</h4>
-        <p class="timeline-desc">Cột mốc quan trọng nhất: Chào đón cư dân tinh hoa nhận bàn giao tổ ấm hoàn thiện, sẵn sàng dọn vào ở hoặc khai thác cho thuê ngay lập tức.</p>
+      <!-- Căn 2PN -->
+      <div class="room-card">
+        <div class="room-image-wrap" onclick="document.getElementById('pricing-modal').classList.add('active'); document.getElementById('pricing-modal-img').src=this.querySelector('img').src;">
+          <div class="room-tag">XƯƠNG SỐNG RỔ HÀNG</div>
+          <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="2 Phòng Ngủ">
+          <div class="zoom-overlay-card"><span style="color:white; font-size:2rem;">🔍</span></div>
+        </div>
+        <div class="room-info">
+          <h3>2 phòng ngủ</h3>
+          <p class="desc">71,35 - 85,09 m² - Bán chạy nhất</p>
+          <div class="price-label">CHỈ TỪ</div>
+          <div class="price-value">6,5 <span>-</span> 6,8 <span>tỷ</span></div>
+          <div class="price-note">Hoàn thiện / Tiêu chuẩn</div>
+        </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="timeline-dot future"></div>
-        <span class="timeline-date text-gray">Năm 2028</span>
-        <h4 class="timeline-title">Cấp Giấy chứng nhận quyền sở hữu</h4>
-        <p class="timeline-desc">Chủ đầu tư xúc tiến thủ tục và dự kiến tiến hành bàn giao Giấy chứng nhận quyền sở hữu (Sổ hồng) minh bạch, lâu dài cho cư dân.</p>
+      <!-- Căn 3PN -->
+      <div class="room-card">
+        <div class="room-image-wrap" onclick="document.getElementById('pricing-modal').classList.add('active'); document.getElementById('pricing-modal-img').src=this.querySelector('img').src;">
+          <div class="room-tag">Ở THỰC RỘNG RÃI</div>
+          <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="3 Phòng Ngủ">
+          <div class="zoom-overlay-card"><span style="color:white; font-size:2rem;">🔍</span></div>
+        </div>
+        <div class="room-info">
+          <h3>3 phòng ngủ</h3>
+          <p class="desc">114,95 - 124,70 m² - Gia đình đa thế hệ</p>
+          <div class="price-label">CHỈ TỪ</div>
+          <div class="price-value">~9,6 <span>tỷ</span></div>
+          <div class="price-note">Căn góc view sông vĩnh cửu</div>
+        </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="timeline-dot future"></div>
-        <span class="timeline-date text-gray">2025 - 2030</span>
-        <h4 class="timeline-title">Hưởng lợi kép từ hạ tầng khu vực</h4>
-        <p class="timeline-desc">
-          Chuỗi giá trị gia tăng ngầm khi hạ tầng quanh dự án về đích: Nâng cấp Cao tốc (06/2025), Nút giao Mỹ Thủy (Q3/2026), Sân bay Long Thành GĐ1 (12/2026), Đường Liên cảng (Q4/2028) và trục Võ Chí Công (2030).
-        </p>
+      <!-- Căn 4PN MỚI -->
+      <div class="room-card">
+        <div class="room-image-wrap" onclick="document.getElementById('pricing-modal').classList.add('active'); document.getElementById('pricing-modal-img').src=this.querySelector('img').src;">
+          <div class="room-tag">ĐỈNH NHẤT DỰ ÁN</div>
+          <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="4 Phòng Ngủ">
+          <div class="zoom-overlay-card"><span style="color:white; font-size:2rem;">🔍</span></div>
+        </div>
+        <div class="room-info">
+          <h3>4 phòng ngủ</h3>
+          <p class="desc">144,19 m² - Bộ sưu tập giới hạn</p>
+          <div class="price-label">CHỈ TỪ</div>
+          <div class="price-value">11,9 <span>-</span> 13,1 <span>tỷ</span></div>
+          <div class="price-note">Phiên bản thượng lưu độc bản</div>
+        </div>
       </div>
 
     </div>
 
-    <!-- Thư Viện Hình Ảnh Lưới -->
-    <div class="reveal" style="transition-delay: 0.3s;">
-      <div class="gallery-header">
-        <h3>Hình ảnh minh họa khu vực</h3>
-        <p>Rê chuột để cảm nhận không gian — Click để phóng to toàn màn hình</p>
+    <!-- Bảng thông số chi tiết -->
+    <div class="reveal" style="transition-delay: 0.2s; overflow-x: auto;">
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>LOẠI CĂN</th>
+            <th>DIỆN TÍCH (Tim tường)</th>
+            <th>GIÁ THAM CHIẾU (Chưa VAT)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1 phòng ngủ</td>
+            <td>53,46 m²</td>
+            <td>~4,4 tỷ</td>
+          </tr>
+          <tr>
+            <td>2 phòng ngủ</td>
+            <td>71,35 / 71,55 / 85,09 m²</td>
+            <td>6,5 - 6,8 tỷ</td>
+          </tr>
+          <tr>
+            <td>3 phòng ngủ</td>
+            <td>114,95 / 123,85 / 124,70 m²</td>
+            <td>Từ ~9,6 tỷ</td>
+          </tr>
+          <!-- Cập nhật dòng 4PN -->
+          <tr>
+            <td>4 phòng ngủ</td>
+            <td>144,19 m²</td>
+            <td>11,9 - 13,1 tỷ</td>
+          </tr>
+          <tr>
+            <td>TMDV / Shophouse</td>
+            <td>50,38 - 330,89 m²</td>
+            <td>Liên hệ trực tiếp</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="table-note">
+        * Ưu đãi: Giảm trực tiếp 2% vào giá bán cho khách hàng tiên phong. Giá thay đổi theo tầng, hướng, view, và tiêu chuẩn bàn giao. Bảng giá chi tiết từng căn theo công bố từng đợt — tham khảo, không phải cam kết.
       </div>
-      
-      <div class="progress-gallery-grid">
-        
-        <!-- Ảnh Lớn Bên Trái -->
-        <!-- SỬ DỤNG TRỰC TIẾP ONCLICK -->
-        <div class="gallery-item large" onclick="document.getElementById('progress-modal').classList.add('active'); document.getElementById('progress-modal-img').src=this.querySelector('img').src;">
-          <div class="gallery-zoom-overlay"><span>🔍 Phóng to</span></div>
-          <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Toàn cảnh khu vực">
-          <div class="gallery-label">Toàn cảnh khu vực</div>
-        </div>
+    </div>
 
-        <!-- 4 Ảnh Nhỏ Bên Phải -->
-        <div class="gallery-item" onclick="document.getElementById('progress-modal').classList.add('active'); document.getElementById('progress-modal-img').src=this.querySelector('img').src;">
-          <div class="gallery-zoom-overlay"><span>🔍</span></div>
-          <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Hạ tầng kết nối">
-          <div class="gallery-label">Hạ tầng kết nối</div>
-        </div>
-
-        <div class="gallery-item" onclick="document.getElementById('progress-modal').classList.add('active'); document.getElementById('progress-modal-img').src=this.querySelector('img').src;">
-          <div class="gallery-zoom-overlay"><span>🔍</span></div>
-          <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Quy hoạch cảnh quan">
-          <div class="gallery-label">Cảnh quan mặt nước</div>
-        </div>
-
-        <div class="gallery-item" onclick="document.getElementById('progress-modal').classList.add('active'); document.getElementById('progress-modal-img').src=this.querySelector('img').src;">
-          <div class="gallery-zoom-overlay"><span>🔍</span></div>
-          <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Đại lộ thương mại">
-          <div class="gallery-label">Đại lộ thương mại</div>
-        </div>
-
-        <div class="gallery-item" onclick="document.getElementById('progress-modal').classList.add('active'); document.getElementById('progress-modal-img').src=this.querySelector('img').src;">
-          <div class="gallery-zoom-overlay"><span>🔍</span></div>
-          <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Tiện ích nội khu">
-          <div class="gallery-label">Tiện ích resort</div>
-        </div>
-
+    <!-- Khối CTA -->
+    <div class="foma-banner reveal" style="transition-delay: 0.3s;">
+      <div class="foma-left">
+        <span class="foma-badge">● GIỎ HÀNG THÁP THE FIRST & ADVANTA ĐANG MỞ</span>
+        <h3>Không phải căn nào cũng đáng mua. Hỏi căn nào đang tốt nhất trước khi ai đó lấy mất.</h3>
+        <p>Cùng một mức giá, chọn đúng tầng – hướng – view quyết định phần lớn khả năng tăng giá và thanh khoản về sau. Đội ngũ chuyên gia INDOCHINE sẽ gửi bạn bảng giá từng căn còn lại + phân tích căn nào đáng xuống tiền.</p>
+      </div>
+      <div class="foma-right">
+        <a href="#contact" class="btn-foma-primary">
+          Nhận giỏ hàng & căn đẹp còn lại
+          <span>Miễn phí • Gửi trong 15 phút</span>
+        </a>
+        <a href="https://zalo.me/0869244302" target="_blank" class="btn-foma-outline">
+          Tư vấn 1-1 qua Zalo
+        </a>
+        <p>0986 986 049 — không spam, không làm phiền</p>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- HỘP THOẠI LIGHTBOX ĐỘC LẬP (SỬ DỤNG TRỰC TIẾP ONCLICK) -->
-<div class="progress-lightbox" id="progress-modal" onclick="this.classList.remove('active'); setTimeout(() => document.getElementById('progress-modal-img').src='', 400);">
-  <span class="progress-lightbox-close">&times;</span>
-  <img id="progress-modal-img" src="" alt="Phóng to ảnh" onclick="event.stopPropagation();">
+<!-- HỘP THOẠI LIGHTBOX -->
+<div class="pricing-lightbox" id="pricing-modal" onclick="this.classList.remove('active'); setTimeout(() => document.getElementById('pricing-modal-img').src='', 400);">
+  <span class="pricing-lightbox-close">&times;</span>
+  <img id="pricing-modal-img" src="" alt="Phóng to mặt bằng" onclick="event.stopPropagation();">
 </div>
