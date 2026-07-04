@@ -1,3 +1,4 @@
+<!-- THƯ MỤC: sections/pricing.html -->
 <style>
   /* CSS TỐI ƯU CHO LAYOUT BẢNG GIÁ & CƠ CẤU CĂN */
   .pricing-header-wrapper {
@@ -42,10 +43,10 @@
     line-height: 1.6;
   }
 
-  /* Layout 3 Card Căn Hộ */
+  /* Layout 4 Card Căn Hộ (Đã nâng cấp Grid từ 3 lên 4) */
   .pricing-cards-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 24px;
     margin-bottom: 50px;
   }
@@ -67,7 +68,7 @@
 
   .room-image-wrap {
     position: relative;
-    height: 220px;
+    height: 200px; /* Điều chỉnh lại height một chút cho vừa vặn 4 cột */
     overflow: hidden;
     cursor: zoom-in;
   }
@@ -90,7 +91,7 @@
     background: rgba(184, 154, 90, 0.9);
     color: var(--dark);
     padding: 6px 14px;
-    font-size: 0.68rem;
+    font-size: 0.62rem;
     font-weight: 700;
     letter-spacing: 1px;
     border-radius: 20px;
@@ -116,20 +117,20 @@
   }
 
   .room-info {
-    padding: 24px;
+    padding: 20px;
   }
 
   .room-info h3 {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     color: var(--white);
     margin-bottom: 6px;
   }
 
   .room-info p.desc {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 20px;
-    padding-bottom: 20px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
@@ -143,7 +144,7 @@
 
   .room-info .price-value {
     font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     font-weight: 700;
     color: var(--gold);
     line-height: 1;
@@ -151,7 +152,7 @@
   }
 
   .room-info .price-value span {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-family: 'Be Vietnam Pro', sans-serif;
   }
 
@@ -309,43 +310,29 @@
 
   /* Lightbox Độc Lập Cho Pricing */
   .pricing-lightbox {
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%;
-    background: rgba(14, 14, 14, 0.95); 
-    z-index: 99999;
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-    opacity: 0; 
-    pointer-events: none; 
-    transition: opacity 0.4s;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(14, 14, 14, 0.95); z-index: 99999;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.4s;
     backdrop-filter: blur(8px);
   }
   .pricing-lightbox.active { opacity: 1; pointer-events: auto; }
   .pricing-lightbox img {
-    max-width: 90%; 
-    max-height: 90%;
-    border: 2px solid var(--gold); 
-    border-radius: 8px;
-    transform: scale(0.9); 
-    transition: transform 0.4s;
+    max-width: 90%; max-height: 90%;
+    border: 2px solid var(--gold); border-radius: 8px;
+    transform: scale(0.9); transition: transform 0.4s;
   }
   .pricing-lightbox.active img { transform: scale(1); }
   .pricing-lightbox-close {
-    position: absolute; 
-    top: 20px; 
-    right: 40px;
-    color: var(--gold); 
-    font-size: 4rem; 
-    cursor: pointer; 
-    z-index: 2;
+    position: absolute; top: 20px; right: 40px;
+    color: var(--gold); font-size: 4rem; cursor: pointer; z-index: 2;
   }
   .pricing-lightbox-close:hover { color: var(--white); }
 
-  /* Responsive */
+  /* Responsive được nâng cấp để tối ưu 4 thẻ */
+  @media (max-width: 1200px) {
+    .pricing-cards-grid { grid-template-columns: repeat(2, 1fr); }
+  }
   @media (max-width: 900px) {
     .pricing-cards-grid { grid-template-columns: 1fr; gap: 30px; }
     .foma-banner { flex-direction: column; padding: 30px 20px; text-align: center; }
@@ -369,8 +356,10 @@
       </div>
     </div>
 
+    <!-- Tăng cường lên 4 Cột -->
     <div class="pricing-cards-grid reveal" style="transition-delay: 0.1s;">
       
+      <!-- Căn 1PN -->
       <div class="room-card">
         <div class="room-image-wrap" onclick="document.getElementById('pricing-modal').classList.add('active'); document.getElementById('pricing-modal-img').src=this.querySelector('img').src;">
           <div class="room-tag">CỬA VÀO</div>
@@ -379,13 +368,14 @@
         </div>
         <div class="room-info">
           <h3>1 phòng ngủ</h3>
-          <p class="desc">53,46 m² - Tối ưu cho thuê & độc thân</p>
+          <p class="desc">53,46 m² - Tối ưu cho thuê</p>
           <div class="price-label">CHỈ TỪ</div>
           <div class="price-value">~4,4 <span>tỷ</span></div>
-          <div class="price-note">~83 triệu/m² (Bàn giao tiêu chuẩn)</div>
+          <div class="price-note">~83 triệu/m² (Tiêu chuẩn)</div>
         </div>
       </div>
 
+      <!-- Căn 2PN -->
       <div class="room-card">
         <div class="room-image-wrap" onclick="document.getElementById('pricing-modal').classList.add('active'); document.getElementById('pricing-modal-img').src=this.querySelector('img').src;">
           <div class="room-tag">XƯƠNG SỐNG RỔ HÀNG</div>
@@ -394,13 +384,14 @@
         </div>
         <div class="room-info">
           <h3>2 phòng ngủ</h3>
-          <p class="desc">71,35 - 85,09 m² - Nhóm bán chạy nhất dự án</p>
+          <p class="desc">71,35 - 85,09 m² - Bán chạy nhất</p>
           <div class="price-label">CHỈ TỪ</div>
           <div class="price-value">6,5 <span>-</span> 6,8 <span>tỷ</span></div>
           <div class="price-note">Hoàn thiện / Tiêu chuẩn</div>
         </div>
       </div>
 
+      <!-- Căn 3PN -->
       <div class="room-card">
         <div class="room-image-wrap" onclick="document.getElementById('pricing-modal').classList.add('active'); document.getElementById('pricing-modal-img').src=this.querySelector('img').src;">
           <div class="room-tag">Ở THỰC RỘNG RÃI</div>
@@ -409,15 +400,32 @@
         </div>
         <div class="room-info">
           <h3>3 phòng ngủ</h3>
-          <p class="desc">114,95 - 124,70 m² - Cho gia đình đa thế hệ</p>
+          <p class="desc">114,95 - 124,70 m² - Gia đình đa thế hệ</p>
           <div class="price-label">CHỈ TỪ</div>
           <div class="price-value">~9,6 <span>tỷ</span></div>
           <div class="price-note">Căn góc view sông vĩnh cửu</div>
         </div>
       </div>
 
+      <!-- Căn 4PN MỚI -->
+      <div class="room-card">
+        <div class="room-image-wrap" onclick="document.getElementById('pricing-modal').classList.add('active'); document.getElementById('pricing-modal-img').src=this.querySelector('img').src;">
+          <div class="room-tag">ĐỈNH NHẤT DỰ ÁN</div>
+          <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="4 Phòng Ngủ">
+          <div class="zoom-overlay-card"><span style="color:white; font-size:2rem;">🔍</span></div>
+        </div>
+        <div class="room-info">
+          <h3>4 phòng ngủ</h3>
+          <p class="desc">144,19 m² - Bộ sưu tập giới hạn</p>
+          <div class="price-label">CHỈ TỪ</div>
+          <div class="price-value">11,9 <span>-</span> 13,1 <span>tỷ</span></div>
+          <div class="price-note">Phiên bản thượng lưu độc bản</div>
+        </div>
+      </div>
+
     </div>
 
+    <!-- Bảng thông số chi tiết -->
     <div class="reveal" style="transition-delay: 0.2s; overflow-x: auto;">
       <table class="pricing-table">
         <thead>
@@ -443,10 +451,11 @@
             <td>114,95 / 123,85 / 124,70 m²</td>
             <td>Từ ~9,6 tỷ</td>
           </tr>
+          <!-- Cập nhật dòng 4PN -->
           <tr>
             <td>4 phòng ngủ</td>
             <td>144,19 m²</td>
-            <td>Đang cập nhật</td>
+            <td>11,9 - 13,1 tỷ</td>
           </tr>
           <tr>
             <td>TMDV / Shophouse</td>
@@ -460,6 +469,7 @@
       </div>
     </div>
 
+    <!-- Khối CTA -->
     <div class="foma-banner reveal" style="transition-delay: 0.3s;">
       <div class="foma-left">
         <span class="foma-badge">● GIỎ HÀNG THÁP THE FIRST & ADVANTA ĐANG MỞ</span>
@@ -481,6 +491,7 @@
   </div>
 </section>
 
+<!-- HỘP THOẠI LIGHTBOX -->
 <div class="pricing-lightbox" id="pricing-modal" onclick="this.classList.remove('active'); setTimeout(() => document.getElementById('pricing-modal-img').src='', 400);">
   <span class="pricing-lightbox-close">&times;</span>
   <img id="pricing-modal-img" src="" alt="Phóng to mặt bằng" onclick="event.stopPropagation();">
