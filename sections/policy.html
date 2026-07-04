@@ -1,61 +1,154 @@
-<section class="policy-section" id="chinh-sach-ban-hang">
+<style>
+  /* CSS tối ưu riêng cho Layout Policy dạng Grid 2x2 */
+  .policy-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    margin-top: 40px;
+  }
+  
+  .policy-image-box {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(184,154,90,0.3);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    position: relative;
+  }
+  
+  .policy-image-box img {
+    width: 100%;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  
+  .policy-image-box:hover img {
+    transform: scale(1.03);
+  }
+
+  .policy-grid-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+
+  .policy-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 24px;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .policy-card:hover {
+    border-color: var(--gold);
+    background: rgba(184,154,90,0.05);
+    transform: translateY(-3px);
+  }
+
+  .policy-card h4 {
+    color: var(--gold);
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .policy-card p {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+  }
+
+  /* Nút CTA màu Đỏ Đậm giống ảnh tham khảo */
+  .btn-danger {
+    background: linear-gradient(135deg, #c43a30 0%, #902119 100%);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    padding: 16px 24px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    border-radius: 6px;
+    box-shadow: 0 6px 20px rgba(196, 58, 48, 0.3);
+  }
+  
+  .btn-danger:hover {
+    background: linear-gradient(135deg, #d84337 0%, #a3271f 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(196, 58, 48, 0.5);
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 900px) {
+    .policy-wrapper { grid-template-columns: 1fr; gap: 40px; }
+    .policy-grid-2x2 { grid-template-columns: 1fr; }
+  }
+</style>
+
+<section class="policy-section" style="background: var(--dark2);">
   <div class="container">
     
     <div class="reveal">
       <span class="section-label">Giải Pháp Đầu Tư</span>
       <h2 class="section-title">Chính Sách Bán Hàng Đặc Quyền<br>Bảo Chứng Bài Toán Dòng Tiền</h2>
       <div class="gold-line"></div>
-      <p class="section-desc" style="max-width: 750px; margin-bottom: 50px;">
+      <p class="section-desc" style="max-width: 750px;">
         Được thiết kế nhằm tối ưu hóa lợi nhuận tài chính dài hạn, chính sách bán hàng áp dụng các phương án giãn tiến độ thông minh, giúp các chủ doanh nghiệp chủ động dòng vốn lưu động và gia tăng tỷ suất sinh lời trên vốn tự có.
       </p>
     </div>
 
-    <div class="overview-grid">
+    <div class="policy-wrapper">
       
       <div class="reveal" style="transition-delay: 0.1s;">
-        <h3 font-family="Playfair Display" style="font-size: 1.4rem; color: var(--gold-light); margin-bottom: 20px;">Phương Án Tài Chính Nổi Bật</h3>
-        
-        <p class="section-desc" style="margin-bottom: 20px;">
-          <strong> Phương Án 1: Thanh toán chuẩn thong thả</strong><br>
-          Thanh toán dàn trải chia nhỏ theo nhiều đợt cực mỏng từ 2% - 5% mỗi chu kỳ cho đến khi có thông báo nhận bàn giao căn hộ.
-        </p>
-
-        <p class="section-desc" style="margin-bottom: 20px;">
-          <strong> Phương Án 2: Đòn bẩy tài chính 0 đồng lãi suất</strong><br>
-          Ngân hàng chiến lược hỗ trợ cho vay tối đa lên đến 70% giá trị căn hộ. Hỗ trợ ân hạn nợ gốc và tài trợ toàn bộ lãi suất 0% kéo dài.
-        </p>
-
-        <p class="section-desc">
-          <strong> Phương Án 3: Chiết khấu thanh toán sớm</strong><br>
-          Dành riêng cho khách hàng có nguồn vốn nhàn rỗi lớn, nhận ngay mức chiết khấu trừ thẳng trực tiếp vào hợp đồng mua bán khi chọn hình thức thanh toán nhanh.
-        </p>
+        <div class="policy-image-box">
+          <img src="https://dongtayland.vn/wp-content/uploads/2026/05/4.5.1-HERO-UPDATE.jpg" alt="Bảng tiến độ thanh toán chi tiết">
+        </div>
       </div>
 
       <div class="reveal" style="transition-delay: 0.2s;">
-        <h3 font-family="Playfair Display" style="font-size: 1.4rem; color: var(--gold-light); margin-bottom: 20px;">Đặc Quyền Quà Tặng Đợt 1</h3>
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--gold-light); margin-bottom: 12px;">
+          Booking ưu tiên chỉ 100 triệu
+        </h3>
+        <p class="section-desc" style="margin-bottom: 24px; font-size: 0.9rem;">
+          Hoàn phí 100% nếu không chọn được căn. Các ưu đãi chồng lớp trong đợt này:
+        </p>
         
-        <ul class="overview-specs" style="margin-top: 0;">
-          <li>
-            <span class="key">Chiết khấu Booking sớm</span>
-            <span class="val">Ưu đãi ngay 1% giá bán</span>
-          </li>
-          <li>
-            <span class="key">Tặng phí quản lý dịch vụ</span>
-            <span class="val">Miễn phí 2 năm đầu tiên</span>
-          </li>
-          <li>
-            <span class="key">Đặc quyền VIP Pass</span>
-            <span class="val">Định danh chỗ đậu xe ô tô</span>
-          </li>
-          <li>
-            <span class="key">Quà tặng tân gia tinh hoa</span>
-            <span class="val">Gói nội thất Smart Home cao cấp</span>
-          </li>
-          <li>
-            <span class="key">Chính sách mua sỉ/nhóm</span>
-            <span class="val">Chiết khấu thêm từ 0.5% - 1.5%</span>
-          </li>
-        </ul>
+        <div class="policy-grid-2x2">
+          
+          <div class="policy-card">
+            <h4>10%</h4>
+            <p>Thanh toán chuẩn thong thả khi ký hợp đồng mua bán</p>
+          </div>
+          
+          <div class="policy-card">
+            <h4>70%</h4>
+            <p>Ngân hàng chiến lược hỗ trợ cho vay tối đa giá trị</p>
+          </div>
+          
+          <div class="policy-card">
+            <h4>24 Tháng</h4>
+            <p>Hỗ trợ toàn bộ lãi suất và ân hạn nợ gốc kéo dài</p>
+          </div>
+          
+          <div class="policy-card">
+            <h4>21,5%</h4>
+            <p>Tổng ưu đãi & chiết khấu cực khủng (Gồm 1% khi Booking)</p>
+          </div>
+
+        </div>
+
+        <a href="#contact" class="btn-danger">
+          Nhận bảng giá mới & file phân tích dòng tiền
+        </a>
       </div>
 
     </div>
